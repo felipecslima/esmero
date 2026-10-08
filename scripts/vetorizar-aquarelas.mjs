@@ -19,7 +19,8 @@ const IMAGENS = {
   buganvilia: { ...PINCELADAS, origem: [0.49, 1], movimento: 'balanca', tufos: 110 },
   'buganvilia-2': { ...PINCELADAS, origem: [0.33, 0.92], movimento: 'balanca', tufos: 60 },
   folhagem: { ...PINCELADAS, origem: [0.5, 1], movimento: 'balanca', tufos: 70 },
-  copa: { ...PINCELADAS, origem: [0.52, 0.95], movimento: 'balanca', tufos: 80 },
+  // brota: cada pincelada é um tufo — a copa floresce pincelada a pincelada, do tronco para fora
+  copa: { ...PINCELADAS, origem: [0.52, 0.95], movimento: 'balanca', brota: true },
   coral: { ...PINCELADAS, origem: [0.5, 1], movimento: 'balanca', tufos: 50 },
   ceu: { ...LAVAGENS, origem: [0.22, 0.28], movimento: 'deriva', tufos: 14 },
   agua: { ...LAVAGENS, origem: [0, 0.5], movimento: 'deriva', tufos: 12 },
@@ -60,6 +61,7 @@ function agrupar(svg, W, H, cfg) {
     cs = cs.map((c, j) => (soma[j][2] ? [soma[j][0] / soma[j][2], soma[j][1] / soma[j][2]] : c));
   }
   const [ox, oy] = [cfg.origem[0] * W, cfg.origem[1] * H];
+  if (cfg.brota) return brotar(svg, info, grande, ox, oy, cfg, r);
   const dmax = Math.max(...[[0, 0], [W, 0], [0, H], [W, H]].map(([x, y]) => Math.hypot(x - ox, y - oy)));
   const tufos = cs.map(([x, y]) => ({
     x, y,
@@ -79,6 +81,26 @@ function agrupar(svg, W, H, cfg) {
     const inf = info[i++];
     if (inf.area >= grande) return p.replace('<path ', '<path class="base" ');
     return p.replace('<path ', `<path class="tufo t${inf.tufo}" `);
+  });
+  return corpo.replace(/(<svg [^>]*>)/, `$1<style>${css}</style>`);
+}
+// Uma pincelada por vez: cada caminho nasce do próprio centro, salpicado pela copa com leve
+// preferência do miolo para fora. --k alto = cada uma surge rápido.
+function brotar(svg, info, grande, ox, oy, cfg, r) {
+  const pequenos = info.filter(i => i.area < grande);
+  // a copa entra na tela de cima para baixo: brota salpicada por toda parte, do miolo para fora
+  ox = pequenos.reduce((a, i) => a + i.cx, 0) / pequenos.length; oy = pequenos.reduce((a, i) => a + i.cy, 0) / pequenos.length;
+  const dmax = Math.max(...pequenos.map(i => Math.hypot(i.cx - ox, i.cy - oy)));
+  const massa = info.filter(i => i.area >= grande);
+  const mx = massa.reduce((a, i) => a + i.cx, 0) / (massa.length || 1), my = massa.reduce((a, i) => a + i.cy, 0) / (massa.length || 1);
+  let css = `.il-${cfg.nome}{--k:6;--s0:0}.il-${cfg.nome} .tb{--d:.3;--k:1.6;--s0:.3;--cx:${Math.round(mx)}px;--cy:${Math.round(my)}px}`, i = 0, n = 0;
+  const corpo = svg.replace(/<path [^>]*\/>/g, p => {
+    const inf = info[i++];
+    // a massa da copa (camadas grandes) incha devagar do próprio centro enquanto as pinceladas brotam
+    if (inf.area >= grande) return p.replace('<path ', '<path class="tufo tb" ');
+    const d = Math.min(0.82, (Math.hypot(inf.cx - ox, inf.cy - oy) / dmax) * 0.42 + r() * 0.4);
+    css += `.il-${cfg.nome} .t${n}{--d:${Math.round(d * 100) / 100};--cx:${Math.round(inf.cx)}px;--cy:${Math.round(inf.cy)}px}`;
+    return p.replace('<path ', `<path class="tufo t${n++}" `);
   });
   return corpo.replace(/(<svg [^>]*>)/, `$1<style>${css}</style>`);
 }
@@ -114,8 +136,13 @@ for (const [nome, cfg] of Object.entries(process.argv[2] ? { [process.argv[2]]: 
   const [, W, H] = svg.match(/width="(\d+)" height="(\d+)"/).map(Number);
   svg = svg.replace(/<svg ([^>]*)width="\d+" height="\d+"/, `<svg $1viewBox="0 0 ${W} ${H}" class="il il-${nome}" aria-hidden="true"`);
   // versão com transparência: camadas translúcidas se somam como veladura de aquarela
-  if (cfg.alfa) svg = svg.replace(/(<svg [^>]*>)/, '$1<style>.il-alfa path{fill-opacity:.62}</style>').replace('class="il ', 'class="il il-alfa ');
+  if (cfg.alfa) svg = svg.replace('class="il ', 'class="il il-alfa ');
   if (cfg.movimento) svg = agrupar(svg, W, H, { ...cfg, nome }).replace('class="il ', `class="il il-${cfg.movimento} `);
+  // As regras dos tufos vão para a folha de estilos da página (src/styles/tufos/), não para dentro
+  // do SVG: um <style> inserido na hora obriga o navegador a recalcular a página inteira (o "salto").
+  const css = (svg.match(/<style>(.*?)<\/style>/) || [])[1];
+  svg = svg.replace(/<style>.*?<\/style>/, '');
+  if (css) fs.writeFileSync(`src/styles/tufos/${nome}.css`, css + '\n'); else fs.rmSync(`src/styles/tufos/${nome}.css`, { force: true });
   fs.writeFileSync(`public/aquarela/svg/${nome}.svg`, svg);
   console.log(nome.padEnd(18), String((svg.match(/<path/g) || []).length).padStart(5), 'caminhos', String(Math.round(svg.length / 1024)).padStart(4), 'KB');
 }

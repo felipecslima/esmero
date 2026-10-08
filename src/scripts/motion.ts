@@ -360,7 +360,21 @@ export function iniciar(root: HTMLElement) {
   const ilVisiveis = new Set<SVGSVGElement>();
   vivoTick = () => {
     if (reduce) return;
-    ilVisiveis.forEach(el => el.classList.toggle('vivo', parseFloat(getComputedStyle(el).getPropertyValue('--m')) >= 0.999));
+    ilVisiveis.forEach(el => {
+      const pronta = progresso(el) >= 0.999;
+      if (pronta && !el.classList.contains('anima')) el.classList.add('anima'); // uma vez: depois só pausa/retoma
+      el.classList.toggle('vivo', pronta);
+    });
+  };
+  // Progresso da ilustração lido do estilo inline de quem o define (ela mesma ou um ancestral):
+  // getComputedStyle a cada quadro forçava o recálculo de estilo da página.
+  const progresso = (el: SVGSVGElement) => {
+    const v = el.dataset.prog || '--w';
+    for (let a: Element | null = el; a && a !== root; a = a.parentElement) {
+      const x = (a as HTMLElement).style?.getPropertyValue(v);
+      if (x) return parseFloat(x);
+    }
+    return 1;
   };
   const pegaSvg = (n: string) => {
     let p = svgs.get(n);
@@ -377,6 +391,13 @@ export function iniciar(root: HTMLElement) {
     const estilo = (img.getAttribute('style') || '').replace(/(^|;)\s*(filter|scale|translate)\s*:[^;]*/g, '');
     svg.setAttribute('style', `${estilo};--m:var(${img.dataset.prog || '--w'},1)`);
     if (getComputedStyle(img).objectFit === 'fill') svg.setAttribute('preserveAspectRatio', 'none');
+    svg.dataset.prog = img.dataset.prog || '--w';
+    // Miolo isolado das variáveis de rolagem (.il-corpo em global.css): quando a cena em volta muda
+    // --p/--r a cada quadro, só o <svg> recalcula — os centenas de caminhos, só quando --m muda.
+    const corpo = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    corpo.setAttribute('class', 'il-corpo');
+    corpo.append(...svg.childNodes);
+    svg.append(corpo);
     for (const a of ['data-intro', 'data-delay']) { const v = img.getAttribute(a); if (v !== null) svg.setAttribute(a, v); }
     // água/pedras: em vez de crescer por tufos, a aguada é arrastada como pincel (máscara .wc-varre)
     if (img.classList.contains('wc-varre')) svg.classList.add('wc', 'wc-varre', 'il-varre');
@@ -386,10 +407,18 @@ export function iniciar(root: HTMLElement) {
     dirty = true;
   }).catch(() => { /* fica a imagem */ img.src = `/aquarela/${img.dataset.svg}.webp`; });
   const imgsSvg = q<HTMLImageElement>('img[data-svg]');
+  // Uma troca por vez, quando o navegador está ocioso (inserir centenas de caminhos de uma vez,
+  // no meio da rolagem, fazia a página travar por um instante).
+  const fila: HTMLImageElement[] = [];
+  const ocioso = (fn: () => void) => ('requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: 400 }) : setTimeout(fn, 16));
+  const proxima = () => { const img = fila.shift(); if (!img) return; trocar(img).finally(() => { if (fila.length) ocioso(proxima); }); };
+  const enfileirar = (img: HTMLImageElement) => { fila.push(img); if (fila.length === 1) ocioso(proxima); };
   if ('IntersectionObserver' in window) {
     const perto = new IntersectionObserver(es => es.forEach(e => {
-      if (!e.isIntersecting) return; perto.unobserve(e.target); trocar(e.target as HTMLImageElement);
-    }), { rootMargin: '120% 0px' });
+      if (!e.isIntersecting) return; perto.unobserve(e.target);
+      const r = e.boundingClientRect, img = e.target as HTMLImageElement;
+      if (r.top < innerHeight && r.bottom > 0) trocar(img); else enfileirar(img); // já na tela: na hora
+    }), { rootMargin: '150% 0px' });
     imgsSvg.forEach(i => perto.observe(i));
   } else imgsSvg.forEach(trocar);
 

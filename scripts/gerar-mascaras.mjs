@@ -6,7 +6,7 @@
 // como pigmento assentando no papel. O CSS percorre os quadros (global.css, .wc / .paint-ink).
 //
 //   public/aquarela/florescer.webp  48 quadros 8×6 — mancha que se espalha (imagens, lavanda)
-//   public/aquarela/pincel.webp     24 quadros 4×6 — pincel arrastado da esquerda p/ direita
+//   public/aquarela/pincel.webp     48 quadros 8×6 — pincel arrastado da esquerda p/ direita
 import sharp from 'sharp';
 
 // ---------- ruído (Perlin 2D com semente) ----------
@@ -95,7 +95,7 @@ async function folha({ arquivo, W, H, cols, linhas, chegada, borda, granulo }) {
 {
   const { fbm, n } = ruido(21);
   await folha({
-    arquivo: 'public/aquarela/pincel.webp', W: 448, H: 112, cols: 4, linhas: 6,
+    arquivo: 'public/aquarela/pincel.webp', W: 384, H: 112, cols: 8, linhas: 6,
     borda: 0.06,
     chegada: (u, v) => {
       const cerdas = 0.16 * Math.abs(fbm(u * 1.2 + 4, v * 9, 3)) + 0.05 * fbm(u * 2, v * 40, 2); // faixas atrasadas

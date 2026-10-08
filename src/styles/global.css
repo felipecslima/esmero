@@ -21,7 +21,7 @@ a:hover { color: #B8195A; }
    .wc usa o progresso --w (intro / cartões / porta); .wc-r usa a revelação --r.
    As folhas de quadros saem de scripts/gerar-mascaras.mjs:
    florescer.webp = 48 quadros (8×6) de uma mancha que se espalha com lóbulos e granulação;
-   pincel.webp    = 24 quadros (4×6) de um pincel arrastado da esquerda para a direita.
+   pincel.webp    = 48 quadros (8×6) de um pincel arrastado da esquerda para a direita.
    O progresso escolhe o quadro: f = round(down, m × (quadros − 1)). */
 .wc {
   --m: var(--w, 1);
@@ -58,13 +58,13 @@ a:hover { color: #B8195A; }
   }
   /* Água e pedras: uma aguada arrastada da esquerda para a direita. */
   .wc.wc-varre {
-    --f: round(down, var(--m) * 23, 1);
+    --f: round(down, var(--m) * 47, 1);
     -webkit-mask-image: url("/aquarela/pincel.webp");
     mask-image: url("/aquarela/pincel.webp");
-    -webkit-mask-size: 400% 600%;
-    mask-size: 400% 600%;
-    -webkit-mask-position: calc(mod(var(--f), 4) / 3 * 100%) calc(round(down, var(--f) / 4, 1) / 5 * 100%);
-    mask-position: calc(mod(var(--f), 4) / 3 * 100%) calc(round(down, var(--f) / 4, 1) / 5 * 100%);
+    -webkit-mask-size: 800% 600%;
+    mask-size: 800% 600%;
+    -webkit-mask-position: calc(mod(var(--f), 8) / 7 * 100%) calc(round(down, var(--f) / 8, 1) / 5 * 100%);
+    mask-position: calc(mod(var(--f), 8) / 7 * 100%) calc(round(down, var(--f) / 8, 1) / 5 * 100%);
   }
 }
 
@@ -135,13 +135,13 @@ a:hover { color: #B8195A; }
 }
 @supports (width: calc(mod(5px, 3px) + round(down, 1.5px, 1px))) {
   .paint-ink i:nth-child(-n+2) {
-    --f: round(down, var(--q) * 23, 1);
+    --f: round(down, var(--q) * 47, 1);
     -webkit-mask-image: url("/aquarela/pincel.webp");
     mask-image: url("/aquarela/pincel.webp");
-    -webkit-mask-size: 400% 600%;
-    mask-size: 400% 600%;
-    -webkit-mask-position: calc(mod(var(--f), 4) / 3 * 100%) calc(round(down, var(--f) / 4, 1) / 5 * 100%);
-    mask-position: calc(mod(var(--f), 4) / 3 * 100%) calc(round(down, var(--f) / 4, 1) / 5 * 100%);
+    -webkit-mask-size: 800% 600%;
+    mask-size: 800% 600%;
+    -webkit-mask-position: calc(mod(var(--f), 8) / 7 * 100%) calc(round(down, var(--f) / 8, 1) / 5 * 100%);
+    mask-position: calc(mod(var(--f), 8) / 7 * 100%) calc(round(down, var(--f) / 8, 1) / 5 * 100%);
   }
   .paint-ink i:nth-child(3) {
     --f: round(down, var(--q) * 47, 1);
@@ -226,23 +226,41 @@ html:not(.tarde) [data-tarde] { background-image: none !important; }
    progresso --m passa do seu --d, crescendo do próprio centro. A ordem de pintura do vetorizador é
    preservada (tufos são classes, não grupos). Plantas balançam e lavagens derivam por inteiro. */
 .il { overflow: visible; pointer-events: none; }
+.il-corpo {
+  --p: initial; --p1: initial; --p2: initial; --p3: initial; --p4: initial; --r: initial; --c: initial;
+  --w: initial; --t: initial; --card: initial; --fade: initial; --note: initial; --note-b: initial; --paint: initial;
+}
+.il-alfa path { fill-opacity: .62; } /* versões com transparência: camadas se somam como veladura */
 .il .base { opacity: clamp(0, (var(--m, 1) - .25) * 2, 1); }
 /* Aguadas arrastadas (água, pedras) e pinceladas: a máscara de pincel revela; os tufos ficam inteiros. */
 .il-varre .tufo, .il-varre .base, .wc-varre > .il .tufo, .wc-varre > .il .base { opacity: 1; scale: 1; }
 .il .tufo {
-  --t: clamp(0, (var(--m, 1) - var(--d, 0)) * 3.5, 1);
+  /* --k: rapidez de cada tufo; --s0: tamanho com que nasce (a copa brota pincelada a pincelada) */
+  --t: clamp(0, (var(--m, 1) - var(--d, 0)) * var(--k, 3.5), 1);
   opacity: var(--t);
   transform-box: view-box;
   transform-origin: var(--cx) var(--cy);
-  scale: calc(.35 + .65 * var(--t));
+  scale: calc(var(--s0, .35) + (1 - var(--s0, .35)) * var(--t) * var(--t) * (3 - 2 * var(--t)));
 }
-/* Balanço e deriva da ilustração inteira (só rotate/translate no elemento: roda na GPU). */
+/* Balanço e deriva da ilustração inteira (só rotate/translate no elemento: roda na GPU).
+   O ciclo começa e termina no repouso (0) e, ao voltar a crescer, só pausa onde está —
+   ligar/desligar a animação fazia a ilustração saltar. */
 .il-balanca { transform-origin: 50% 100%; }
-.il.vivo { will-change: rotate, translate; }
-.il-balanca.vivo { animation: il-balanca 5.5s ease-in-out infinite alternate; }
-.il-deriva.vivo { animation: il-deriva 16s ease-in-out infinite alternate; }
-@keyframes il-balanca { from { rotate: -1.1deg; } to { rotate: 1.1deg; } }
-@keyframes il-deriva { from { translate: -7px 3px; } to { translate: 7px -3px; } }
+.il-balanca.anima { animation: il-balanca 11s infinite paused; }
+.il-deriva.anima { animation: il-deriva 32s infinite paused; }
+.il.anima.vivo { animation-play-state: running; }
+@keyframes il-balanca {
+  0% { rotate: 0deg; animation-timing-function: cubic-bezier(.37, 0, .63, 1); }
+  25% { rotate: 1.1deg; animation-timing-function: cubic-bezier(.37, 0, .63, 1); }
+  75% { rotate: -1.1deg; animation-timing-function: cubic-bezier(.37, 0, .63, 1); }
+  100% { rotate: 0deg; }
+}
+@keyframes il-deriva {
+  0% { translate: 0 0; animation-timing-function: cubic-bezier(.37, 0, .63, 1); }
+  25% { translate: 7px -3px; animation-timing-function: cubic-bezier(.37, 0, .63, 1); }
+  75% { translate: -7px 3px; animation-timing-function: cubic-bezier(.37, 0, .63, 1); }
+  100% { translate: 0 0; }
+}
 
 /* Cabeçalho: o botão fica colado no topo da janela; pincelada mais baixa para não ser cortada lá. */
 header .paint-ink i:nth-child(1) { height: 210%; top: -50.6%; }   /* (100% − 210%) × 46% */

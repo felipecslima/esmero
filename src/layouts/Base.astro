@@ -10,6 +10,8 @@ import '@fontsource/cormorant-garamond/500-italic.css';
 import '@fontsource/ms-madi/400.css';
 import '@fontsource/architects-daughter/400.css';
 import '../styles/global.css';
+// tufos das ilustrações em SVG (gerados por scripts/vetorizar-aquarelas.mjs)
+import.meta.glob('../styles/tufos/*.css', { eager: true });
 import { config } from '../config';
 // Fontes da abertura: pré-carregadas para o título já surgir na fonte certa (sem salto de layout).
 import fonteTitulo from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-400-normal.woff2?url';
