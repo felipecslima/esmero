@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import Cabecalho from '../components/Cabecalho.astro';
+import Petalas from '../components/Petalas.astro';
+import BotaoFlutuante from '../components/BotaoFlutuante.astro';
+import Abertura from '../components/Abertura.astro';
+import Arranjos from '../components/Arranjos.astro';
+import Pergunta from '../components/Pergunta.astro';
+import Manifesto from '../components/Manifesto.astro';
+import Faixa from '../components/Faixa.astro';
+import Consultoria from '../components/Consultoria.astro';
+import Licoes from '../components/Licoes.astro';
+import Juliana from '../components/Juliana.astro';
+import Fecho from '../components/Fecho.astro';
+import { config } from '../config';
+---
+<Base>
+  <Cabecalho />
+  {config.petalas && <Petalas />}
+  <BotaoFlutuante />
+  <Abertura />
+  <Arranjos />
+  <Pergunta />
+  <Manifesto />
+  <Faixa />
+  <Consultoria />
+  <Licoes />
+  <Juliana />
+  <Fecho />
+</Base>

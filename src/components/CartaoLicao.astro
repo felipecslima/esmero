@@ -1,0 +1,15 @@
+---
+import type { Licao } from '../data/licoes';
+interface Props { licao: Licao }
+const { licao } = Astro.props;
+---
+<article data-card="" style="flex:none;position:relative;width:clamp(290px,30vw,440px);height:min(calc(100vh - 180px),730px)">
+          <div style="position:absolute;inset:0;-webkit-mask-image:url('/aquarela/mascara-3.png');mask-image:url('/aquarela/mascara-3.png');-webkit-mask-size:125% 118%;mask-size:125% 118%;-webkit-mask-position:center 30%;mask-position:center 30%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat"><div class="wc" style="position:absolute;inset:0;overflow:hidden"><img src={`/fotos/${licao.img}`} alt={licao.alt} class="wc-tint" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.14)"></div></div>
+          <div style={`position:absolute;left:16px;right:16px;bottom:10px;background:#F3EDE2 url('/aquarela/papel.png');padding:18px 20px 20px;box-shadow:0 14px 30px rgba(31,26,23,.16);transform:rotate(${licao.rot}deg)`}>
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);overflow:visible;pointer-events:none"><path d="M1 2 L99 1 L98 99 L2 98 Z" fill="none" stroke="#1F1A17" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+            <div style="display:flex;justify-content:space-between;font-family:'Architects Daughter',cursive;font-size:12px;letter-spacing:.08em;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número {licao.n}</span></div>
+            {licao.title && <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#B8195A;font-style:italic;font-weight:400">{licao.n}.</span> {licao.title}</h3>}
+            <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty" set:html={licao.html} />
+            {licao.assinatura && <span style="display:block;text-align:right;margin-top:.3em;font-family:'Ms Madi',cursive;font-size:34px;line-height:1;color:#B8195A">Por Juliana Corrêa</span>}
+          </div>
+        </article>

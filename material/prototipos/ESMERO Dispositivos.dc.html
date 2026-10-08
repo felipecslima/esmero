@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Cormorant+Garamond:ital@1&display=swap">
+<style>body{margin:0;background:#E9E2D6}a{color:#1F1A17}a:hover{color:#B8195A}</style>
+</helmet>
+<div style="padding:60px;width:max-content;font-family:'Architects Daughter',cursive;color:#1F1A17">
+  <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:56px;margin-bottom:8px">ESMERO em cada tela</div>
+  <div style="font-size:14px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:40px">Role dentro de cada aparelho · <a href="ESMERO Aquarela.dc.html" target="_blank">abrir em tela cheia</a></div>
+  <div style="display:flex;gap:48px;align-items:flex-start">
+    <sc-for list="{{ devices }}" as="d" hint-placeholder-count="5">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase">{{ d.label }}</div>
+        <div style="padding:{{ d.pad }}px;background:#1F1A17;border-radius:{{ d.r }}px;box-shadow:0 30px 60px rgba(31,26,23,.25)">
+          <iframe src="ESMERO Aquarela.dc.html" title="{{ d.label }}" style="display:block;width:{{ d.w }}px;height:{{ d.h }}px;border:0;border-radius:{{ d.ir }}px;background:#F3EDE2" loading="lazy"></iframe>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      devices: [
+        { label: 'Celular · 390 × 844', w: 390, h: 844, pad: 12, r: 52, ir: 40 },
+        { label: 'Celular pequeno · 360 × 740', w: 360, h: 740, pad: 12, r: 44, ir: 32 },
+        { label: 'Tablet retrato · 768 × 1024', w: 768, h: 1024, pad: 18, r: 36, ir: 18 },
+        { label: 'Tablet paisagem · 1180 × 820', w: 1180, h: 820, pad: 18, r: 36, ir: 18 },
+        { label: 'Desktop · 1440 × 900', w: 1440, h: 900, pad: 10, r: 14, ir: 6 }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

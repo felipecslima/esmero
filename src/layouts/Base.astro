@@ -1,0 +1,52 @@
+---
+import '@fontsource/cormorant-garamond/300.css';
+import '@fontsource/cormorant-garamond/400.css';
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/600.css';
+import '@fontsource/cormorant-garamond/700.css';
+import '@fontsource/cormorant-garamond/300-italic.css';
+import '@fontsource/cormorant-garamond/400-italic.css';
+import '@fontsource/cormorant-garamond/500-italic.css';
+import '@fontsource/ms-madi/400.css';
+import '@fontsource/architects-daughter/400.css';
+import '../styles/global.css';
+import { config } from '../config';
+
+const titulo = 'ESMERO por Juliana Corrêa';
+const descricao = 'ESMERO, por Juliana Corrêa: arranjos florais autorais e consultoria de interiores para o bem-viver. Exclusivo em Belém do Pará.';
+---
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{titulo}</title>
+  <meta name="description" content={descricao} />
+  <meta name="theme-color" content="#F3EDE2" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={titulo} />
+  <meta property="og:description" content={descricao} />
+  <meta property="og:image" content="/fotos/colecao-mesa.jpg" />
+  <meta property="og:locale" content="pt_BR" />
+  <link rel="preload" as="image" href="/aquarela/papel.png" />
+  <!-- Esconde o estado final da abertura até a animação de entrada começar (evita "piscar"). -->
+  <script is:inline>
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('intro');
+  </script>
+</head>
+<body>
+  <div id="root" data-movimento={config.movimento}>
+    <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+      <defs>
+        <filter id="ink" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="8000" height="8000"><feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="4"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="3.2"></feDisplacementMap></filter>
+        <filter id="rough" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="8000" height="8000"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="3" seed="11"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="14"></feDisplacementMap></filter>
+      </defs>
+    </svg>
+    <slot />
+  </div>
+  <script>
+    import { iniciar } from '../scripts/motion';
+    iniciar(document.getElementById('root')!);
+  </script>
+</body>
+</html>

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>ESMERO por Juliana Corrêa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Ms+Madi&display=swap">
+<style>
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:#F3EDE2;color:#1F1A17}
+a{color:#1F1A17}
+a:hover{color:#B8195A}
+::selection{background:#F2A7C0}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(18px,1.25vw,21px);line-height:1.55;color:#1F1A17;background:#F3EDE2 url('assets/aquarela/papel.png') repeat;overflow-x:clip">
+
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <filter id="ink" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="8000" height="8000"><feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="4"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="3.2"></feDisplacementMap></filter>
+    <filter id="rough" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="8000" height="8000"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="3" seed="11"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="14"></feDisplacementMap></filter>
+  </defs>
+</svg>
+
+<header style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px clamp(16px,4vw,56px);background:rgba(243,237,226,.95)">
+  <a href="#topo" style="display:flex;align-items:center;gap:clamp(10px,1.2vw,16px);text-decoration:none;color:#1F1A17;min-width:0">
+    <span style="font-family:'Ms Madi',cursive;font-size:clamp(26px,2.4vw,36px);line-height:1;white-space:nowrap;color:#1F1A17">Por Juliana Corrêa</span>
+    <span style="width:1.5px;height:clamp(24px,2.2vw,32px);background:#1F1A17;flex:none"></span>
+    <span style="font-weight:700;letter-spacing:.02em;font-size:clamp(18px,1.6vw,24px)">ESMERO</span>
+  </a>
+  <nav style="display:flex;align-items:center;gap:clamp(16px,2.2vw,32px)">
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;gap:clamp(16px,2.2vw,30px)">
+        <a href="#arranjos" style="font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none">Arranjos</a>
+        <a href="#consultoria" style="font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none">Consultoria</a>
+        <a href="#licoes" style="font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none">Lições de uma flor</a>
+        <a href="#juliana" style="font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none">Juliana</a>
+      </div>
+    </sc-if>
+    <sc-if value="{{ notNarrow }}" hint-placeholder-val="{{ true }}">
+      <a href="{{ links.semana }}" target="_blank" rel="noopener" data-paint="" style="position:relative;display:inline-flex;align-items:center;padding:10px 18px;font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:#1F1A17;isolation:isolate;transition:letter-spacing .8s cubic-bezier(.2,.7,.2,1)" style-hover="color:#1F1A17"><span aria-hidden="true" style="position:absolute;inset:-10px -16px;z-index:-1;pointer-events:none;opacity:var(--fade,1);background-image:url('assets/aquarela/pincelada.png'),url('assets/aquarela/pincelada.png'),url('assets/aquarela/lavanda.png');background-repeat:no-repeat;background-position:left 46%,right 64%,78% 40%;background-size:calc(clamp(0, var(--paint,0) * 1.35, 1) * 108%) 330%,calc(clamp(0, (var(--paint,0) - .28) * 1.7, 1) * 92%) 240%,calc(clamp(0, (var(--paint,0) - .55) * 2.2, 1) * 46%) 130%"></span>Arranjo da semana<svg viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:-3px;width:calc(100% + 6px);height:calc(100% + 6px);overflow:visible;pointer-events:none"><path d="M14 6 C 90 2, 210 3, 288 8 C 298 22, 297 42, 286 54 C 200 58, 96 57, 12 53 C 2 40, 3 18, 16 4" fill="none" stroke="#1F1A17" stroke-width="1.3" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg></a>
+    </sc-if>
+  </nav>
+  <svg viewBox="0 0 1440 8" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:0;right:0;bottom:-4px;width:100%;height:8px;overflow:visible"><path d="M0 4 C 300 2, 700 6, 1000 3 S 1300 5, 1440 3" fill="none" stroke="#1F1A17" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+</header>
+
+<sc-if value="{{ petalas }}" hint-placeholder-val="{{ false }}">
+  <div aria-hidden="true" style="position:fixed;inset:0;z-index:40;pointer-events:none;overflow:hidden">
+    <sc-for list="{{ petals }}" as="pt" hint-placeholder-count="0">
+      <span data-petal="" data-x="{{ pt.x }}" data-y="{{ pt.y }}" data-s="{{ pt.s }}" style="position:absolute;left:0;top:0;width:{{ pt.w }}px;height:{{ pt.h }}px;border-radius:80% 20% 70% 30% / 60% 40% 60% 40%;background:{{ pt.c }};opacity:{{ pt.o }};will-change:transform"></span>
+    </sc-for>
+  </div>
+</sc-if>
+
+<sc-if value="{{ phone }}" hint-placeholder-val="{{ false }}">
+  <a data-fab="" data-paint="" href="{{ links.semana }}" target="_blank" rel="noopener" style="position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:55;display:inline-flex;align-items:center;gap:12px;padding:15px 24px;white-space:nowrap;font-family:'Architects Daughter',cursive;font-size:14px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:#1F1A17;background:#F3EDE2 url('assets/aquarela/papel.png');box-shadow:0 10px 30px rgba(31,26,23,.22);isolation:isolate;opacity:0;transform:translate(-50%,140%);transition:opacity .7s,transform .9s cubic-bezier(.2,.7,.2,1);pointer-events:none"><span aria-hidden="true" style="position:absolute;inset:-6px -10px;z-index:-1;pointer-events:none;background:url('assets/aquarela/pincelada.png') left 46%/108% 330% no-repeat;opacity:.9"></span>Quero meu arranjo da semana<svg viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:-3px;width:calc(100% + 6px);height:calc(100% + 6px);overflow:visible;pointer-events:none"><path d="M14 6 C 90 2, 210 3, 288 8 C 298 22, 297 42, 286 54 C 200 58, 96 57, 12 53 C 2 40, 3 18, 16 4" fill="none" stroke="#1F1A17" stroke-width="1.4" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg></a>
+</sc-if>
+
+<section id="topo" data-scene="hero" style="position:relative;height:var(--h-hero,430vh)">
+  <div style="position:sticky;top:0;height:100svh;overflow:hidden">
+
+    <div data-draw="" style="position:absolute;right:var(--dr,clamp(-30px,2vw,60px));bottom:var(--db,0px);height:var(--dh,min(100vh,118vw));aspect-ratio:7/9;transform-origin:50% 66.667%;will-change:transform">
+      <img data-intro="paint" data-delay="200" src="assets/aquarela/ceu.png" alt="" style="position:absolute;left:14%;top:2%;width:96%;opacity:.85;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%)">
+      <img data-intro="paint" data-delay="1700" src="assets/aquarela/pedra.png" alt="" style="position:absolute;left:20%;top:86%;width:62%;opacity:.8;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:8% 50%,50% 50%,92% 50%;mask-position:8% 50%,50% 50%,92% 50%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 2.2, 1) * 70%) 200%,calc(clamp(0, (var(--w,1) - .3) * 2.2, 1) * 70%) 200%,calc(clamp(0, (var(--w,1) - .55) * 2.3, 1) * 70%) 200%;mask-size:calc(clamp(0, var(--w,1) * 2.2, 1) * 70%) 200%,calc(clamp(0, (var(--w,1) - .3) * 2.2, 1) * 70%) 200%,calc(clamp(0, (var(--w,1) - .55) * 2.3, 1) * 70%) 200%">
+      <img data-intro="bloom" data-delay="1700" src="assets/aquarela/terracota.png" alt="" style="position:absolute;left:10%;top:82%;width:20%">
+      <img data-intro="bloom" data-delay="1900" src="assets/aquarela/folhagem.png" alt="" style="position:absolute;left:-2%;top:66%;width:36%">
+      <div data-intro="paint" data-delay="1500" style="position:absolute;left:74.3%;top:45.6%;width:10%;height:12.2%;background:url('assets/aquarela/turquesa.png') center/cover;opacity:.85;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%)"></div>
+      <svg viewBox="0 0 700 900" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">
+        <g data-drawgroup="" data-delay="300" filter="url(#ink)" fill="none" stroke="#1F1A17" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path pathLength="1" stroke-dasharray="1" d="M0 886 L700 886"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M98 886 L96 640 M95 600 L94 300"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M70 300 L640 286 M76 312 L636 298"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M80 288 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M612 300 L610 520 M609 560 L606 886"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M214 822 L486 822 L494 850 L206 850 Z"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M188 850 L512 850 L522 886 L178 886 Z"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M520 410 h70 v110 h-70 Z M512 526 h86 M514 532 h82"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M524 422 h62 M524 434 h62 M524 446 h62 M524 458 h62 M524 470 h62 M524 482 h62 M524 494 h62 M524 506 h62"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M112 780 h80 v10 h-80 Z M118 790 L186 790 L178 870 L126 870 Z"></path>
+          <path pathLength="1" stroke-dasharray="1" stroke-opacity=".55" d="M110 600 h40 M130 612 h36 M104 624 h30 M520 360 h40 M540 372 h34 M515 384 h26 M560 640 h34 M548 652 h30"></path>
+          <path pathLength="1" stroke-dasharray="1" stroke-opacity=".5" d="M470 610 l40 -40 M470 640 l50 -50 M470 670 l56 -56 M474 700 l52 -52 M480 730 l40 -40 M486 760 l30 -30"></path>
+          <path pathLength="1" stroke-dasharray="1" stroke-width="1" d="M206 380 L206 820 M199 380 h14 M199 820 h14 M250 352 L450 352 M250 345 v14 M450 345 v14"></path>
+        </g>
+      </svg>
+      <span data-intro="rise" data-delay="2300" style="position:absolute;left:35.7%;width:28.6%;top:36.2%;text-align:center;font-family:'Architects Daughter',cursive;font-size:clamp(9px,.9vw,12px);letter-spacing:.1em;white-space:nowrap;color:#5A514A">primeira coleção · 22.09.2026</span>
+    </div>
+
+    <div data-photo="" style="position:absolute;left:0;top:0;width:0;height:0;overflow:hidden;opacity:0">
+      <img src="site/assets/colecao-mesa.jpg" alt="Arranjos da primeira coleção sobre a mesa: girassóis, antirrinos rosa e eucalipto" style="position:absolute;left:0;top:0;width:100vw;height:100vh;object-fit:cover;max-width:none;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);filter:saturate(calc(.35 + .65 * var(--w,1))) blur(calc((1 - var(--w,1)) * 5px * var(--bk,1)));">
+    </div>
+
+    <div data-front="" style="position:absolute;right:var(--dr,clamp(-30px,2vw,60px));bottom:var(--db,0px);height:var(--dh,min(100vh,118vw));aspect-ratio:7/9;transform-origin:50% 66.667%;will-change:transform;pointer-events:none">
+      <div data-pan="l" style="position:absolute;left:35.714%;top:42.222%;width:14.286%;height:48.889%;border-radius:100% 0 0 0 / 22.727% 0 0 0;overflow:hidden;transform-origin:left center"><div data-intro="paint" data-delay="1100" style="position:absolute;inset:0;background:url('assets/aquarela/turquesa.png') left center/200% 100%;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%)"></div>
+        <svg viewBox="0 0 100 440" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%"><g filter="url(#ink)" fill="none" stroke="#123C4A" stroke-width="1.4" stroke-linecap="round"><path d="M14 150 h72 v110 h-72 Z M14 280 h72 v130 h-72 Z M99 0 V440"></path><path stroke-opacity=".45" d="M20 120 l30 -30 M20 140 l50 -50 M30 150 l60 -60 M22 240 l40 -40 M22 400 l50 -50 M40 410 l46 -46"></path></g><rect x="0" y="118" width="46" height="7" fill="#9A6A33"></rect><rect x="0" y="352" width="46" height="7" fill="#9A6A33"></rect></svg>
+      </div>
+      <div data-pan="r" style="position:absolute;left:50%;top:42.222%;width:14.286%;height:48.889%;border-radius:0 100% 0 0 / 0 22.727% 0 0;overflow:hidden;transform-origin:right center"><div data-intro="paint" data-delay="1350" style="position:absolute;inset:0;background:url('assets/aquarela/turquesa.png') right center/200% 100%;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%)"></div>
+        <svg viewBox="0 0 100 440" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%"><g filter="url(#ink)" fill="none" stroke="#123C4A" stroke-width="1.4" stroke-linecap="round"><path d="M14 150 h72 v110 h-72 Z M14 280 h72 v130 h-72 Z M1 0 V440"></path><path stroke-opacity=".45" d="M20 170 l40 -40 M30 250 l56 -56 M20 330 l40 -40 M44 400 l40 -40"></path></g><rect x="54" y="118" width="46" height="7" fill="#9A6A33"></rect><rect x="54" y="352" width="46" height="7" fill="#9A6A33"></rect><circle cx="16" cy="268" r="4" fill="#9A6A33"></circle></svg>
+      </div>
+      <svg viewBox="0 0 700 900" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">
+        <g data-drawgroup="" data-delay="900" filter="url(#ink)" fill="none" stroke="#1F1A17" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path pathLength="1" stroke-dasharray="1" d="M236 822 L236 480 A114 114 0 0 1 464 480 L464 822"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M250 822 L250 480 A100 100 0 0 1 450 480 L450 822"></path>
+          <path pathLength="1" stroke-dasharray="1" stroke-width="1.2" d="M350 366 L350 380 M300 380 L306 392 M400 380 L394 392 M262 420 L274 428 M438 420 L426 428 M240 470 L252 472 M460 470 L448 472"></path>
+          <path pathLength="1" stroke-dasharray="1" stroke-width="1.4" d="M196 886 C 190 800, 214 700, 206 600 C 198 520, 226 440, 300 380 M206 640 C 180 600, 150 590, 130 560 M222 470 C 250 450, 268 420, 266 392"></path>
+        </g>
+      </svg>
+      <img data-intro="bloom" data-delay="2000" src="assets/aquarela/buganvilia.png" alt="" style="position:absolute;left:-8%;top:20%;width:76%">
+    </div>
+
+    <div style="position:absolute;left:clamp(20px,5vw,80px);top:clamp(96px,17vh,190px);max-width:min(860px,calc(100% - 40px));opacity:calc(1 - var(--t,0));transform:translateY(calc(var(--t,0) * -12vh));pointer-events:none;z-index:5">
+      <div data-intro="rise" data-delay="0" style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:clamp(12px,2vw,26px)">
+        <span style="font-family:'Ms Madi',cursive;font-size:clamp(30px,3.2vw,48px);line-height:1;color:#B8195A">Por Juliana Corrêa</span>
+        <span style="font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.16em;text-transform:uppercase">Belém do Pará</span>
+      </div>
+      <h1 style="margin:0;font-weight:400;font-size:clamp(40px,7.2vw,122px);line-height:.94;letter-spacing:-.022em;max-width:7.6em">
+        <span data-intro="rise" data-delay="250" style="display:block">Olhar de novo.</span>
+        <span data-intro="rise" data-delay="520" style="display:block;padding-left:clamp(0px,6vw,100px)">Imaginar possibilidades.</span>
+        <span data-intro="rise" data-delay="790" style="display:block;font-style:italic;font-weight:300;color:#B8195A">Criar maneiras mais belas de viver.</span>
+      </h1>
+    </div>
+
+    <div style="position:absolute;z-index:6;left:clamp(14px,6vw,96px);bottom:clamp(20px,9vh,96px);width:min(470px,calc(100% - 28px));box-sizing:border-box;background:#F3EDE2 url('assets/aquarela/papel.png');padding:clamp(24px,2.6vw,38px);opacity:var(--card,0);transform:translateY(calc((1 - var(--card,0)) * 50vh)) rotate(calc((1 - var(--card,0)) * -5deg + -1deg));box-shadow:0 24px 50px rgba(31,26,23,.22)">
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);overflow:visible;pointer-events:none"><path d="M1 2 L99 1 L98 99 L2 98 Z" fill="none" stroke="#1F1A17" stroke-opacity=".6" stroke-width="1" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+      <p style="margin:0;font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#B8195A">A primeira coleção de arranjos</p>
+      <p style="margin:.5em 0 1.1em;font-style:italic;font-weight:500;font-size:clamp(23px,2.1vw,30px);line-height:1.18;text-wrap:pretty">A primeira coleção de arranjos florais da ESMERO chegou em 22 de setembro de 2026.</p>
+      <a href="{{ links.semana }}" target="_blank" rel="noopener" data-paint="" style="position:relative;display:inline-flex;align-items:center;gap:12px;padding:15px 26px;font-family:'Architects Daughter',cursive;font-size:14px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:#1F1A17;isolation:isolate;transition:letter-spacing .8s cubic-bezier(.2,.7,.2,1)" style-hover="letter-spacing:.16em;color:#1F1A17"><span aria-hidden="true" style="position:absolute;inset:-10px -16px;z-index:-1;pointer-events:none;opacity:var(--fade,1);background-image:url('assets/aquarela/pincelada.png'),url('assets/aquarela/pincelada.png'),url('assets/aquarela/lavanda.png');background-repeat:no-repeat;background-position:left 46%,right 64%,78% 40%;background-size:calc(clamp(0, var(--paint,0) * 1.35, 1) * 108%) 330%,calc(clamp(0, (var(--paint,0) - .28) * 1.7, 1) * 92%) 240%,calc(clamp(0, (var(--paint,0) - .55) * 2.2, 1) * 46%) 130%"></span>Quero meu arranjo da semana<svg viewBox="0 0 30 12" width="26" height="11" aria-hidden="true" style="overflow:visible"><path d="M1 6 C 9 5, 18 7, 28 6 M22 1 C 24 3, 26 5, 28 6 C 26 7, 24 9, 22 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg><svg viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:-3px;width:calc(100% + 6px);height:calc(100% + 6px);overflow:visible;pointer-events:none"><path d="M14 6 C 90 2, 210 3, 288 8 C 298 22, 297 42, 286 54 C 200 58, 96 57, 12 53 C 2 40, 3 18, 16 4" fill="none" stroke="#1F1A17" stroke-width="1.4" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg></a>
+    </div>
+    <p data-note="" style="position:absolute;z-index:6;right:clamp(14px,5vw,72px);bottom:var(--note-b,clamp(20px,9vh,96px));margin:0;background:#F3EDE2;padding:10px 18px;font-style:italic;font-size:17px;opacity:var(--note,0);transform:translateY(calc((1 - var(--note,0)) * 30px)) rotate(1.5deg)">Um projeto experimental em construção (…)</p>
+  </div>
+</section>
+
+<section id="arranjos" style="position:relative;z-index:2;background:#F3EDE2 url('assets/aquarela/papel.png');padding:clamp(80px,10vw,150px) clamp(20px,5vw,72px) clamp(90px,10vw,150px);scroll-margin-top:40px">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:0;top:-60px;width:100%;height:80px;overflow:visible"><path d="M0 80 L0 46 C 200 22, 420 60, 720 34 S 1240 18, 1440 44 L1440 80 Z" fill="#F3EDE2" filter="url(#rough)"></path></svg>
+  <div style="max-width:1320px;margin:0 auto">
+    <div data-r="" style="display:flex;flex-wrap:wrap;gap:12px 22px;align-items:center;margin-bottom:clamp(24px,3vw,40px);opacity:var(--r,1)">
+      <span style="font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.14em;text-transform:uppercase">[ Edições por temporada ]</span>
+      <span style="position:relative;padding:8px 18px;font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#B8195A">Primeira coleção · 22.09.2026<svg viewBox="0 0 200 50" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible"><path d="M100 3 C 160 2, 198 12, 197 26 C 196 42, 150 48, 98 47 C 40 46, 3 40, 4 24 C 5 10, 50 2, 112 6" fill="none" stroke="#D6246E" stroke-width="1.3" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg></span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,90px);align-items:flex-end">
+      <h2 data-r="" style="flex:1 1 560px;margin:0;font-weight:400;font-size:clamp(58px,10vw,168px);line-height:.88;letter-spacing:-.025em">
+        <span style="display:block;transform:translateY(calc((1 - var(--r,1)) * 60px));opacity:var(--r,1)">Arranjos florais</span>
+        <span style="display:inline-block;position:relative;font-style:italic;font-weight:300;color:#B8195A;padding-left:clamp(0px,8vw,140px);transform:translateY(calc((1 - var(--r,1)) * 110px));opacity:var(--r,1)"><img src="assets/aquarela/lavanda.png" alt="" style="position:absolute;left:clamp(0px,6vw,110px);top:10%;width:calc(100% - clamp(0px,4vw,60px));z-index:-1;opacity:.75;transform:scale(calc(.4 + .6 * var(--r,1)))">autorais</span>
+      </h2>
+      <div data-r="" style="flex:1 1 340px;max-width:34em;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 40px))">
+        <p style="margin:0 0 1em">Uma coleção semanal de arranjos florais autorais. Um exercício de curadoria, criatividade e sensibilidade para o nosso bem-viver.</p>
+        <p style="margin:0 0 1em">A cada semana, ao menos três composições são divulgadas em nossas redes para você escolher seu exemplar preferido.</p>
+        <p style="margin:0">Disponíveis sob demanda, enquanto durar a edição. Exclusivo em Belém do Pará.</p>
+        <div style="margin-top:1.8em"><a href="{{ links.semana }}" target="_blank" rel="noopener" data-paint="" style="position:relative;display:inline-flex;align-items:center;gap:12px;padding:15px 26px;font-family:'Architects Daughter',cursive;font-size:14px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:#1F1A17;isolation:isolate;transition:letter-spacing .8s cubic-bezier(.2,.7,.2,1)" style-hover="letter-spacing:.16em;color:#1F1A17"><span aria-hidden="true" style="position:absolute;inset:-10px -16px;z-index:-1;pointer-events:none;opacity:var(--fade,1);background-image:url('assets/aquarela/pincelada.png'),url('assets/aquarela/pincelada.png'),url('assets/aquarela/lavanda.png');background-repeat:no-repeat;background-position:left 46%,right 64%,78% 40%;background-size:calc(clamp(0, var(--paint,0) * 1.35, 1) * 108%) 330%,calc(clamp(0, (var(--paint,0) - .28) * 1.7, 1) * 92%) 240%,calc(clamp(0, (var(--paint,0) - .55) * 2.2, 1) * 46%) 130%"></span>Quero meu arranjo da semana<svg viewBox="0 0 30 12" width="26" height="11" aria-hidden="true" style="overflow:visible"><path d="M1 6 C 9 5, 18 7, 28 6 M22 1 C 24 3, 26 5, 28 6 C 26 7, 24 9, 22 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg><svg viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:-3px;width:calc(100% + 6px);height:calc(100% + 6px);overflow:visible;pointer-events:none"><path d="M14 6 C 90 2, 210 3, 288 8 C 298 22, 297 42, 286 54 C 200 58, 96 57, 12 53 C 2 40, 3 18, 16 4" fill="none" stroke="#1F1A17" stroke-width="1.4" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg></a></div>
+      </div>
+    </div>
+
+    <div data-r="" aria-hidden="true" style="display:flex;align-items:center;gap:18px;margin-top:clamp(80px,10vw,140px);font-style:italic;font-size:clamp(19px,1.6vw,24px);color:#5A514A">
+      <svg viewBox="0 0 400 10" preserveAspectRatio="none" style="flex:1;height:10px;overflow:visible"><path d="M400 5 C 300 3, 200 7, 0 4" fill="none" stroke="#1F1A17" stroke-opacity=".5" stroke-width="1.2" vector-effect="non-scaling-stroke" pathLength="1" stroke-dasharray="1" filter="url(#ink)" style="stroke-dashoffset:calc(1 - var(--r,1))"></path></svg>
+      <span style="text-align:center;opacity:var(--r,1)">do pequeno gesto à criação singular</span>
+      <svg viewBox="0 0 400 10" preserveAspectRatio="none" style="flex:1;height:10px;overflow:visible"><path d="M0 5 C 100 7, 200 3, 400 5" fill="none" stroke="#1F1A17" stroke-opacity=".5" stroke-width="1.2" vector-effect="non-scaling-stroke" pathLength="1" stroke-dasharray="1" filter="url(#ink)" style="stroke-dashoffset:calc(1 - var(--r,1))"></path></svg>
+    </div>
+
+    <article data-r="" style="display:flex;flex-wrap:wrap;gap:clamp(40px,7vw,120px);align-items:center;padding-block:clamp(60px,8vw,120px) clamp(40px,6vw,90px)">
+      <div style="position:relative;flex:0 0 auto;width:clamp(210px,21vw,300px);margin-left:clamp(0px,7vw,110px)">
+        <div style="position:relative;aspect-ratio:3/4;overflow:hidden;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--r,1) * 1.6, 1) * 230%) calc(clamp(0, var(--r,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--r,1) * 1.6, 1) * 230%) calc(clamp(0, var(--r,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/dia-a-dia-1.jpg" alt="Mão segurando um pequeno arranjo com uma gérbera rosa, folhagens e uma etiqueta ESMERO" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--r,1))) blur(calc((1 - var(--r,1)) * 5px * var(--bk,1)));transform:scale(calc(1.15 - .15 * var(--r,1)))"></div>
+        <svg viewBox="0 0 100 133" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:0;top:0;width:100%;aspect-ratio:3/4;height:auto;overflow:visible;pointer-events:none"><g data-sd="" filter="url(#ink)" fill="none" stroke="#1F1A17" stroke-width="1.5" vector-effect="non-scaling-stroke" stroke-linecap="round"><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" d="M-8 0 H108 M-8 133 H108"></path><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" d="M0 -10 V143 M100 -10 V143"></path><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" stroke-opacity=".7" d="M50 0 V133 M0 52 H100"></path><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" d="M-12 140 H112 M-10 147 H110"></path></g></svg>
+        <img src="assets/aquarela/terracota.png" alt="" style="position:absolute;left:8%;top:calc(100% + 12px);width:84%;height:70px;object-fit:fill;opacity:calc(var(--r,1) * .95)">
+        <img src="assets/aquarela/folhagem.png" alt="" style="position:absolute;left:-24%;top:calc(100% - 50px);width:148%;opacity:var(--r,1);transform:scale(calc(.5 + .5 * var(--r,1)));transform-origin:50% 80%">
+      </div>
+      <div style="flex:1 1 300px;padding-top:40px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 50px))">
+        <h3 style="margin:0;font-weight:400;font-style:italic;font-size:clamp(56px,7vw,104px);line-height:.88;letter-spacing:-.025em">Dia a Dia</h3>
+        <p style="margin:.9em 0 0;max-width:24em;font-size:clamp(19px,1.5vw,23px)">O pequeno gesto. Espontâneo. Significativo.</p>
+        <a href="{{ links.dia }}" target="_blank" rel="noopener" data-paint="" style="position:relative;display:inline-flex;align-items:center;gap:12px;margin-top:1.5em;padding:14px 24px;font-family:'Architects Daughter',cursive;font-size:14px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:#1F1A17;isolation:isolate;transition:letter-spacing .8s cubic-bezier(.2,.7,.2,1)" style-hover="letter-spacing:.16em;color:#1F1A17"><span aria-hidden="true" style="position:absolute;inset:-10px -16px;z-index:-1;pointer-events:none;opacity:var(--fade,1);background-image:url('assets/aquarela/pincelada.png'),url('assets/aquarela/pincelada.png'),url('assets/aquarela/lavanda.png');background-repeat:no-repeat;background-position:left 46%,right 64%,78% 40%;background-size:calc(clamp(0, var(--paint,0) * 1.35, 1) * 108%) 330%,calc(clamp(0, (var(--paint,0) - .28) * 1.7, 1) * 92%) 240%,calc(clamp(0, (var(--paint,0) - .55) * 2.2, 1) * 46%) 130%"></span>Quero um Dia a Dia<svg viewBox="0 0 30 12" width="26" height="11" aria-hidden="true" style="overflow:visible"><path d="M1 6 C 9 5, 18 7, 28 6 M22 1 C 24 3, 26 5, 28 6 C 26 7, 24 9, 22 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg><svg viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:-3px;width:calc(100% + 6px);height:calc(100% + 6px);overflow:visible;pointer-events:none"><path d="M14 6 C 90 2, 210 3, 288 8 C 298 22, 297 42, 286 54 C 200 58, 96 57, 12 53 C 2 40, 3 18, 16 4" fill="none" stroke="#1F1A17" stroke-width="1.4" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg></a>
+      </div>
+    </article>
+
+    <article data-r="" style="display:flex;flex-direction:row-reverse;flex-wrap:wrap;gap:clamp(40px,7vw,120px);align-items:center;padding-block:clamp(70px,9vw,140px)">
+      <div style="position:relative;flex:0 0 auto;width:clamp(260px,32vw,460px);margin-right:clamp(0px,5vw,80px)">
+        <div style="position:relative;aspect-ratio:3/4.2;border-radius:999px 999px 0 0;overflow:hidden;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--r,1) * 1.6, 1) * 230%) calc(clamp(0, var(--r,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--r,1) * 1.6, 1) * 230%) calc(clamp(0, var(--r,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/essencial-1.jpg" alt="Mão segurando um buquê com girassol, antirrinos e eucalipto em papel kraft de bolinhas" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--r,1))) blur(calc((1 - var(--r,1)) * 5px * var(--bk,1)));transform:scale(calc(1.15 - .15 * var(--r,1)))"></div>
+        <svg viewBox="0 0 100 140" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:0;top:0;width:100%;height:calc(100% - 0px);overflow:visible;pointer-events:none"><g data-sd="" filter="url(#ink)" fill="none" stroke="#1F1A17" stroke-width="1.5" stroke-linecap="round"><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" d="M-5 145 L-5 50 C -5 -16, 105 -16, 105 50 L105 145"></path><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" stroke-opacity=".6" d="M50 -3 V140"></path></g></svg>
+        <svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:-10%;top:calc(100% - 64px);width:120%;height:90px;overflow:visible;pointer-events:none"><g data-sd="" filter="url(#ink)" fill="none" stroke="#1F1A17" stroke-width="1.5" stroke-linecap="round"><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" d="M0 4 H200 M0 56 H200 M-6 62 H206"></path><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" d="M0 30 Q 7 20, 14 30 T 28 30 T 42 30 T 56 30 T 70 30 T 84 30 T 98 30 T 112 30 T 126 30 T 140 30 T 154 30 T 168 30 T 182 30 T 196 30"></path><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" d="M2 4 V56 M30 4 V56 M58 4 V56 M86 4 V56 M114 4 V56 M142 4 V56 M170 4 V56 M198 4 V56"></path></g></svg>
+        <img src="assets/aquarela/coral.png" alt="" style="position:absolute;left:-22%;top:calc(100% - 140px);width:80%;opacity:var(--r,1);transform:scale(calc(.4 + .6 * var(--r,1)));transform-origin:70% 90%">
+      </div>
+      <div style="flex:1 1 300px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 50px))">
+        <h3 style="margin:0;font-weight:400;font-style:italic;font-size:clamp(64px,9vw,144px);line-height:.88;letter-spacing:-.025em">Essencial</h3>
+        <p style="margin:.9em 0 0;max-width:24em;font-size:clamp(19px,1.5vw,23px)">Onde beleza, composição e naturalidade se encontram. A expressão da nossa assinatura.</p>
+        <a href="{{ links.essencial }}" target="_blank" rel="noopener" data-paint="" style="position:relative;display:inline-flex;align-items:center;gap:12px;margin-top:1.5em;padding:14px 24px;font-family:'Architects Daughter',cursive;font-size:14px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:#1F1A17;isolation:isolate;transition:letter-spacing .8s cubic-bezier(.2,.7,.2,1)" style-hover="letter-spacing:.16em;color:#1F1A17"><span aria-hidden="true" style="position:absolute;inset:-10px -16px;z-index:-1;pointer-events:none;opacity:var(--fade,1);background-image:url('assets/aquarela/pincelada.png'),url('assets/aquarela/pincelada.png'),url('assets/aquarela/lavanda.png');background-repeat:no-repeat;background-position:left 46%,right 64%,78% 40%;background-size:calc(clamp(0, var(--paint,0) * 1.35, 1) * 108%) 330%,calc(clamp(0, (var(--paint,0) - .28) * 1.7, 1) * 92%) 240%,calc(clamp(0, (var(--paint,0) - .55) * 2.2, 1) * 46%) 130%"></span>Quero um Essencial<svg viewBox="0 0 30 12" width="26" height="11" aria-hidden="true" style="overflow:visible"><path d="M1 6 C 9 5, 18 7, 28 6 M22 1 C 24 3, 26 5, 28 6 C 26 7, 24 9, 22 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg><svg viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:-3px;width:calc(100% + 6px);height:calc(100% + 6px);overflow:visible;pointer-events:none"><path d="M14 6 C 90 2, 210 3, 288 8 C 298 22, 297 42, 286 54 C 200 58, 96 57, 12 53 C 2 40, 3 18, 16 4" fill="none" stroke="#1F1A17" stroke-width="1.4" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg></a>
+      </div>
+    </article>
+
+    <article data-r="" style="display:flex;flex-wrap:wrap;gap:clamp(40px,6vw,110px);align-items:flex-end;padding-block:clamp(70px,9vw,140px) 0">
+      <div style="position:relative;flex:0 1 auto;width:clamp(300px,56vw,820px)">
+        <div style="position:relative;aspect-ratio:1/1.02;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--r,1) * 1.6, 1) * 230%) calc(clamp(0, var(--r,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--r,1) * 1.6, 1) * 230%) calc(clamp(0, var(--r,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/unique-1.jpg" alt="Buquê em papel branco com girassol, antirrinos rosa e pétalas laranja espalhadas" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--r,1))) blur(calc((1 - var(--r,1)) * 5px * var(--bk,1)));transform:scale(calc(1.2 - .2 * var(--r,1)))"></div>
+        <img src="assets/aquarela/buganvilia-2.png" alt="" style="position:absolute;right:-14%;top:-12%;width:62%;opacity:var(--r,1);transform:scale(calc(.4 + .6 * var(--r,1))) rotate(calc((1 - var(--r,1)) * 20deg));transform-origin:30% 70%">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none"><g data-sd="" filter="url(#ink)" fill="none" stroke="#1F1A17" stroke-width="1" stroke-linecap="round"><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" d="M0 104 H100 M0 101 V107 M100 101 V107"></path><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" d="M-4 0 V100 M-7 0 H-1 M-7 100 H-1"></path></g></svg>
+      </div>
+      <div style="flex:1 1 280px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 50px))">
+        <h3 style="margin:0;font-weight:300;font-style:italic;font-size:clamp(76px,12vw,200px);line-height:.84;letter-spacing:-.03em;color:#B8195A">Unique</h3>
+        <p style="margin:.9em 0 0;max-width:24em;font-size:clamp(19px,1.5vw,23px)">A criação singular. Livre para ser elegante, exuberante, minimalista ou inesperada, conforme a coleção.</p>
+        <a href="{{ links.unique }}" target="_blank" rel="noopener" data-paint="" style="position:relative;display:inline-flex;align-items:center;gap:12px;margin-top:1.5em;padding:14px 24px;font-family:'Architects Daughter',cursive;font-size:14px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:#1F1A17;isolation:isolate;transition:letter-spacing .8s cubic-bezier(.2,.7,.2,1)" style-hover="letter-spacing:.16em;color:#1F1A17"><span aria-hidden="true" style="position:absolute;inset:-10px -16px;z-index:-1;pointer-events:none;opacity:var(--fade,1);background-image:url('assets/aquarela/pincelada.png'),url('assets/aquarela/pincelada.png'),url('assets/aquarela/lavanda.png');background-repeat:no-repeat;background-position:left 46%,right 64%,78% 40%;background-size:calc(clamp(0, var(--paint,0) * 1.35, 1) * 108%) 330%,calc(clamp(0, (var(--paint,0) - .28) * 1.7, 1) * 92%) 240%,calc(clamp(0, (var(--paint,0) - .55) * 2.2, 1) * 46%) 130%"></span>Quero um Unique<svg viewBox="0 0 30 12" width="26" height="11" aria-hidden="true" style="overflow:visible"><path d="M1 6 C 9 5, 18 7, 28 6 M22 1 C 24 3, 26 5, 28 6 C 26 7, 24 9, 22 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg><svg viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:-3px;width:calc(100% + 6px);height:calc(100% + 6px);overflow:visible;pointer-events:none"><path d="M14 6 C 90 2, 210 3, 288 8 C 298 22, 297 42, 286 54 C 200 58, 96 57, 12 53 C 2 40, 3 18, 16 4" fill="none" stroke="#1F1A17" stroke-width="1.4" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg></a>
+      </div>
+    </article>
+
+    <div data-r="" style="position:relative;margin-top:clamp(100px,12vw,180px)">
+      <img src="assets/aquarela/agua.png" alt="" style="position:absolute;left:-6%;top:30px;width:112%;height:var(--agua-h,220px);object-fit:fill;opacity:.75;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:8% 50%,50% 50%,92% 50%;mask-position:8% 50%,50% 50%,92% 50%;-webkit-mask-size:calc(clamp(0, var(--r,1) * 2.2, 1) * 70%) 200%,calc(clamp(0, (var(--r,1) - .3) * 2.2, 1) * 70%) 200%,calc(clamp(0, (var(--r,1) - .55) * 2.3, 1) * 70%) 200%;mask-size:calc(clamp(0, var(--r,1) * 2.2, 1) * 70%) 200%,calc(clamp(0, (var(--r,1) - .3) * 2.2, 1) * 70%) 200%,calc(clamp(0, (var(--r,1) - .55) * 2.3, 1) * 70%) 200%">
+      <ol aria-label="Como funciona" style="position:relative;list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,64px)">
+        <li style="flex:1 1 240px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 40px))">
+          <div style="position:relative;width:190px;height:110px;display:grid;place-items:center"><img src="assets/aquarela/pedra.png" alt="" style="position:absolute;inset:0;width:100%;height:100%"><svg viewBox="0 0 200 110" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible"><path d="M20 60 C 18 30, 60 12, 110 14 C 160 16, 190 34, 186 62 C 182 90, 140 102, 96 100 C 50 98, 22 88, 20 60 Z" fill="none" stroke="#1F1A17" stroke-width="1.5" filter="url(#ink)"></path></svg><span style="position:relative;font-style:italic;font-size:52px;line-height:1;color:#B8195A">1</span></div>
+          <h3 style="margin:.9em 0 .4em;font-family:'Architects Daughter',cursive;font-weight:400;font-size:15px;letter-spacing:.14em;text-transform:uppercase">Acompanhe</h3>
+          <p style="margin:0;max-width:20em">A cada semana, ao menos três composições são divulgadas em nossas redes.</p>
+        </li>
+        <li style="flex:1 1 240px;padding-top:clamp(0px,3vw,46px);opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 80px))">
+          <div style="position:relative;width:190px;height:110px;display:grid;place-items:center"><img src="assets/aquarela/pedra.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;transform:scaleX(-1)"><svg viewBox="0 0 200 110" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible"><path d="M16 54 C 20 24, 70 10, 120 16 C 170 22, 192 44, 182 70 C 172 96, 120 104, 80 98 C 36 92, 12 80, 16 54 Z" fill="none" stroke="#1F1A17" stroke-width="1.5" filter="url(#ink)"></path></svg><span style="position:relative;font-style:italic;font-size:52px;line-height:1;color:#B8195A">2</span></div>
+          <h3 style="margin:.9em 0 .4em;font-family:'Architects Daughter',cursive;font-weight:400;font-size:15px;letter-spacing:.14em;text-transform:uppercase">Escolha</h3>
+          <p style="margin:0;max-width:20em">Para você escolher seu exemplar preferido.</p>
+        </li>
+        <li style="flex:1 1 240px;padding-top:clamp(0px,6vw,92px);opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 120px))">
+          <div style="position:relative;width:190px;height:110px;display:grid;place-items:center"><img src="assets/aquarela/pedra.png" alt="" style="position:absolute;inset:0;width:100%;height:100%"><svg viewBox="0 0 200 110" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible"><path d="M24 62 C 14 36, 54 14, 104 12 C 154 10, 192 30, 188 58 C 184 88, 146 100, 100 102 C 56 104, 30 86, 24 62 Z" fill="none" stroke="#1F1A17" stroke-width="1.5" filter="url(#ink)"></path></svg><span style="position:relative;font-style:italic;font-size:52px;line-height:1;color:#B8195A">3</span></div>
+          <h3 style="margin:.9em 0 .4em;font-family:'Architects Daughter',cursive;font-weight:400;font-size:15px;letter-spacing:.14em;text-transform:uppercase">Peça</h3>
+          <p style="margin:0;max-width:20em">Disponíveis sob demanda, enquanto durar a edição. Exclusivo em Belém do Pará.</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="esmero" data-scene="pergunta" style="position:relative;height:var(--h-perg,280vh)">
+  <div style="position:sticky;top:0;height:100svh;overflow:hidden">
+    <div style="position:absolute;right:clamp(-40px,3vw,80px);bottom:2vh;height:min(82vh,120vw);aspect-ratio:5/6;opacity:var(--balc-o,.95)">
+      <img src="assets/aquarela/lavanda.png" alt="" style="position:absolute;left:10%;top:2%;width:90%;opacity:calc(var(--p1,0) * .7);transform:scale(calc(.6 + .4 * var(--p1,0)))">
+      <svg viewBox="0 0 500 600" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">
+        <g data-sd="" data-a="0" data-b="0.75" filter="url(#ink)" fill="none" stroke="#1F1A17" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path pathLength="1" stroke-dasharray="1" d="M150 90 h200 v290 h-200 Z"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M166 106 h168 v274 M166 106 v274 M250 106 V380"></path>
+          <path pathLength="1" stroke-dasharray="1" stroke-opacity=".5" d="M176 140 l40 -30 M176 180 l60 -50 M260 150 l60 -40 M260 200 l66 -54 M180 300 l50 -40 M270 320 l50 -40"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M100 60 L400 60 L380 30 L120 30 Z"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M100 60 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0 q10 12 20 0"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M126 62 c 0 30, 20 50, 50 50 c -20 0, -24 -24, -8 -24 M374 62 c 0 30, -20 50, -50 50 c 20 0, 24 -24, 8 -24"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M80 380 h340 v16 h-340 Z"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M90 300 h320 M90 300 v80 M410 300 v80"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M90 340 Q 100 326, 110 340 T 130 340 T 150 340 T 170 340 T 190 340 T 210 340 T 230 340 T 250 340 T 270 340 T 290 340 T 310 340 T 330 340 T 350 340 T 370 340 T 390 340 T 410 340"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M130 300 v80 M170 300 v80 M210 300 v80 M250 300 v80 M290 300 v80 M330 300 v80 M370 300 v80"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M110 396 c 0 50, 40 70, 80 60 c -24 -4, -30 -30, -10 -30 M390 396 c 0 50, -40 70, -80 60 c 24 -4, 30 -30, 10 -30"></path>
+          <path pathLength="1" stroke-dasharray="1" stroke-width="1.1" d="M0 470 C 140 520, 360 520, 500 460 M120 500 v40 M300 506 v34"></path>
+          <path pathLength="1" stroke-dasharray="1" stroke-opacity=".6" d="M20 0 V600 M480 0 V600"></path>
+        </g>
+      </svg>
+      <img src="assets/aquarela/terracota.png" alt="" style="position:absolute;left:20%;top:52%;width:22%;height:8%;object-fit:fill;opacity:var(--p3,0)">
+      <img src="assets/aquarela/terracota.png" alt="" style="position:absolute;left:56%;top:52%;width:22%;height:8%;object-fit:fill;opacity:var(--p3,0)">
+      <img src="assets/aquarela/coral.png" alt="" style="position:absolute;left:4%;top:28%;width:92%;opacity:var(--p3,0);transform:scale(calc(.3 + .7 * var(--p3,0)));transform-origin:50% 90%">
+      <img src="assets/aquarela/buganvilia-2.png" alt="" style="position:absolute;left:46%;top:-6%;width:64%;opacity:var(--p4,0);transform:scale(calc(.4 + .6 * var(--p4,0))) rotate(calc((1 - var(--p4,0)) * -18deg));transform-origin:10% 50%">
+    </div>
+    <div style="position:relative;z-index:2;height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;padding:80px clamp(20px,5vw,80px) 40px;max-width:1100px">
+      <p style="margin:0 0 1.4em;font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.14em;text-transform:uppercase">ESMERO por Juliana Corrêa</p>
+      <p style="margin:0 0 .4em;font-size:clamp(22px,2.1vw,32px);line-height:1.3;max-width:24em">ESMERO parte dessa pergunta simples, e inesgotável:</p>
+      <p data-words="" data-a="0.02" data-b="0.55" style="margin:0;font-style:italic;font-size:clamp(56px,9.6vw,172px);line-height:.92;letter-spacing:-.025em;max-width:7em"><span data-w="">O</span> <span data-w="">que</span> <span data-w="">cabe</span> <span data-w="">no</span> <span data-w="">nosso</span> <span data-w="" style="position:relative;display:inline-block;color:#B8195A">bem-viver?<svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:-7%;top:-10%;width:114%;height:125%;overflow:visible;pointer-events:none"><path d="M196 10 C 120 0, 20 12, 8 46 C -2 80, 110 96, 200 88 C 276 80, 302 50, 280 26 C 258 6, 190 2, 140 10" fill="none" stroke="#D6246E" stroke-width="1.6" stroke-linecap="round" vector-effect="non-scaling-stroke" pathLength="1" stroke-dasharray="1" filter="url(#ink)" style="stroke-dashoffset:calc(1 - var(--p3,0))"></path></svg></span></p>
+    </div>
+  </div>
+</section>
+
+<section style="position:relative;padding:clamp(40px,6vw,90px) clamp(20px,5vw,72px) clamp(90px,12vw,170px)">
+  <div style="max-width:1300px;margin:0 auto">
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,90px);align-items:flex-start">
+      <div data-r="" style="flex:1 1 320px;max-width:30em;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 40px))">
+        <p style="margin:0 0 1em">A gente passa boa parte da vida aprendendo o que ter, o que fazer, como viver; o que é bonito, adequado, desejável, bem-visto.</p>
+        <p style="margin:0">Aprende a reproduzir o que já está dado.</p>
+      </div>
+      <div style="flex:1.3 1 380px">
+        <p data-r="" style="margin:0;font-weight:700;opacity:var(--r,1)">Mas, talvez, haja uma pergunta anterior:</p>
+        <p data-r="" data-words="" style="margin:.3em 0 0;font-style:italic;font-size:clamp(40px,5.4vw,86px);line-height:1;letter-spacing:-.02em"><span data-w="">Que</span> <span data-w="">vida</span> <span data-w="">queremos</span> <span data-w="">tornar</span> <span data-w="" style="position:relative;display:inline-block;color:#B8195A"><img src="assets/aquarela/lavanda.png" alt="" style="position:absolute;left:-12%;top:-10%;width:124%;height:130%;object-fit:fill;z-index:-1;opacity:calc(var(--r,1) * .7)">possível?</span></p>
+      </div>
+    </div>
+
+    <div aria-label="O que nos faz bem? O que é essencial?" style="margin-top:clamp(70px,10vw,150px);color:#B8195A">
+      <p data-r="" style="margin:0;font-family:'Ms Madi',cursive;font-size:clamp(58px,10vw,156px);line-height:1.05;clip-path:inset(-30% calc((1 - var(--r,1)) * 100%) -30% 0)">O que nos faz bem?</p>
+      <p data-r="" style="margin:0;padding-left:clamp(32px,16vw,280px);font-family:'Ms Madi',cursive;font-size:clamp(58px,10vw,156px);line-height:1.05;clip-path:inset(-30% calc((1 - var(--r,1)) * 100%) -30% 0)">O que é essencial?</p>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(36px,6vw,110px);margin-top:clamp(80px,11vw,160px);align-items:flex-start">
+      <div data-r="" style="flex:1 1 320px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 40px))">
+        <span aria-hidden="true" style="display:block;font-family:'Ms Madi',cursive;font-size:clamp(90px,10vw,150px);line-height:.8;color:#B8195A;margin-bottom:.1em">01</span>
+        <h2 style="margin:0;font-family:'Architects Daughter',cursive;font-weight:400;font-size:clamp(16px,1.5vw,21px);letter-spacing:.12em;text-transform:uppercase;line-height:1.5;text-wrap:balance">Entre o que já existe e o que poderia ser (…)</h2>
+        <p style="margin:1.4em 0 1em;max-width:30em">Começamos por dentro: observando, percebendo e filtrando o que queremos cultivar, até darmos forma ao que importa, faz sentido e faz bem.</p>
+        <p style="margin:0">Assim escrevemos, imaginamos e criamos:</p>
+      </div>
+      <div style="flex:1.2 1 380px;display:flex;flex-wrap:wrap;gap:clamp(18px,3vw,40px);align-items:flex-start">
+        <div data-r="" style="flex:.8 1 150px;text-align:right;line-height:1.55;padding-top:.3em;opacity:var(--r,1)">Espaços.<br>Composições.<br>Textos.<br>Atmosferas.<br>Ideias.<i style="display:block;margin-top:.5em;color:#5A514A">E, sobretudo, novas possibilidades:</i></div>
+        <div data-r="" style="flex:1.2 1 240px;position:relative;padding:clamp(24px,3vw,36px) 0 0 clamp(24px,3vw,40px)">
+          <svg viewBox="0 0 300 300" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;clip-path:inset(0 calc((1 - var(--r,1)) * 100%) calc((1 - var(--r,1)) * 100%) 0)"><path d="M300 4 C 120 2, 4 70, 6 300" fill="none" stroke="#1F1A17" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="0.1 9" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1em">
+            <li style="position:relative;padding-left:1.5em;opacity:var(--r,1);transform:translateX(calc((1 - var(--r,1)) * 30px))"><span style="position:absolute;left:0;top:.5em;width:9px;height:9px;border-radius:60% 40% 55% 45%;background:#D6246E"></span>De encontrar <em style="color:#B8195A">beleza</em> onde ela quase passa despercebida.</li>
+            <li style="position:relative;padding-left:1.5em;opacity:var(--r,1);transform:translateX(calc((1 - var(--r,1)) * 60px))"><span style="position:absolute;left:0;top:.5em;width:9px;height:9px;border-radius:60% 40% 55% 45%;background:#8E79D6"></span>De permanecer atentos ao que está vivo e é <em style="color:#B8195A">essencial</em> para nós</li>
+            <li style="position:relative;padding-left:1.5em;opacity:var(--r,1);transform:translateX(calc((1 - var(--r,1)) * 90px))"><span style="position:absolute;left:0;top:.5em;width:9px;height:9px;border-radius:60% 40% 55% 45%;background:#B5C42F"></span>De imaginar <em style="color:#B8195A">outros caminhos</em> quando tudo parece já estar definido.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-scene="banda" aria-labelledby="h-banda" style="position:relative;height:var(--h-banda,220vh)">
+  <div style="position:sticky;top:0;height:100svh;overflow:hidden;display:grid;place-items:center;text-align:center">
+    <div aria-hidden="true" style="position:absolute;left:-4%;right:-4%;top:12%;height:38%;background:url('assets/aquarela/pincelada.png') center/100% 100% no-repeat;clip-path:inset(0 calc((1 - var(--p1,0)) * 100%) 0 0);transform:rotate(-4deg) scaleY(1.6)"></div>
+    <div aria-hidden="true" style="position:absolute;left:-4%;right:-4%;bottom:10%;height:36%;background:url('assets/aquarela/pincelada-lavanda.png') center/100% 100% no-repeat;clip-path:inset(0 0 0 calc((1 - var(--p2,0)) * 100%));transform:rotate(3deg) scaleY(1.6) scaleX(-1)"></div>
+    <div style="position:relative;padding:0 clamp(20px,5vw,72px)">
+      <span aria-hidden="true" style="display:block;font-family:'Ms Madi',cursive;font-size:clamp(120px,18vw,260px);line-height:.75;color:#1F1A17;clip-path:inset(-30% calc((1 - var(--p2,0)) * 100%) -30% 0)">02</span>
+      <h2 id="h-banda" style="margin:.6em 0 0;font-family:'Architects Daughter',cursive;font-weight:400;font-size:clamp(18px,2.4vw,34px);letter-spacing:.14em;text-transform:uppercase;line-height:1.4;text-wrap:balance;opacity:var(--p2,0);transform:translateY(calc((1 - var(--p2,0)) * 40px))">Sentir o mundo &amp; criar com ESMERO</h2>
+      <p style="margin:.3em 0 0;font-style:italic;font-size:clamp(26px,3vw,44px);opacity:var(--p3,0);transform:translateY(calc((1 - var(--p3,0)) * 40px))">maneiras mais belas de estar aqui.</p>
+    </div>
+  </div>
+</section>
+
+<section id="consultoria" aria-labelledby="h-cons" style="padding:clamp(90px,12vw,180px) clamp(20px,5vw,72px);max-width:1360px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(40px,7vw,120px);align-items:flex-start;scroll-margin-top:40px">
+  <div style="flex:1 1 480px;position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.66fr);gap:clamp(18px,2.4vw,34px)">
+    <figure data-r="" data-par="" style="grid-column:1 / 3;position:relative;margin:0">
+      <img src="assets/aquarela/folhagem.png" alt="" style="position:absolute;right:-8%;top:-22%;width:48%;opacity:var(--r,1);transform:translateY(calc(var(--c,0) * 40px)) scale(calc(.5 + .5 * var(--r,1)))">
+      <div style="position:relative;aspect-ratio:16/10;overflow:hidden;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--r,1) * 1.6, 1) * 230%) calc(clamp(0, var(--r,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--r,1) * 1.6, 1) * 230%) calc(clamp(0, var(--r,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/interior-sala.jpg" alt="Sala de estar clara com sofá curvo, planta e luz natural" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--r,1))) blur(calc((1 - var(--r,1)) * 5px * var(--bk,1)));transform:scale(1.15) translateY(calc(var(--c,0) * -5%))"></div>
+      <svg viewBox="0 0 100 62.5" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none"><g data-sd="" filter="url(#ink)" fill="none" stroke="#1F1A17" stroke-width="1.3" stroke-linecap="round"><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" d="M-4 0 H104 M-4 62.5 H104"></path><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" d="M0 -5 V67.5 M100 -5 V67.5"></path></g></svg>
+    </figure>
+    <figure data-r="" data-par="" style="position:relative;margin:0">
+      <img src="assets/aquarela/lavanda.png" alt="" style="position:absolute;left:-18%;bottom:-14%;width:110%;opacity:calc(var(--r,1) * .8);transform:translateY(calc(var(--c,0) * 30px))">
+      <div style="position:relative;aspect-ratio:4/5;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--r,1) * 1.6, 1) * 230%) calc(clamp(0, var(--r,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--r,1) * 1.6, 1) * 230%) calc(clamp(0, var(--r,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/interior-cozinha.jpg" alt="Cozinha compacta com cantinho de refeição e armários em tom vinho" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--r,1))) blur(calc((1 - var(--r,1)) * 5px * var(--bk,1)));transform:translateY(calc(var(--c,0) * -4%)) scale(1.1)"></div>
+    </figure>
+    <figure data-r="" data-par="" style="position:relative;margin:clamp(40px,7vw,110px) 0 0;transform:translateY(calc(var(--c,0) * 40px))">
+      <img src="assets/aquarela/copa.png" alt="" style="position:absolute;left:-30%;top:-20%;width:100%;opacity:calc(var(--r,1) * .55)">
+      <div style="position:relative;aspect-ratio:3/4.4;border-radius:999px 999px 0 0;overflow:hidden;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--r,1) * 1.6, 1) * 230%) calc(clamp(0, var(--r,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--r,1) * 1.6, 1) * 230%) calc(clamp(0, var(--r,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/interior-quarto.jpg" alt="Quarto aconchegante com cama de cabeceira clara, prateleiras de madeira e plantas" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--r,1))) blur(calc((1 - var(--r,1)) * 5px * var(--bk,1)));transform:scale(1.12)"></div>
+      <svg viewBox="0 0 100 146" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none"><g data-sd="" filter="url(#ink)" fill="none" stroke="#1F1A17" stroke-width="1.3" stroke-linecap="round"><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" d="M-4 150 L-4 50 C -4 -14, 104 -14, 104 50 L104 150"></path><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" d="M-10 152 H110"></path></g></svg>
+    </figure>
+  </div>
+  <div data-r="" style="flex:1 1 360px;position:sticky;top:110px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 50px))">
+    <span aria-hidden="true" style="display:block;font-family:'Ms Madi',cursive;font-size:clamp(90px,10vw,150px);line-height:.8;color:#B8195A;margin-bottom:.1em">03</span>
+    <h2 style="margin:0;font-family:'Architects Daughter',cursive;font-weight:400;font-size:clamp(16px,1.5vw,21px);letter-spacing:.12em;text-transform:uppercase;line-height:1.5">O que fazemos para você:</h2>
+    <h3 id="h-cons" style="margin:.5em 0 0;font-weight:400;font-style:italic;font-size:clamp(40px,4.6vw,72px);line-height:.98;letter-spacing:-.015em;text-wrap:balance">Consultoria de Interiores para o bem-viver:</h3>
+    <p style="margin:1.1em 0 0;font-size:clamp(22px,2vw,28px);line-height:1.3;max-width:26em">Para quando a casa, o escritório ou a sala de atendimento já não acompanha tão bem a vida que você leva.</p>
+    <p style="margin:1.2em 0 1em;max-width:30em">Uma leitura cuidadosa do seu espaço e momento de vida para perceber, no que já existe, novas possibilidades de acolher sua rotina e aquilo que importa para você.</p>
+    <p style="margin:0;max-width:30em">Construímos diretrizes para mudanças singelas de composição, organização e atmosfera: sem obras, pensadas com esmero e dentro da sua realidade.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:18px 26px;align-items:center;margin-top:1.8em">
+      <span style="position:relative;padding:8px 16px;font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.12em;text-transform:uppercase">Atendimento 100% online.<svg viewBox="0 0 200 50" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible"><path d="M100 3 C 160 2, 198 12, 197 26 C 196 42, 150 48, 98 47 C 40 46, 3 40, 4 24 C 5 10, 50 2, 112 6" fill="none" stroke="#8E79D6" stroke-width="1.3" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg></span>
+      <a href="{{ links.consultoria }}" target="_blank" rel="noopener" data-paint="" style="position:relative;display:inline-flex;align-items:center;gap:12px;padding:14px 24px;font-family:'Architects Daughter',cursive;font-size:14px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:#1F1A17;isolation:isolate;transition:letter-spacing .8s cubic-bezier(.2,.7,.2,1)" style-hover="letter-spacing:.16em;color:#1F1A17"><span aria-hidden="true" style="position:absolute;inset:-10px -16px;z-index:-1;pointer-events:none;opacity:var(--fade,1);background-image:url('assets/aquarela/pincelada-lavanda.png'),url('assets/aquarela/pincelada-lavanda.png'),url('assets/aquarela/buganvilia-2.png');background-repeat:no-repeat;background-position:left 46%,right 64%,78% 40%;background-size:calc(clamp(0, var(--paint,0) * 1.35, 1) * 108%) 330%,calc(clamp(0, (var(--paint,0) - .28) * 1.7, 1) * 92%) 240%,calc(clamp(0, (var(--paint,0) - .55) * 2.2, 1) * 46%) 130%"></span>Quero saber mais<svg viewBox="0 0 30 12" width="26" height="11" aria-hidden="true" style="overflow:visible"><path d="M1 6 C 9 5, 18 7, 28 6 M22 1 C 24 3, 26 5, 28 6 C 26 7, 24 9, 22 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg><svg viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:-3px;width:calc(100% + 6px);height:calc(100% + 6px);overflow:visible;pointer-events:none"><path d="M14 6 C 90 2, 210 3, 288 8 C 298 22, 297 42, 286 54 C 200 58, 96 57, 12 53 C 2 40, 3 18, 16 4" fill="none" stroke="#1F1A17" stroke-width="1.4" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg></a>
+    </div>
+  </div>
+</section>
+
+<section id="licoes" aria-labelledby="h-lic" style="padding:clamp(60px,8vw,120px) clamp(20px,5vw,72px) clamp(30px,4vw,50px);scroll-margin-top:40px">
+  <div style="max-width:1300px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,90px);align-items:flex-end">
+    <div data-r="" style="flex:1 1 440px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 50px))">
+      <p style="margin:0 0 1.2em;font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.14em;text-transform:uppercase">ESMERO por Juliana Corrêa</p>
+      <h2 id="h-lic" style="margin:0;font-weight:400;font-size:clamp(58px,9vw,150px);line-height:.88;letter-spacing:-.025em">Lições de <em style="font-weight:300;color:#B8195A">uma flor</em></h2>
+      <p style="margin:.7em 0 0;font-style:italic;font-size:clamp(23px,2.3vw,32px);line-height:1.25">Se pudéssemos ouvi-las, o que elas teriam a nos dizer?</p>
+    </div>
+    <div data-r="" style="flex:1 1 340px;max-width:34em;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 40px))">
+      <p style="margin:0 0 .9em">As flores sempre despertaram algo em nós.</p>
+      <p style="margin:0 0 .9em">Mas o que exatamente acontece quando ficamos diante delas?</p>
+      <p style="margin:0 0 .9em">Talvez a resposta passe pelos sentidos, pelas emoções, pela memória, pela atenção, pelo cuidado e também pela nossa capacidade de encontrar significado e encantamento nas coisas simples.</p>
+      <p style="margin:0 0 .9em">Em outras palavras: <b>o que uma flor pode revelar sobre a nossa própria interioridade?</b></p>
+      <p style="margin:0">Talvez refletir sobre essa pergunta seja também uma forma de nos aproximarmos de um viver com mais Esmero.</p>
+    </div>
+  </div>
+</section>
+
+<section data-scene="track" ref="{{ trackRef }}" aria-label="Lições de uma flor" style="position:relative;height:var(--h-track,640vh)">
+  <div style="position:sticky;top:0;height:100svh;overflow:hidden;display:flex;flex-direction:column;box-sizing:border-box;padding-top:80px">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 clamp(20px,5vw,72px) 10px">
+      <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+        <span style="font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.14em;text-transform:uppercase">Lições de uma flor:</span>
+        <span style="font-style:italic;font-size:24px;color:#B8195A">Número <span data-count="">01</span></span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <sc-if value="{{ notNarrow }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;gap:7px;align-items:center">
+            <sc-for list="{{ ten }}" as="i" hint-placeholder-count="10"><span data-ind="" style="width:8px;height:8px;border-radius:60% 40% 55% 45%;background:#1F1A17;opacity:.25;transition:all .5s"></span></sc-for>
+          </div>
+        </sc-if>
+        <button type="button" onClick="{{ prev }}" aria-label="Lição anterior" style="position:relative;width:50px;height:50px;border:0;border-radius:50%;background:url('assets/aquarela/lavanda.png') center/0% 0% no-repeat;color:#1F1A17;cursor:pointer;display:grid;place-items:center;transition:background-size .7s" style-hover="background-size:160% 160%"><svg viewBox="0 0 50 50" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible"><path d="M25 2 C 40 2, 48 12, 48 25 C 48 40, 38 48, 24 48 C 10 48, 2 38, 2 25 C 2 12, 12 3, 28 3" fill="none" stroke="#1F1A17" stroke-width="1.3" filter="url(#ink)"></path></svg><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M15 5 C 12 8, 10 10, 8 12 C 10 14, 12 16, 15 19"></path></svg></button>
+        <button type="button" onClick="{{ next }}" aria-label="Próxima lição" style="position:relative;width:50px;height:50px;border:0;border-radius:50%;background:url('assets/aquarela/pincelada.png') center/0% 0% no-repeat;color:#1F1A17;cursor:pointer;display:grid;place-items:center;transition:background-size .7s" style-hover="background-size:300% 600%"><svg viewBox="0 0 50 50" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible"><path d="M25 2 C 40 2, 48 12, 48 25 C 48 40, 38 48, 24 48 C 10 48, 2 38, 2 25 C 2 12, 12 3, 28 3" fill="none" stroke="#1F1A17" stroke-width="1.3" filter="url(#ink)"></path></svg><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 5 C 12 8, 14 10, 16 12 C 14 14, 12 16, 9 19"></path></svg></button>
+      </div>
+    </div>
+    <div data-track="" style="flex:1;display:flex;gap:clamp(22px,3vw,44px);align-items:center;padding:0 clamp(20px,5vw,72px);will-change:transform">
+      <article data-card="" style="flex:none;position:relative;width:clamp(290px,30vw,440px);height:min(calc(100vh - 180px),730px)">
+          <div style="position:absolute;inset:0;-webkit-mask-image:url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-3.png');-webkit-mask-size:125% 118%;mask-size:125% 118%;-webkit-mask-position:center 30%;mask-position:center 30%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat"><div style="position:absolute;inset:0;overflow:hidden;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/licao-01.jpg" alt="Anthuriums rosados em close" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--w,1))) blur(calc((1 - var(--w,1)) * 5px * var(--bk,1)));transform:scale(1.14)"></div></div>
+          <div style="position:absolute;left:16px;right:16px;bottom:10px;background:#F3EDE2 url('assets/aquarela/papel.png');padding:18px 20px 20px;box-shadow:0 14px 30px rgba(31,26,23,.16);transform:rotate(-1.2deg)">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);overflow:visible;pointer-events:none"><path d="M1 2 L99 1 L98 99 L2 98 Z" fill="none" stroke="#1F1A17" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+            <div style="display:flex;justify-content:space-between;font-family:'Architects Daughter',cursive;font-size:12px;letter-spacing:.08em;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 01</span></div>
+            <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#B8195A;font-style:italic;font-weight:400">01.</span> Sobre corpo</h3>
+            <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">Talvez as flores nos lembrem de algo simples: <b>o corpo percebe antes mesmo de encontrarmos palavras para o que sentimos.</b> Cores, formas e fragrâncias estimulam nossos sentidos, e o contato com as flores pode favorecer estados de relaxamento, apoiar a recuperação da atenção e contribuir para a regulação e redução do estresse.</p>
+            
+          </div>
+        </article>
+        <article data-card="" style="flex:none;position:relative;width:clamp(290px,30vw,440px);height:min(calc(100vh - 180px),730px)">
+          <div style="position:absolute;inset:0;-webkit-mask-image:url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-3.png');-webkit-mask-size:125% 118%;mask-size:125% 118%;-webkit-mask-position:center 30%;mask-position:center 30%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat"><div style="position:absolute;inset:0;overflow:hidden;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/licao-02.jpg" alt="Íris roxas em close" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--w,1))) blur(calc((1 - var(--w,1)) * 5px * var(--bk,1)));transform:scale(1.14)"></div></div>
+          <div style="position:absolute;left:16px;right:16px;bottom:10px;background:#F3EDE2 url('assets/aquarela/papel.png');padding:18px 20px 20px;box-shadow:0 14px 30px rgba(31,26,23,.16);transform:rotate(0.8deg)">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);overflow:visible;pointer-events:none"><path d="M1 2 L99 1 L98 99 L2 98 Z" fill="none" stroke="#1F1A17" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+            <div style="display:flex;justify-content:space-between;font-family:'Architects Daughter',cursive;font-size:12px;letter-spacing:.08em;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 02</span></div>
+            <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#B8195A;font-style:italic;font-weight:400">02.</span> Sobre atenção</h3>
+            <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">Talvez então nos dissessem: <i>“preste atenção”</i>. Porque uma flor pode interromper, ainda que por um instante, o fluxo automático do cotidiano. Ao nos demorarmos diante delas, abrimos espaço para a contemplação e a apreciação. E aquilo que recebe nossa atenção passa a ocupar outro lugar em nossa experiência.</p>
+            
+          </div>
+        </article>
+        <article data-card="" style="flex:none;position:relative;width:clamp(290px,30vw,440px);height:min(calc(100vh - 180px),730px)">
+          <div style="position:absolute;inset:0;-webkit-mask-image:url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-3.png');-webkit-mask-size:125% 118%;mask-size:125% 118%;-webkit-mask-position:center 30%;mask-position:center 30%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat"><div style="position:absolute;inset:0;overflow:hidden;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/licao-03.jpg" alt="Orquídeas magenta em close" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--w,1))) blur(calc((1 - var(--w,1)) * 5px * var(--bk,1)));transform:scale(1.14)"></div></div>
+          <div style="position:absolute;left:16px;right:16px;bottom:10px;background:#F3EDE2 url('assets/aquarela/papel.png');padding:18px 20px 20px;box-shadow:0 14px 30px rgba(31,26,23,.16);transform:rotate(-0.6deg)">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);overflow:visible;pointer-events:none"><path d="M1 2 L99 1 L98 99 L2 98 Z" fill="none" stroke="#1F1A17" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+            <div style="display:flex;justify-content:space-between;font-family:'Architects Daughter',cursive;font-size:12px;letter-spacing:.08em;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 03</span></div>
+            <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#B8195A;font-style:italic;font-weight:400">03.</span> Sobre emoções</h3>
+            <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">Talvez nos lembrem também que não sentimos as coisas do mesmo jeito. Uma flor pode provocar diferentes respostas emocionais e afetivas: despertar alegria em alguém, nostalgia, tranquilidade ou estranhamento em outro. <b>Porque aquilo que encontramos fora também encontra algo que existe apenas dentro da gente.</b></p>
+            
+          </div>
+        </article>
+        <article data-card="" style="flex:none;position:relative;width:clamp(290px,30vw,440px);height:min(calc(100vh - 180px),730px)">
+          <div style="position:absolute;inset:0;-webkit-mask-image:url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-3.png');-webkit-mask-size:125% 118%;mask-size:125% 118%;-webkit-mask-position:center 30%;mask-position:center 30%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat"><div style="position:absolute;inset:0;overflow:hidden;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/licao-04.jpg" alt="Estrelítzias laranja em close" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--w,1))) blur(calc((1 - var(--w,1)) * 5px * var(--bk,1)));transform:scale(1.14)"></div></div>
+          <div style="position:absolute;left:16px;right:16px;bottom:10px;background:#F3EDE2 url('assets/aquarela/papel.png');padding:18px 20px 20px;box-shadow:0 14px 30px rgba(31,26,23,.16);transform:rotate(1.1deg)">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);overflow:visible;pointer-events:none"><path d="M1 2 L99 1 L98 99 L2 98 Z" fill="none" stroke="#1F1A17" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+            <div style="display:flex;justify-content:space-between;font-family:'Architects Daughter',cursive;font-size:12px;letter-spacing:.08em;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 04</span></div>
+            <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#B8195A;font-style:italic;font-weight:400">04.</span> Sobre memória</h3>
+            <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">E talvez perguntassem: <i>“O que você associa a mim?”</i> Uma espécie. Uma cor. Um perfume. Podem se tornar pistas para a memória, trazendo à tona pessoas, lugares e momentos já vividos. Às vezes, basta um simples aroma para nos transportar de volta a outro tempo.</p>
+            
+          </div>
+        </article>
+        <article data-card="" style="flex:none;position:relative;width:clamp(290px,30vw,440px);height:min(calc(100vh - 180px),730px)">
+          <div style="position:absolute;inset:0;-webkit-mask-image:url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-3.png');-webkit-mask-size:125% 118%;mask-size:125% 118%;-webkit-mask-position:center 30%;mask-position:center 30%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat"><div style="position:absolute;inset:0;overflow:hidden;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/licao-05.jpg" alt="Hortênsias azuis em close" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--w,1))) blur(calc((1 - var(--w,1)) * 5px * var(--bk,1)));transform:scale(1.14)"></div></div>
+          <div style="position:absolute;left:16px;right:16px;bottom:10px;background:#F3EDE2 url('assets/aquarela/papel.png');padding:18px 20px 20px;box-shadow:0 14px 30px rgba(31,26,23,.16);transform:rotate(-0.9deg)">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);overflow:visible;pointer-events:none"><path d="M1 2 L99 1 L98 99 L2 98 Z" fill="none" stroke="#1F1A17" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+            <div style="display:flex;justify-content:space-between;font-family:'Architects Daughter',cursive;font-size:12px;letter-spacing:.08em;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 05</span></div>
+            <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#B8195A;font-style:italic;font-weight:400">05.</span> Sobre simbolismos</h3>
+            <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">Flores atravessam culturas e épocas como símbolos de amor, celebração, boa sorte, renovação. Nós damos sentidos ao mundo e esses sentidos também participam da maneira como nos relacionamos com esse mundo.</p>
+            
+          </div>
+        </article>
+        <article data-card="" style="flex:none;position:relative;width:clamp(290px,30vw,440px);height:min(calc(100vh - 180px),730px)">
+          <div style="position:absolute;inset:0;-webkit-mask-image:url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-3.png');-webkit-mask-size:125% 118%;mask-size:125% 118%;-webkit-mask-position:center 30%;mask-position:center 30%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat"><div style="position:absolute;inset:0;overflow:hidden;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/licao-06.jpg" alt="Margaridas amarelas em close" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--w,1))) blur(calc((1 - var(--w,1)) * 5px * var(--bk,1)));transform:scale(1.14)"></div></div>
+          <div style="position:absolute;left:16px;right:16px;bottom:10px;background:#F3EDE2 url('assets/aquarela/papel.png');padding:18px 20px 20px;box-shadow:0 14px 30px rgba(31,26,23,.16);transform:rotate(0.7deg)">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);overflow:visible;pointer-events:none"><path d="M1 2 L99 1 L98 99 L2 98 Z" fill="none" stroke="#1F1A17" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+            <div style="display:flex;justify-content:space-between;font-family:'Architects Daughter',cursive;font-size:12px;letter-spacing:.08em;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 06</span></div>
+            <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#B8195A;font-style:italic;font-weight:400">06.</span> Sobre cuidado</h3>
+            <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">Talvez dissessem: <i>“Olhe para o que me faz florescer.”</i> Luz. Água. Espaço. Tempo. Cuidado. E então a pergunta poderia voltar para nós: <b>de que condições precisamos para viver bem?</b></p>
+            
+          </div>
+        </article>
+        <article data-card="" style="flex:none;position:relative;width:clamp(290px,30vw,440px);height:min(calc(100vh - 180px),730px)">
+          <div style="position:absolute;inset:0;-webkit-mask-image:url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-3.png');-webkit-mask-size:125% 118%;mask-size:125% 118%;-webkit-mask-position:center 30%;mask-position:center 30%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat"><div style="position:absolute;inset:0;overflow:hidden;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/licao-07.jpg" alt="Tulipas laranja em close" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--w,1))) blur(calc((1 - var(--w,1)) * 5px * var(--bk,1)));transform:scale(1.14)"></div></div>
+          <div style="position:absolute;left:16px;right:16px;bottom:10px;background:#F3EDE2 url('assets/aquarela/papel.png');padding:18px 20px 20px;box-shadow:0 14px 30px rgba(31,26,23,.16);transform:rotate(-1.1deg)">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);overflow:visible;pointer-events:none"><path d="M1 2 L99 1 L98 99 L2 98 Z" fill="none" stroke="#1F1A17" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+            <div style="display:flex;justify-content:space-between;font-family:'Architects Daughter',cursive;font-size:12px;letter-spacing:.08em;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 07</span></div>
+            <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#B8195A;font-style:italic;font-weight:400">07.</span> Sobre impermanência</h3>
+            <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">Mas uma flor também poderia nos dizer: <i>“Eu não vou permanecer assim para sempre.”</i> Ela muda. Abre-se, transforma-se, murcha. E talvez nos ensine que <b>a beleza de alguma coisa não depende de sua permanência.</b></p>
+            
+          </div>
+        </article>
+        <article data-card="" style="flex:none;position:relative;width:clamp(290px,30vw,440px);height:min(calc(100vh - 180px),730px)">
+          <div style="position:absolute;inset:0;-webkit-mask-image:url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-3.png');-webkit-mask-size:125% 118%;mask-size:125% 118%;-webkit-mask-position:center 30%;mask-position:center 30%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat"><div style="position:absolute;inset:0;overflow:hidden;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/licao-08.jpg" alt="Gardênias brancas em close" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--w,1))) blur(calc((1 - var(--w,1)) * 5px * var(--bk,1)));transform:scale(1.14)"></div></div>
+          <div style="position:absolute;left:16px;right:16px;bottom:10px;background:#F3EDE2 url('assets/aquarela/papel.png');padding:18px 20px 20px;box-shadow:0 14px 30px rgba(31,26,23,.16);transform:rotate(0.9deg)">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);overflow:visible;pointer-events:none"><path d="M1 2 L99 1 L98 99 L2 98 Z" fill="none" stroke="#1F1A17" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+            <div style="display:flex;justify-content:space-between;font-family:'Architects Daughter',cursive;font-size:12px;letter-spacing:.08em;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 08</span></div>
+            <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#B8195A;font-style:italic;font-weight:400">08.</span> Sobre encantamento</h3>
+            <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">E há ainda aquilo que talvez seja mais difícil de explicar: <b>o encantamento.</b> Por que uma flor pode nos maravilhar? Por que paramos para olhar algo que não precisa fazer nada por nós? Será porque ainda exista em nós uma capacidade preciosa de nos deixar tocar pela beleza que nos cerca?</p>
+            
+          </div>
+        </article>
+        <article data-card="" style="flex:none;position:relative;width:clamp(290px,30vw,440px);height:min(calc(100vh - 180px),730px)">
+          <div style="position:absolute;inset:0;-webkit-mask-image:url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-3.png');-webkit-mask-size:125% 118%;mask-size:125% 118%;-webkit-mask-position:center 30%;mask-position:center 30%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat"><div style="position:absolute;inset:0;overflow:hidden;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/licao-09.jpg" alt="Dálias vinho em close" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--w,1))) blur(calc((1 - var(--w,1)) * 5px * var(--bk,1)));transform:scale(1.14)"></div></div>
+          <div style="position:absolute;left:16px;right:16px;bottom:10px;background:#F3EDE2 url('assets/aquarela/papel.png');padding:18px 20px 20px;box-shadow:0 14px 30px rgba(31,26,23,.16);transform:rotate(-0.7deg)">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);overflow:visible;pointer-events:none"><path d="M1 2 L99 1 L98 99 L2 98 Z" fill="none" stroke="#1F1A17" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+            <div style="display:flex;justify-content:space-between;font-family:'Architects Daughter',cursive;font-size:12px;letter-spacing:.08em;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 09</span></div>
+            <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#B8195A;font-style:italic;font-weight:400">09.</span> Sobre interioridade</h3>
+            <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">E então talvez a pergunta inicial volte: <b>o que as flores têm a ver com a nossa própria interioridade?</b> Talvez tudo aquilo que sentimos diante delas, diga um pouco sobre quem somos. Sobre o que nos toca. Sobre onde está nossa atenção. Sobre o que lembramos. Sobre o que valorizamos. Sobre o que escolhemos cuidar.</p>
+            
+          </div>
+        </article>
+        <article data-card="" style="flex:none;position:relative;width:clamp(290px,30vw,440px);height:min(calc(100vh - 180px),730px)">
+          <div style="position:absolute;inset:0;-webkit-mask-image:url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-3.png');-webkit-mask-size:125% 118%;mask-size:125% 118%;-webkit-mask-position:center 30%;mask-position:center 30%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat"><div style="position:absolute;inset:0;overflow:hidden;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--w,1) * 1.6, 1) * 230%) calc(clamp(0, var(--w,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--w,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--w,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/licao-10.jpg" alt="Mistura de rosas, lírios, orquídeas, íris e hortênsias" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--w,1))) blur(calc((1 - var(--w,1)) * 5px * var(--bk,1)));transform:scale(1.14)"></div></div>
+          <div style="position:absolute;left:16px;right:16px;bottom:10px;background:#F3EDE2 url('assets/aquarela/papel.png');padding:18px 20px 20px;box-shadow:0 14px 30px rgba(31,26,23,.16);transform:rotate(1deg)">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:5px;width:calc(100% - 10px);height:calc(100% - 10px);overflow:visible;pointer-events:none"><path d="M1 2 L99 1 L98 99 L2 98 Z" fill="none" stroke="#1F1A17" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+            <div style="display:flex;justify-content:space-between;font-family:'Architects Daughter',cursive;font-size:12px;letter-spacing:.08em;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 10</span></div>
+            
+            <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">Talvez as flores nos recordem, sobretudo, que não precisamos escolher entre compreender e sentir. Acolher todas as nossas partes e permitir que o mundo nos veja por inteiro também faz parte das lições de uma flor. <i>Talvez seja por isso</i> que valha tanto a pena parar para ouvi-las de vez em quando.</p>
+            <span style="display:block;text-align:right;margin-top:.3em;font-family:'Ms Madi',cursive;font-size:34px;line-height:1;color:#B8195A">Por Juliana Corrêa</span>
+          </div>
+        </article>
+      <div aria-hidden="true" style="flex:none;width:clamp(4px,3vw,40px);height:1px"></div>
+    </div>
+  </div>
+</section>
+
+<section id="juliana" aria-labelledby="h-jul" style="position:relative;z-index:3;background:#1F4E57;color:#F3EDE2;padding:clamp(100px,12vw,180px) clamp(20px,5vw,72px);margin-top:80px;scroll-margin-top:40px">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:0;top:-70px;width:100%;height:80px;overflow:visible"><path d="M0 80 L0 44 C 220 18, 460 62, 760 36 S 1260 16, 1440 46 L1440 80 Z" fill="#1F4E57" filter="url(#rough)"></path></svg>
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:0;bottom:-70px;width:100%;height:80px;overflow:visible"><path d="M0 0 L0 30 C 260 60, 520 14, 800 40 S 1240 64, 1440 32 L1440 0 Z" fill="#1F4E57" filter="url(#rough)"></path></svg>
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(40px,7vw,120px);align-items:center">
+    <figure data-r="" style="flex:0 1 420px;position:relative;margin:0">
+      <div style="position:relative;aspect-ratio:3/4;border-radius:999px 999px 0 0;overflow:hidden;-webkit-mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');mask-image:url('assets/aquarela/mascara-1.png'),url('assets/aquarela/mascara-2.png'),url('assets/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:22% 28%,78% 52%,40% 88%;mask-position:22% 28%,78% 52%,40% 88%;-webkit-mask-size:calc(clamp(0, var(--r,1) * 1.6, 1) * 230%) calc(clamp(0, var(--r,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%);mask-size:calc(clamp(0, var(--r,1) * 1.6, 1) * 230%) calc(clamp(0, var(--r,1) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--r,1) - .2) * 1.6, 1) * 230%),calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--r,1) - .38) * 1.65, 1) * 240%)"><img src="site/assets/juliana.jpg" alt="Juliana Corrêa sorrindo, abraçada a um buquê de girassóis e flores rosa" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(calc(.35 + .65 * var(--r,1))) blur(calc((1 - var(--r,1)) * 5px * var(--bk,1)));transform:scale(calc(1.2 - .2 * var(--r,1)))"></div>
+      <svg viewBox="0 0 100 133" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none"><g data-sd="" filter="url(#ink)" fill="none" stroke="#F3EDE2" stroke-width="1.3" stroke-linecap="round"><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" d="M-5 140 L-5 50 C -5 -18, 105 -18, 105 50 L105 140"></path><path pathLength="1" stroke-dasharray="1" vector-effect="non-scaling-stroke" d="M-12 138 H112"></path></g></svg>
+      <img src="assets/aquarela/folhagem.png" alt="" style="position:absolute;left:-26%;top:-12%;width:76%;opacity:var(--r,1);transform:scale(calc(.4 + .6 * var(--r,1)));transform-origin:70% 70%">
+    </figure>
+    <div style="flex:1 1 360px">
+      <p data-r="" style="margin:0;font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#F2C6B4;opacity:var(--r,1)">Quem está por trás:</p>
+      <h2 id="h-jul" data-r="" style="margin:.15em 0 0;font-family:'Ms Madi',cursive;font-weight:400;font-size:clamp(68px,9vw,136px);line-height:1.1;clip-path:inset(-20% calc((1 - var(--r,1)) * 100%) -20% 0)">Juliana Corrêa</h2>
+      <p data-r="" style="margin:1em 0 0;max-width:32em;font-size:clamp(20px,1.7vw,24px);opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 40px))"><b>Advogada e designer de interiores,</b> Juliana encontrou na criação um fazer mais sensível e coerente com o que há tempos pedia voz e espaço dentro dela mesma. Foi assim, <i style="color:#F2C6B4">olhando pra dentro</i>, que idealizou a ESMERO: um espaço de expressão, experimentação e cultivo, onde criatividade e esmero se colocam a favor do nosso próprio florescer.</p>
+      <p style="margin:1.4em 0 0;font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.14em;opacity:.85">ABD 39-093</p>
+    </div>
+  </div>
+</section>
+
+<section aria-label="Contato" style="padding:clamp(140px,15vw,220px) clamp(20px,5vw,72px) 0;max-width:1360px;margin:0 auto">
+  <p data-r="" data-words="" style="position:relative;z-index:1;margin:0;font-size:clamp(46px,7.4vw,124px);line-height:.95;letter-spacing:-.022em;max-width:12.5em;text-wrap:balance"><span data-w="">Quando</span> <span data-w="">o</span> <span data-w="">interior</span> <span data-w="">faz</span> <span data-w="">sentido,</span> <span data-w="">o</span> <span data-w="">bem</span> <span data-w="">viver</span> <span data-w="">ganha</span> <span data-w="">espaço</span> <span data-w="">para</span> <em data-w="" style="color:#B8195A;font-weight:300">florescer.</em></p>
+  <div data-r="" style="position:relative;height:calc(min(64vw,560px) * 1.25 + 100px);margin-top:clamp(20px,3vw,40px)">
+    <div style="position:absolute;left:50%;bottom:80px;width:min(64vw,560px);aspect-ratio:1200/1500;transform:translateX(-36%)">
+      <img src="assets/aquarela/copa.png" alt="" style="position:absolute;left:0;top:0;width:100%;opacity:var(--r,1);transform:scale(calc(.35 + .65 * var(--r,1)));transform-origin:50% 100%">
+      <svg viewBox="0 0 1200 1500" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible"><g data-sd="" filter="url(#ink)" fill="none" stroke="#1F1A17" stroke-width="5" stroke-linecap="round"><path pathLength="1" stroke-dasharray="1" d="M600 1500 C 596 1300, 610 1100, 590 900 C 580 800, 600 720, 640 640"></path><path pathLength="1" stroke-dasharray="1" stroke-width="3" d="M594 1000 C 520 920, 440 880, 380 840 M600 900 C 680 840, 740 800, 820 780 M590 820 C 560 760, 520 720, 470 690"></path></g></svg>
+    </div>
+    <svg viewBox="0 0 1440 20" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:-5vw;right:-5vw;bottom:72px;width:110vw;max-width:none;height:20px;overflow:visible"><g data-sd="" filter="url(#ink)" fill="none" stroke-linecap="round"><path pathLength="1" stroke-dasharray="1" stroke="#E7B422" stroke-width="6" vector-effect="non-scaling-stroke" d="M0 10 C 300 8, 700 12, 1000 9 S 1300 11, 1440 10"></path></g></svg>
+    <img src="assets/aquarela/copa.png" alt="" style="position:absolute;left:50%;top:calc(100% - 66px);width:min(64vw,560px);height:60px;object-fit:fill;transform:translateX(-36%) scaleY(-1);opacity:calc(var(--r,1) * .12);filter:blur(4px)">
+  </div>
+  <div data-r="" style="display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;justify-content:center;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 30px))">
+    <a href="{{ links.semana }}" target="_blank" rel="noopener" data-paint="" style="position:relative;display:inline-flex;align-items:center;gap:12px;padding:15px 26px;font-family:'Architects Daughter',cursive;font-size:14px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:#1F1A17;isolation:isolate;transition:letter-spacing .8s cubic-bezier(.2,.7,.2,1)" style-hover="letter-spacing:.16em;color:#1F1A17"><span aria-hidden="true" style="position:absolute;inset:-10px -16px;z-index:-1;pointer-events:none;opacity:var(--fade,1);background-image:url('assets/aquarela/pincelada.png'),url('assets/aquarela/pincelada.png'),url('assets/aquarela/lavanda.png');background-repeat:no-repeat;background-position:left 46%,right 64%,78% 40%;background-size:calc(clamp(0, var(--paint,0) * 1.35, 1) * 108%) 330%,calc(clamp(0, (var(--paint,0) - .28) * 1.7, 1) * 92%) 240%,calc(clamp(0, (var(--paint,0) - .55) * 2.2, 1) * 46%) 130%"></span>Quero meu arranjo da semana<svg viewBox="0 0 30 12" width="26" height="11" aria-hidden="true" style="overflow:visible"><path d="M1 6 C 9 5, 18 7, 28 6 M22 1 C 24 3, 26 5, 28 6 C 26 7, 24 9, 22 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path></svg><svg viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:-3px;width:calc(100% + 6px);height:calc(100% + 6px);overflow:visible;pointer-events:none"><path d="M14 6 C 90 2, 210 3, 288 8 C 298 22, 297 42, 286 54 C 200 58, 96 57, 12 53 C 2 40, 3 18, 16 4" fill="none" stroke="#1F1A17" stroke-width="1.4" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg></a>
+    <a href="mailto:quantoesmero@gmail.com" style="text-decoration:none;font-size:21px">quantoesmero@gmail.com</a>
+    <a href="https://www.instagram.com/porjulianacorrea" target="_blank" rel="noopener" style="text-decoration:none;font-size:21px">@porjulianacorrea</a>
+  </div>
+  <footer style="margin-top:clamp(70px,9vw,120px);padding:clamp(28px,4vw,44px) 0 48px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;position:relative">
+    <svg viewBox="0 0 1440 8" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:0;right:0;top:0;width:100%;height:8px;overflow:visible"><path d="M0 4 C 300 2, 700 6, 1000 3 S 1300 5, 1440 3" fill="none" stroke="#1F1A17" stroke-width="1.2" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+    <a href="#topo" aria-label="Voltar ao início" style="display:flex;align-items:center;gap:18px;text-decoration:none;color:#1F1A17">
+      <span style="font-family:'Ms Madi',cursive;font-size:clamp(40px,4.8vw,64px);line-height:1;white-space:nowrap;color:#1F1A17">Por Juliana Corrêa</span>
+      <span style="width:1.5px;height:clamp(36px,4vw,54px);background:#1F1A17;flex:none"></span>
+      <span style="font-weight:700;letter-spacing:.02em;font-size:clamp(28px,3.2vw,44px)">ESMERO</span>
+    </a>
+    <small style="font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#5A514A">Projeto experimental em construção</small>
+  </footer>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;whatsapp&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Pedidos&quot;},&quot;petalas&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Movimento&quot;},&quot;movimento&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;fluido&quot;,&quot;sereno&quot;],&quot;default&quot;:&quot;fluido&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Movimento&quot;}}">
+class Component extends DCLogic {
+  state = { w: typeof window !== 'undefined' ? window.innerWidth : 1440 };
+  rootRef = React.createRef();
+  trackRef = React.createRef();
+
+  componentDidMount() {
+    this.cur = new WeakMap(); this.curC = new WeakMap();
+    this.reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.onResize = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this.onResize);
+    this.setState({ ready: true });
+    this.touch = window.matchMedia && matchMedia('(hover: none)').matches;
+    this.onLayout = () => this.layout(); window.addEventListener('resize', this.onLayout); window.addEventListener('orientationchange', this.onLayout);
+    this.layout();
+    this.collect(); this.intro();
+    if (this.touch && 'IntersectionObserver' in window) {
+      this.io = new IntersectionObserver(es => es.forEach(e => this.paintTo(e.target, e.isIntersecting ? 1 : 0)), { threshold: 0.9 });
+      this.rootRef.current.querySelectorAll('[data-paint]:not([data-fab])').forEach(b => this.io.observe(b));
+    }
+    const loop = () => { try { this.tick(); } catch (e) {} this.raf = requestAnimationFrame(loop); };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentDidUpdate() { this.collect(); }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); window.removeEventListener('resize', this.onResize); window.removeEventListener('resize', this.onLayout); window.removeEventListener('orientationchange', this.onLayout); if (this.io) this.io.disconnect(); }
+
+  layout() {
+    const r = this.rootRef.current; if (!r) return;
+    const vw = window.innerWidth, vh = window.innerHeight, portrait = vh > vw * 1.05, phone = vw <= 560, tablet = vw > 560 && vw <= 1100;
+    const set = (k, v) => r.style.setProperty(k, v);
+    set('--h-hero', phone ? '320vh' : tablet ? '380vh' : '430vh');
+    set('--h-perg', phone ? '200vh' : '260vh');
+    set('--h-banda', phone ? '160vh' : '200vh');
+    set('--h-track', phone ? '520vh' : tablet ? '560vh' : '640vh');
+    if (portrait) {
+      const dh = Math.min(vh * (phone ? 0.56 : 0.6), vw * 1.12), dw = dh * 7 / 9;
+      set('--dh', dh + 'px'); set('--dr', ((vw - dw) / 2 + (phone ? 0 : vw * 0.04)) + 'px'); set('--db', '0px');
+    } else {
+      set('--dh', Math.min(vh, vw * 1.18) + 'px'); set('--dr', 'clamp(-30px,2vw,60px)'); set('--db', '0px');
+    }
+    set('--balc-o', portrait ? '.55' : '.95');
+    set('--agua-h', vw < 820 ? 'calc(100% - 30px)' : '220px');
+    const low = this.touch || vw < 820 || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+    set('--bk', low ? '0' : '1');
+    this.low = low;
+  }
+
+  collect() {
+    const r = this.rootRef.current; if (!r) return;
+    const q = (s, el) => Array.from((el || r).querySelectorAll(s));
+    const sd = el => q('[data-sd]', el).map(g => ({ paths: q('path', g), a: +(g.dataset.a || 0), b: +(g.dataset.b || 1) }));
+    this.scenes = q('[data-scene]').map(el => ({ el, words: q('[data-words]', el), sd: sd(el) }));
+    this.reveals = q('[data-r]').map(el => ({ el, sd: sd(el) }));
+    this.pars = q('[data-par]'); this.petalEls = q('[data-petal]'); this.cards = q('[data-card]'); this.inds = q('[data-ind]');
+    this.hero = { draw: r.querySelector('[data-draw]'), front: r.querySelector('[data-front]'), photo: r.querySelector('[data-photo]'), L: r.querySelector('[data-pan="l"]'), R: r.querySelector('[data-pan="r"]') };
+  }
+
+  intro() {
+    const r = this.rootRef.current; if (!r) return;
+    const items = [];
+    r.querySelectorAll('[data-drawgroup]').forEach(g => {
+      const base = +g.dataset.delay || 0;
+      g.querySelectorAll('path').forEach((p, i) => items.push({ el: p, k: 'draw', d: base + i * 90, dur: 1500 }));
+    });
+    r.querySelectorAll('[data-intro]').forEach(el => items.push({ el, k: el.dataset.intro, d: +el.dataset.delay || 0, dur: el.dataset.intro === 'bloom' ? 2600 : el.dataset.intro === 'paint' ? 3200 : 1700 }));
+    r.addEventListener('pointerover', e => { const b = e.target.closest && e.target.closest('[data-paint]'); if (b) this.paintTo(b, 1); });
+    r.addEventListener('pointerout', e => { const b = e.target.closest && e.target.closest('[data-paint]'); if (b && !b.contains(e.relatedTarget)) this.paintTo(b, 0); });
+    this.introItems = items; this.t0 = performance.now(); this.introDone = false;
+    this.introTick(this.reduce ? 1e9 : 0);
+  }
+
+  paintTo(b, t) {
+    if (!b._ps) b._ps = { p: 0, f: 1, t: 0 };
+    b._ps.t = t; if (t === 1) b._ps.f = Math.max(b._ps.f, .001);
+    (this.painting || (this.painting = new Set())).add(b);
+  }
+
+  paintTick() {
+    if (!this.painting || !this.painting.size) return;
+    this.painting.forEach(b => {
+      const s = b._ps;
+      if (s.t === 1) { s.p += (1.02 - s.p) * 0.045; if (s.p > 1) s.p = 1; s.f += (1 - s.f) * 0.25; }
+      else { s.f -= 0.035; if (s.f <= 0) { s.f = 1; s.p = 0; this.painting.delete(b); } }
+      b.style.setProperty('--paint', s.p.toFixed(4));
+      b.style.setProperty('--fade', Math.max(0, s.f).toFixed(4));
+    });
+  }
+
+  introTick(elapsed) {
+    const cl = v => v < 0 ? 0 : v > 1 ? 1 : v;
+    const out = t => 1 - Math.pow(1 - t, 3);
+    let done = true;
+    this.introItems.forEach(it => {
+      const t = cl((elapsed - it.d) / it.dur); if (t < 1) done = false;
+      const e = out(t), s = it.el.style;
+      if (it.k === 'draw') { s.strokeDashoffset = (1 - e).toFixed(4); return; }
+      if (it.k === 'paint') { s.setProperty('--w', (1 - Math.pow(1 - t, 2.2)).toFixed(4)); return; }
+      s.opacity = e.toFixed(3);
+      s.filter = e < 1 ? `blur(${((1 - e) * (it.k === 'bloom' ? 16 : 10)).toFixed(1)}px)` : '';
+      if (it.k === 'bloom') s.scale = (0.55 + 0.45 * e).toFixed(4);
+      else s.translate = `0 ${((1 - e) * 0.45).toFixed(3)}em`;
+    });
+    if (done) this.introDone = true;
+  }
+
+  tick() {
+    if (!this.scenes) return;
+    if (this.introItems && !this.introDone) this.introTick(performance.now() - this.t0);
+    this.paintTick();
+    const fab = this.rootRef.current && this.rootRef.current.querySelector('[data-fab]');
+    if (fab) {
+      const nearEnd = window.scrollY + window.innerHeight > document.documentElement.scrollHeight - window.innerHeight * 0.9;
+      const on = window.scrollY > window.innerHeight * 2.6 && !nearEnd;
+      if (fab._on !== on) { fab._on = on; fab.style.opacity = on ? '1' : '0'; fab.style.transform = on ? 'translate(-50%,0)' : 'translate(-50%,140%)'; fab.style.pointerEvents = on ? 'auto' : 'none'; }
+    }
+    const vh = window.innerHeight, vw = window.innerWidth;
+    const k = this.reduce ? 1 : (this.props.movimento === 'sereno' ? 0.055 : 0.1);
+    const cl = v => v < 0 ? 0 : v > 1 ? 1 : v;
+    const ss = t => t * t * (3 - 2 * t);
+    const lerp = (map, el, t) => { let c = map.get(el); c = c === undefined ? t : c + (t - c) * k; if (Math.abs(t - c) > 0.35) c = t + (c - t) * 0.5; if (Math.abs(t - c) < 0.0004) c = t; map.set(el, c); return c; };
+    const drawSd = (list, p) => list.forEach(g => { const gp = cl((p - g.a) / (g.b - g.a)), n = g.paths.length || 1; g.paths.forEach((pa, i) => { const l = cl((gp - (i / n) * 0.6) / 0.4); pa.style.strokeDashoffset = (1 - l).toFixed(4); }); });
+
+    this.scenes.forEach(({ el, words, sd }) => {
+      const b = el.getBoundingClientRect();
+      const p = lerp(this.cur, el, cl(-b.top / Math.max(1, b.height - vh)));
+      const name = el.dataset.scene;
+      if (el._p === p && name !== 'hero') return;
+      el._p = p;
+      el.style.setProperty('--p', p.toFixed(4));
+      for (let i = 0; i < 4; i++) el.style.setProperty('--p' + (i + 1), ss(cl(p * 4 - i)).toFixed(4));
+      words.forEach(w => { const a = +w.dataset.a || 0, z = +w.dataset.b || 1; this.words(w, cl((p - a) / (z - a))); });
+      drawSd(sd, p);
+      if (name === 'hero') this.heroTick(el, p, vw, vh, cl, ss);
+      if (name === 'track') this.track(el, p, vw);
+    });
+
+    this.reveals.forEach(({ el, sd }) => {
+      const b = el.getBoundingClientRect();
+      const p = lerp(this.cur, el, cl((vh - b.top) / (vh * 0.75)));
+      if (el._p === p) return; el._p = p;
+      const e = ss(p);
+      el.style.setProperty('--r', e.toFixed(4));
+      if (sd.length) drawSd(sd, e);
+      if (el.hasAttribute('data-words')) this.words(el, cl((p - 0.1) / 0.8));
+    });
+
+    this.pars.forEach(el => {
+      const b = el.getBoundingClientRect();
+      const c = lerp(this.curC, el, Math.max(-1, Math.min(1, (b.top + b.height / 2 - vh / 2) / vh)));
+      el.style.setProperty('--c', c.toFixed(4));
+    });
+
+    if (this.petalEls.length && !this.reduce) {
+      const t = performance.now() / 1000, sy = window.scrollY, H = vh + 160;
+      this.petalEls.forEach((el, i) => {
+        const s = +el.dataset.s, y = ((+el.dataset.y * H + t * s * 18 + sy * 0.1 * s) % H) - 80;
+        const x = +el.dataset.x * vw + Math.sin(t * 0.35 * s + i) * 50;
+        el.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${(t * 16 * s + i * 47).toFixed(1)}deg) rotateX(${(Math.sin(t * .6 + i) * 70).toFixed(1)}deg)`;
+      });
+    }
+  }
+
+  heroTick(el, p, vw, vh, cl, ss) {
+    const h = this.hero; if (!h.draw || !h.photo) return;
+    const d = h.draw, cw = d.offsetWidth, ch = d.offsetHeight;
+    const ox = d.offsetLeft + 0.5 * cw, oy = d.offsetTop + 0.66667 * ch, dw = 0.28571 * cw, dh = 0.48889 * ch;
+    const z1 = ss(cl(p / 0.3)), open = ss(cl((p - 0.16) / 0.22)), z2 = Math.pow(cl((p - 0.36) / 0.4), 2.2);
+    const cover = Math.max(2 * Math.max(ox, vw - ox) / dw, 2 * Math.max(oy, vh - oy) / dh) * 1.6;
+    const s1 = 1 + 0.35 * z1, s = s1 + z2 * (cover - s1);
+    const sCap = Math.min(s, 3.4);
+    const tr = `scale(${sCap.toFixed(4)})`;
+    const fadeD = 1 - cl((s - 2) / 1.4);
+    d.style.transform = tr; d.style.opacity = fadeD.toFixed(3); d.style.visibility = fadeD <= 0 ? 'hidden' : 'visible';
+    if (h.front) { h.front.style.transform = tr; h.front.style.opacity = fadeD.toFixed(3); h.front.style.visibility = fadeD <= 0 ? 'hidden' : 'visible'; }
+    const sx = (1 - open * 0.9).toFixed(4), sk = (open * 9).toFixed(2);
+    if (h.L) h.L.style.transform = `scaleX(${sx}) skewY(${-sk}deg)`;
+    if (h.R) h.R.style.transform = `scaleX(${sx}) skewY(${sk}deg)`;
+    const W = dw * s - 2, H = dh * s - 2, L = ox - W / 2, T = oy - H / 2;
+    const ph = h.photo;
+    ph.style.left = L + 'px'; ph.style.top = T + 'px'; ph.style.width = W + 'px'; ph.style.height = H + 'px';
+    ph.style.borderRadius = `${W / 2}px ${W / 2}px 0 0`;
+    ph.style.opacity = cl(open * 4).toFixed(3);
+    ph.style.visibility = open <= 0 ? 'hidden' : 'visible';
+    ph.style.setProperty('--w', ss(cl((p - 0.2) / 0.34)).toFixed(4));
+    const img = ph.firstElementChild;
+    if (img) { img.style.left = (-L) + 'px'; img.style.top = (-T) + 'px'; img.style.width = vw + 'px'; img.style.height = vh + 'px'; img.style.transform = `scale(${(1.25 - 0.25 * z2).toFixed(4)})`; }
+    el.style.setProperty('--t', cl(p / 0.14).toFixed(4));
+    el.style.setProperty('--card', ss(cl((p - 0.78) / 0.14)).toFixed(4));
+    el.style.setProperty('--note', ss(cl((p - 0.88) / 0.1)).toFixed(4));
+    if (vw <= 760) {
+      const card = el.querySelector('[data-note]') && el.querySelector('[data-note]').previousElementSibling;
+      if (card) el.style.setProperty('--note-b', (parseFloat(getComputedStyle(card).bottom) + card.offsetHeight + 16) + 'px');
+    } else el.style.removeProperty('--note-b');
+  }
+
+  words(w, p) {
+    const s = w._s || (w._s = Array.from(w.querySelectorAll('[data-w]')));
+    const n = s.length;
+    s.forEach((sp, i) => { sp.style.opacity = (0.16 + 0.84 * Math.max(0, Math.min(1, p * n - i))).toFixed(3); });
+  }
+
+  track(el, p, vw) {
+    const tr = el.querySelector('[data-track]'); if (!tr) return;
+    const max = Math.max(0, tr.scrollWidth - vw);
+    tr.style.transform = `translate3d(${(-p * max).toFixed(1)}px,0,0)`;
+    const n = this.cards.length || 10;
+    this.cards.forEach(c => {
+      const b = c.getBoundingClientRect();
+      const d = Math.max(-1.3, Math.min(1.3, (b.left + b.width / 2 - vw / 2) / vw));
+      c.style.transform = `translateY(${(Math.sin(d * Math.PI * 0.9) * -34 + Math.abs(d) * 18).toFixed(1)}px) rotate(${(d * 3).toFixed(2)}deg)`;
+      const wv = Math.max(0, Math.min(1, 1.35 - (d > 0 ? d : -d * 0.3) * 1.25));
+      const lw = c._w === undefined ? wv : c._w + (wv - c._w) * 0.06; c._w = lw;
+      c.style.setProperty('--w', lw.toFixed(4));
+      const im = c.firstElementChild && c.firstElementChild.firstElementChild && c.firstElementChild.firstElementChild.firstElementChild;
+      if (im) im.style.transform = `scale(1.16) translateX(${(d * -6).toFixed(2)}%)`;
+    });
+    const idx = Math.round(p * (n - 1));
+    const cnt = el.querySelector('[data-count]'); if (cnt) cnt.textContent = String(idx + 1).padStart(2, '0');
+    this.inds.forEach((d, i) => { const on = i === idx; d.style.width = on ? '26px' : '8px'; d.style.opacity = on ? '1' : '.25'; d.style.background = on ? '#D6246E' : '#1F1A17'; });
+  }
+
+  go(dir) {
+    const el = this.trackRef.current; if (!el) return;
+    const n = this.cards ? this.cards.length : 10, vh = window.innerHeight;
+    const cur = Math.round((el._p || 0) * (n - 1));
+    const i = Math.max(0, Math.min(n - 1, cur + dir));
+    const top = el.getBoundingClientRect().top + window.scrollY + (i / (n - 1)) * (el.offsetHeight - vh);
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+
+  link(linha) {
+    const wa = String(this.props.whatsapp || '').replace(/\D/g, '');
+    if (!wa) return 'https://ig.me/m/porjulianacorrea';
+    const msg = linha ? 'Olá, Juliana! Quero um arranjo ' + linha + ' da ESMERO.' : 'Olá, Juliana! Quero meu arranjo da semana da ESMERO.';
+    return 'https://wa.me/' + wa + '?text=' + encodeURIComponent(msg);
+  }
+
+  renderVals() {
+    const w = this.state.w;
+    const A = 'site/assets/';
+    const licoes = [
+      { n: '01', title: 'Sobre corpo', img: A + 'licao-01.jpg', alt: 'Anthuriums rosados em close', html: 'Talvez as flores nos lembrem de algo simples: <b>o corpo percebe antes mesmo de encontrarmos palavras para o que sentimos.</b> Cores, formas e fragrâncias estimulam nossos sentidos, e o contato com as flores pode favorecer estados de relaxamento, apoiar a recuperação da atenção e contribuir para a regulação e redução do estresse.' },
+      { n: '02', title: 'Sobre atenção', img: A + 'licao-02.jpg', alt: 'Íris roxas em close', html: 'Talvez então nos dissessem: <i>“preste atenção”</i>. Porque uma flor pode interromper, ainda que por um instante, o fluxo automático do cotidiano. Ao nos demorarmos diante delas, abrimos espaço para a contemplação e a apreciação. E aquilo que recebe nossa atenção passa a ocupar outro lugar em nossa experiência.' },
+      { n: '03', title: 'Sobre emoções', img: A + 'licao-03.jpg', alt: 'Orquídeas magenta em close', html: 'Talvez nos lembrem também que não sentimos as coisas do mesmo jeito. Uma flor pode provocar diferentes respostas emocionais e afetivas: despertar alegria em alguém, nostalgia, tranquilidade ou estranhamento em outro. <b>Porque aquilo que encontramos fora também encontra algo que existe apenas dentro da gente.</b>' },
+      { n: '04', title: 'Sobre memória', img: A + 'licao-04.jpg', alt: 'Estrelítzias laranja em close', html: 'E talvez perguntassem: <i>“O que você associa a mim?”</i> Uma espécie. Uma cor. Um perfume. Podem se tornar pistas para a memória, trazendo à tona pessoas, lugares e momentos já vividos. Às vezes, basta um simples aroma para nos transportar de volta a outro tempo.' },
+      { n: '05', title: 'Sobre simbolismos', img: A + 'licao-05.jpg', alt: 'Hortênsias azuis em close', html: 'Flores atravessam culturas e épocas como símbolos de amor, celebração, boa sorte, renovação. Nós damos sentidos ao mundo e esses sentidos também participam da maneira como nos relacionamos com esse mundo.' },
+      { n: '06', title: 'Sobre cuidado', img: A + 'licao-06.jpg', alt: 'Margaridas amarelas em close', html: 'Talvez dissessem: <i>“Olhe para o que me faz florescer.”</i> Luz. Água. Espaço. Tempo. Cuidado. E então a pergunta poderia voltar para nós: <b>de que condições precisamos para viver bem?</b>' },
+      { n: '07', title: 'Sobre impermanência', img: A + 'licao-07.jpg', alt: 'Tulipas laranja em close', html: 'Mas uma flor também poderia nos dizer: <i>“Eu não vou permanecer assim para sempre.”</i> Ela muda. Abre-se, transforma-se, murcha. E talvez nos ensine que <b>a beleza de alguma coisa não depende de sua permanência.</b>' },
+      { n: '08', title: 'Sobre encantamento', img: A + 'licao-08.jpg', alt: 'Gardênias brancas em close', html: 'E há ainda aquilo que talvez seja mais difícil de explicar: <b>o encantamento.</b> Por que uma flor pode nos maravilhar? Por que paramos para olhar algo que não precisa fazer nada por nós? Será porque ainda exista em nós uma capacidade preciosa de nos deixar tocar pela beleza que nos cerca?' },
+      { n: '09', title: 'Sobre interioridade', img: A + 'licao-09.jpg', alt: 'Dálias vinho em close', html: 'E então talvez a pergunta inicial volte: <b>o que as flores têm a ver com a nossa própria interioridade?</b> Talvez tudo aquilo que sentimos diante delas, diga um pouco sobre quem somos. Sobre o que nos toca. Sobre onde está nossa atenção. Sobre o que lembramos. Sobre o que valorizamos. Sobre o que escolhemos cuidar.' },
+      { n: '10', title: '', sign: true, img: A + 'licao-10.jpg', alt: 'Mistura de rosas, lírios, orquídeas, íris e hortênsias', html: 'Talvez as flores nos recordem, sobretudo, que não precisamos escolher entre compreender e sentir. Acolher todas as nossas partes e permitir que o mundo nos veja por inteiro também faz parte das lições de uma flor. <i>Talvez seja por isso</i> que valha tanto a pena parar para ouvi-las de vez em quando.' }
+    ].map((l, i) => ({ ...l, rot: [-1.2, .8, -.6, 1.1, -.9, .7, -1.1, .9, -.7, 1][i], html: { __html: l.html } }));
+    const petals = [
+      { x: .06, y: .12, s: 1.0, w: 13, h: 17, c: '#D6246E', o: .55 },
+      { x: .3, y: .6, s: .7, w: 10, h: 13, c: '#EC6A9C', o: .6 },
+      { x: .55, y: .3, s: 1.25, w: 15, h: 19, c: '#E0407F', o: .5 },
+      { x: .8, y: .78, s: .85, w: 11, h: 15, c: '#F08AB0', o: .65 },
+      { x: .7, y: .05, s: 1.1, w: 9, h: 12, c: '#8E79D6', o: .45 },
+      { x: .18, y: .88, s: .9, w: 12, h: 16, c: '#B5C42F', o: .5 },
+      { x: .92, y: .4, s: 1.05, w: 10, h: 14, c: '#D6246E', o: .5 }
+    ];
+    return {
+      rootRef: this.rootRef, trackRef: this.trackRef,
+      wide: w > 1180, notNarrow: w > 560, phone: w <= 560, ready: !!this.state.ready,
+      petalas: this.props.petalas ?? true,
+      petals, licoes, ten: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      prev: () => this.go(-1), next: () => this.go(1),
+      links: { semana: this.link(''), dia: this.link('Dia a Dia'), essencial: this.link('Essencial'), unique: this.link('Unique'), consultoria: 'https://ig.me/m/porjulianacorrea' }
+    };
+  }
+}
+</script>
+</body>
+</html>

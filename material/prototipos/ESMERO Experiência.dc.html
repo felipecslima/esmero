@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>ESMERO por Juliana Corrêa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@400;500&family=Mea+Culpa&display=swap">
+<style>
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:#FBF8F6;color:#26161B}
+a{color:#26161B}
+a:hover{color:#A8134A}
+::selection{background:#EBCFCB}
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(18px,1.25vw,21px);line-height:1.55;color:#26161B;background:#FBF8F6;overflow-x:clip">
+
+<header style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px clamp(18px,4vw,56px);background:rgba(251,248,246,.84);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(38,22,27,.1)">
+  <a href="#topo" style="display:flex;align-items:center;gap:14px;text-decoration:none;color:#26161B;min-width:0">
+    <span style="font-family:'Mea Culpa',cursive;font-size:clamp(22px,2vw,30px);line-height:1;white-space:nowrap">Por Juliana Corrêa</span>
+    <span style="width:1px;height:24px;background:#26161B;flex:none"></span>
+    <span style="font-weight:600;letter-spacing:.16em;font-size:clamp(16px,1.4vw,19px)">ESMERO</span>
+  </a>
+  <nav style="display:flex;align-items:center;gap:clamp(18px,2.4vw,36px)">
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;gap:clamp(18px,2.4vw,36px)">
+        <a href="#arranjos" style="font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;text-decoration:none">Arranjos</a>
+        <a href="#consultoria" style="font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;text-decoration:none">Consultoria</a>
+        <a href="#licoes" style="font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;text-decoration:none">Lições de uma flor</a>
+        <a href="#juliana" style="font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;text-decoration:none">Juliana</a>
+      </div>
+    </sc-if>
+    <sc-if value="{{ notNarrow }}" hint-placeholder-val="{{ true }}">
+      <a href="{{ links.semana }}" target="_blank" rel="noopener" style="font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:#FBF8F6;background:#26161B;padding:12px 18px;transition:background .6s ease,letter-spacing .6s ease" style-hover="background:#A8134A;color:#FBF8F6;letter-spacing:.25em">Arranjo da semana</a>
+    </sc-if>
+  </nav>
+</header>
+
+<sc-if value="{{ petalas }}" hint-placeholder-val="{{ false }}">
+  <div aria-hidden="true" style="position:fixed;inset:0;z-index:40;pointer-events:none;overflow:hidden">
+    <sc-for list="{{ petals }}" as="pt" hint-placeholder-count="0">
+      <span data-petal="" data-x="{{ pt.x }}" data-y="{{ pt.y }}" data-s="{{ pt.s }}" style="position:absolute;left:0;top:0;width:{{ pt.w }}px;height:{{ pt.h }}px;border-radius:100% 0 100% 0;background:{{ pt.c }};opacity:{{ pt.o }};will-change:transform"></span>
+    </sc-for>
+  </div>
+</sc-if>
+
+<section id="topo" data-scene="hero" style="position:relative;height:340vh">
+  <div style="position:sticky;top:0;height:100vh;overflow:hidden">
+    <div style="position:absolute;inset:0;clip-path:circle(calc(11vmin + var(--p1,0) * 125vmax) at 78% 66%)">
+      <div data-intro="bud" data-delay="500" style="position:absolute;inset:0;transform-origin:78% 66%">
+        <video src="site/assets/hero.mp4" poster="site/assets/hero-poster.jpg" autoplay="" muted="" loop="" playsinline="" preload="auto" aria-label="Flores e frutas em uma banca ao sol: lírios rosa, crisântemos vermelhos e uvas" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(calc(1.3 - .22 * var(--p1,0) - .08 * var(--p4,0)))"></video>
+        <div style="position:absolute;inset:0;background:#26161B;opacity:calc(var(--p3,0) * .18)"></div>
+      </div>
+    </div>
+    <svg viewBox="0 0 100 100" aria-hidden="true" style="position:absolute;left:calc(78% - 15vmin);top:calc(66% - 15vmin);width:30vmin;height:30vmin;overflow:visible;opacity:calc(1 - var(--p1,0) * 4);pointer-events:none">
+      <path data-intro="draw" data-delay="1300" d="M54 5 C 82 6, 97 28, 95 53 C 93 80, 70 96, 46 95 C 20 94, 4 74, 5 49 C 6 23, 28 4, 60 9" fill="none" stroke="#A8134A" stroke-width=".7" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"></path>
+    </svg>
+    <div style="position:absolute;left:clamp(20px,5vw,72px);right:clamp(20px,5vw,72px);top:clamp(96px,17vh,180px);opacity:calc(1 - var(--p1,0) * 1.6);transform:translateY(calc(var(--p1,0) * -16vh));pointer-events:none">
+      <div data-intro="rise" data-delay="0" style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;margin-bottom:clamp(14px,2.4vw,32px)">
+        <span style="font-family:'Mea Culpa',cursive;font-size:clamp(28px,3vw,44px);line-height:1;color:#A8134A">Por Juliana Corrêa</span>
+        <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.26em;text-transform:uppercase">Belém do Pará</span>
+      </div>
+      <h1 style="margin:0;font-weight:400;font-size:clamp(46px,8.2vw,134px);line-height:.92;letter-spacing:-.022em;text-wrap:balance;max-width:11.5em">
+        <span data-intro="rise" data-delay="250" style="display:block">Olhar <span style="position:relative;display:inline-block">de novo.<svg viewBox="0 0 240 24" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:-2%;bottom:-.1em;width:104%;height:.2em;overflow:visible"><path data-intro="draw" data-delay="1700" d="M3 15 C 50 5, 92 21, 136 11 S 210 6, 237 13" fill="none" stroke="#A8134A" stroke-width="2.4" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0"></path></svg></span></span>
+        <span data-intro="rise" data-delay="520" style="display:block;padding-left:clamp(0px,9vw,150px)">Imaginar possibilidades.</span>
+        <span data-intro="rise" data-delay="790" style="display:block;padding-left:clamp(0px,3vw,48px);font-style:italic;font-weight:300;color:#A8134A">Criar maneiras mais belas de viver.</span>
+      </h1>
+    </div>
+    <div data-intro="rise" data-delay="2000" aria-hidden="true" style="position:absolute;left:clamp(20px,5vw,72px);bottom:32px;width:1px;height:64px;background:linear-gradient(#26161B,rgba(38,22,27,0));opacity:calc(1 - var(--p1,0) * 5)"></div>
+    <div style="position:absolute;left:clamp(16px,6vw,96px);bottom:clamp(20px,9vh,96px);width:min(470px,calc(100% - 32px));box-sizing:border-box;background:#FBF8F6;padding:clamp(24px,2.6vw,40px);opacity:var(--p3,0);transform:translateY(calc((1 - var(--p3,0)) * 60vh))">
+      <p style="margin:0;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#A8134A">A primeira coleção de arranjos</p>
+      <p style="margin:.6em 0 1.1em;font-style:italic;font-weight:500;font-size:clamp(23px,2.1vw,30px);line-height:1.18;text-wrap:pretty">A primeira coleção de arranjos florais da ESMERO chegou em 22 de setembro de 2026.</p>
+      <a href="{{ links.semana }}" target="_blank" rel="noopener" style="display:inline-flex;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:#FBF8F6;background:#26161B;padding:17px 26px;transition:background .6s ease,letter-spacing .6s ease" style-hover="background:#A8134A;color:#FBF8F6;letter-spacing:.25em">Quero meu arranjo da semana</a>
+    </div>
+    <p style="position:absolute;right:clamp(16px,5vw,72px);bottom:clamp(20px,9vh,96px);margin:0;background:#FBF8F6;padding:10px 16px;font-style:italic;font-size:17px;opacity:var(--p4,0);transform:translateY(calc((1 - var(--p4,0)) * 30px))">Um projeto experimental em construção (…)</p>
+  </div>
+</section>
+
+<section id="arranjos" style="padding:clamp(90px,12vw,180px) clamp(20px,5vw,72px) clamp(70px,9vw,140px);max-width:1360px;margin:0 auto;scroll-margin-top:60px">
+  <div data-r="" style="display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center;margin-bottom:clamp(24px,3vw,44px);opacity:var(--r,1)">
+    <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase">[ Edições por temporada ]</span>
+    <span style="display:inline-flex;align-items:center;gap:10px;border:1px solid #A8134A;color:#A8134A;padding:7px 14px;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase"><span style="width:7px;height:7px;border-radius:50%;background:#A8134A"></span>Primeira coleção · 22.09.2026</span>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,90px);align-items:flex-end">
+    <h2 data-r="" style="flex:1 1 560px;margin:0;font-weight:400;font-size:clamp(58px,10vw,170px);line-height:.88;letter-spacing:-.025em">
+      <span style="display:block;transform:translateY(calc((1 - var(--r,1)) * 60px));opacity:var(--r,1)">Arranjos florais</span>
+      <span style="display:inline-block;position:relative;font-style:italic;font-weight:300;color:#A8134A;padding-left:clamp(0px,8vw,140px);transform:translateY(calc((1 - var(--r,1)) * 110px));opacity:var(--r,1)">autorais<svg viewBox="0 0 240 24" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;right:-2%;bottom:-.04em;width:calc(100% - clamp(0px,8vw,140px));height:.16em;overflow:visible"><path d="M3 12 C 60 20, 110 4, 160 12 S 220 16, 237 8" fill="none" stroke="#A8134A" stroke-width="2" stroke-linecap="round" pathLength="1" stroke-dasharray="1" style="stroke-dashoffset:calc(1 - var(--r,1))"></path></svg></span>
+    </h2>
+    <div data-r="" style="flex:1 1 340px;max-width:34em;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 40px))">
+      <p style="margin:0 0 1em">Uma coleção semanal de arranjos florais autorais. Um exercício de curadoria, criatividade e sensibilidade para o nosso bem-viver.</p>
+      <p style="margin:0 0 1em">A cada semana, ao menos três composições são divulgadas em nossas redes para você escolher seu exemplar preferido.</p>
+      <p style="margin:0">Disponíveis sob demanda, enquanto durar a edição. Exclusivo em Belém do Pará.</p>
+      <div style="margin-top:1.8em"><a href="{{ links.semana }}" target="_blank" rel="noopener" style="display:inline-flex;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:#FBF8F6;background:#26161B;padding:17px 26px;transition:background .6s ease,letter-spacing .6s ease" style-hover="background:#A8134A;color:#FBF8F6;letter-spacing:.25em">Quero meu arranjo da semana</a></div>
+    </div>
+  </div>
+
+  <div data-r="" aria-hidden="true" style="display:flex;align-items:center;gap:18px;margin-top:clamp(70px,9vw,130px);font-style:italic;font-size:19px;color:#5E4B51">
+    <span style="flex:1;height:1px;background:rgba(38,22,27,.25);transform:scaleX(var(--r,1));transform-origin:right"></span>
+    <span style="text-align:center;opacity:var(--r,1)">do pequeno gesto à criação singular</span>
+    <span style="flex:1;height:1px;background:rgba(38,22,27,.25);transform:scaleX(var(--r,1));transform-origin:left"></span>
+  </div>
+
+  <article data-r="" style="display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,96px);align-items:center;padding-block:clamp(56px,8vw,120px);margin-top:24px">
+    <div style="flex:1 1 260px;max-width:400px;display:flex;gap:clamp(8px,1.2vw,18px);align-items:flex-start">
+      <figure style="margin:0;flex:1;aspect-ratio:3/4;overflow:hidden;clip-path:inset(calc((1 - var(--r,1)) * 16%) round calc((1 - var(--r,1)) * 400px))"><img src="site/assets/dia-a-dia-1.jpg" alt="Mão segurando um pequeno arranjo com uma gérbera rosa, folhagens e uma etiqueta ESMERO" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(calc(1.25 - .25 * var(--r,1)))"></figure>
+      <figure style="margin:clamp(30px,5vw,70px) 0 0;flex:1;aspect-ratio:3/4;overflow:hidden;clip-path:inset(calc((1 - var(--r,1)) * 22%) round calc((1 - var(--r,1)) * 400px));transform:translateY(calc((1 - var(--r,1)) * 90px))"><img src="site/assets/dia-a-dia-2.jpg" alt="O mesmo arranjo de gérbera em um vaso de vidro sobre a mesa, com um sofá claro ao fundo" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(calc(1.25 - .25 * var(--r,1)))"></figure>
+    </div>
+    <div style="flex:1 1 300px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 50px))">
+      <h3 style="margin:0;font-weight:400;font-style:italic;font-size:clamp(56px,7vw,108px);line-height:.88;letter-spacing:-.025em">Dia a Dia</h3>
+      <p style="margin:1em 0 0;max-width:24em;font-size:clamp(19px,1.5vw,23px)">O pequeno gesto. Espontâneo. Significativo.</p>
+      <a href="{{ links.dia }}" target="_blank" rel="noopener" style="display:inline-flex;margin-top:1.6em;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:#26161B;border:1px solid #26161B;padding:16px 24px;transition:background .6s ease,border-color .6s ease,color .6s ease,letter-spacing .6s ease" style-hover="background:#A8134A;border-color:#A8134A;color:#FBF8F6;letter-spacing:.25em">Quero um Dia a Dia</a>
+    </div>
+  </article>
+
+  <article data-r="" style="display:flex;flex-direction:row-reverse;flex-wrap:wrap;gap:clamp(28px,5vw,96px);align-items:center;padding-block:clamp(56px,8vw,120px);border-top:1px solid rgba(38,22,27,.16)">
+    <div style="flex:1 1 320px;max-width:640px;display:flex;gap:clamp(8px,1.4vw,22px);align-items:flex-start">
+      <figure style="margin:0;flex:1;aspect-ratio:3/4;overflow:hidden;clip-path:inset(calc((1 - var(--r,1)) * 16%) round calc((1 - var(--r,1)) * 400px))"><img src="site/assets/essencial-1.jpg" alt="Mão segurando um buquê com girassol, antirrinos e eucalipto em papel kraft de bolinhas" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(calc(1.25 - .25 * var(--r,1)))"></figure>
+      <figure style="margin:clamp(40px,7vw,100px) 0 0;flex:1;aspect-ratio:3/4;overflow:hidden;clip-path:inset(calc((1 - var(--r,1)) * 22%) round calc((1 - var(--r,1)) * 400px));transform:translateY(calc((1 - var(--r,1)) * 110px))"><img src="site/assets/essencial-2.jpg" alt="Detalhe do buquê com girassol e flores rosa, com cartões ESMERO ao lado" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(calc(1.25 - .25 * var(--r,1)))"></figure>
+    </div>
+    <div style="flex:1 1 300px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 50px))">
+      <h3 style="margin:0;font-weight:400;font-style:italic;font-size:clamp(64px,9vw,144px);line-height:.88;letter-spacing:-.025em">Essencial</h3>
+      <p style="margin:1em 0 0;max-width:24em;font-size:clamp(19px,1.5vw,23px)">Onde beleza, composição e naturalidade se encontram. A expressão da nossa assinatura.</p>
+      <a href="{{ links.essencial }}" target="_blank" rel="noopener" style="display:inline-flex;margin-top:1.6em;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:#26161B;border:1px solid #26161B;padding:16px 24px;transition:background .6s ease,border-color .6s ease,color .6s ease,letter-spacing .6s ease" style-hover="background:#A8134A;border-color:#A8134A;color:#FBF8F6;letter-spacing:.25em">Quero um Essencial</a>
+    </div>
+  </article>
+
+  <article data-r="" style="display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,96px);align-items:flex-end;padding-block:clamp(56px,8vw,120px);border-top:1px solid rgba(38,22,27,.16)">
+    <div style="flex:1 1 520px;max-width:900px;display:flex;gap:clamp(8px,1.6vw,24px);align-items:flex-start">
+      <figure style="margin:0;flex:1.25;aspect-ratio:3/4;overflow:hidden;clip-path:inset(calc((1 - var(--r,1)) * 16%) round calc((1 - var(--r,1)) * 500px))"><img src="site/assets/unique-1.jpg" alt="Buquê em papel branco com girassol, antirrinos rosa e pétalas laranja espalhadas" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(calc(1.25 - .25 * var(--r,1)))"></figure>
+      <figure style="margin:clamp(50px,9vw,140px) 0 0;flex:1;aspect-ratio:3/4;overflow:hidden;clip-path:inset(calc((1 - var(--r,1)) * 22%) round calc((1 - var(--r,1)) * 500px));transform:translateY(calc((1 - var(--r,1)) * 130px))"><img src="site/assets/unique-2.jpg" alt="O buquê apoiado em um sofá claro, com os talos amarrados em ráfia" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(calc(1.25 - .25 * var(--r,1)))"></figure>
+    </div>
+    <div style="flex:1 1 300px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 50px))">
+      <h3 style="margin:0;font-weight:300;font-style:italic;font-size:clamp(76px,12.5vw,210px);line-height:.84;letter-spacing:-.03em;color:#A8134A">Unique</h3>
+      <p style="margin:1em 0 0;max-width:24em;font-size:clamp(19px,1.5vw,23px)">A criação singular. Livre para ser elegante, exuberante, minimalista ou inesperada, conforme a coleção.</p>
+      <a href="{{ links.unique }}" target="_blank" rel="noopener" style="display:inline-flex;margin-top:1.6em;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:#26161B;border:1px solid #26161B;padding:16px 24px;transition:background .6s ease,border-color .6s ease,color .6s ease,letter-spacing .6s ease" style-hover="background:#A8134A;border-color:#A8134A;color:#FBF8F6;letter-spacing:.25em">Quero um Unique</a>
+    </div>
+  </article>
+
+  <div data-r="" style="position:relative;margin-top:clamp(40px,6vw,90px);padding-top:clamp(36px,4vw,56px)">
+    <svg viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:0;top:0;width:100%;height:28px;overflow:visible"><path d="M2 20 C 120 4, 220 36, 340 20 S 560 4, 680 20 S 880 36, 998 18" fill="none" stroke="#26161B" stroke-width="1.2" stroke-linecap="round" pathLength="1" stroke-dasharray="1" style="stroke-dashoffset:calc(1 - var(--r,1))"></path></svg>
+    <ol aria-label="Como funciona" style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,64px)">
+      <li style="flex:1 1 240px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 30px))">
+        <span style="display:block;font-style:italic;font-weight:300;font-size:64px;line-height:1;color:#A8134A">1</span>
+        <h3 style="margin:.7em 0 .5em;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase">Acompanhe</h3>
+        <p style="margin:0;max-width:22em">A cada semana, ao menos três composições são divulgadas em nossas redes.</p>
+      </li>
+      <li style="flex:1 1 240px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 60px))">
+        <span style="display:block;font-style:italic;font-weight:300;font-size:64px;line-height:1;color:#A8134A">2</span>
+        <h3 style="margin:.7em 0 .5em;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase">Escolha</h3>
+        <p style="margin:0;max-width:22em">Para você escolher seu exemplar preferido.</p>
+      </li>
+      <li style="flex:1 1 240px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 90px))">
+        <span style="display:block;font-style:italic;font-weight:300;font-size:64px;line-height:1;color:#A8134A">3</span>
+        <h3 style="margin:.7em 0 .5em;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.24em;text-transform:uppercase">Peça</h3>
+        <p style="margin:0;max-width:22em">Disponíveis sob demanda, enquanto durar a edição. Exclusivo em Belém do Pará.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="esmero" data-scene="pergunta" style="position:relative;height:260vh;background:#F3E9E6;scroll-margin-top:0">
+  <div style="position:sticky;top:0;height:100vh;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;padding:80px clamp(20px,5vw,72px) 40px;max-width:1440px;margin:0 auto">
+    <p style="margin:0 0 1.6em;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase">ESMERO por Juliana Corrêa</p>
+    <p style="margin:0 0 .4em;font-size:clamp(22px,2.1vw,32px);line-height:1.3;max-width:30em">ESMERO parte dessa pergunta simples, e inesgotável:</p>
+    <p data-words="" data-a="0.04" data-b="0.62" style="margin:0;font-style:italic;font-size:clamp(58px,11vw,196px);line-height:.92;letter-spacing:-.025em;text-wrap:balance"><span data-w="">O</span> <span data-w="">que</span> <span data-w="">cabe</span> <span data-w="">no</span> <span data-w="">nosso</span> <span data-w="" style="position:relative;display:inline-block;color:#A8134A">bem-viver?<svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:-7%;top:-12%;width:114%;height:128%;overflow:visible;pointer-events:none"><path d="M196 10 C 120 0, 20 12, 8 46 C -2 80, 110 96, 200 88 C 276 80, 302 50, 280 26 C 258 6, 190 2, 140 10" fill="none" stroke="#A8134A" stroke-width="1.6" stroke-linecap="round" pathLength="1" stroke-dasharray="1" style="stroke-dashoffset:calc(1 - var(--p3,0))"></path></svg></span></p>
+  </div>
+</section>
+
+<section style="background:#F3E9E6;padding:clamp(40px,6vw,90px) clamp(20px,5vw,72px) clamp(90px,12vw,180px)">
+  <div style="max-width:1300px;margin:0 auto">
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,90px);align-items:flex-start">
+      <div data-r="" style="flex:1 1 320px;max-width:30em;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 40px))">
+        <p style="margin:0 0 1em">A gente passa boa parte da vida aprendendo o que ter, o que fazer, como viver; o que é bonito, adequado, desejável, bem-visto.</p>
+        <p style="margin:0">Aprende a reproduzir o que já está dado.</p>
+      </div>
+      <div style="flex:1.3 1 380px">
+        <p data-r="" style="margin:0;font-weight:700;opacity:var(--r,1)">Mas, talvez, haja uma pergunta anterior:</p>
+        <p data-r="" data-words="" style="margin:.3em 0 0;font-style:italic;font-size:clamp(40px,5.4vw,86px);line-height:1;letter-spacing:-.02em"><span data-w="">Que</span> <span data-w="">vida</span> <span data-w="">queremos</span> <span data-w="">tornar</span> <span data-w="" style="position:relative;display:inline-block;color:#A8134A">possível?<svg viewBox="0 0 240 24" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:0;bottom:-.12em;width:100%;height:.2em;overflow:visible"><path d="M3 14 C 50 6, 100 20, 150 12 S 215 8, 237 14" fill="none" stroke="#A8134A" stroke-width="2" stroke-linecap="round" pathLength="1" stroke-dasharray="1" style="stroke-dashoffset:calc(1 - var(--r,1))"></path></svg></span></p>
+      </div>
+    </div>
+
+    <div aria-label="O que nos faz bem? O que é essencial?" style="margin-top:clamp(70px,10vw,150px);color:#A8134A">
+      <p data-r="" style="margin:0;font-family:'Mea Culpa',cursive;font-size:clamp(58px,10vw,156px);line-height:1;clip-path:inset(-20% calc((1 - var(--r,1)) * 100%) -20% 0)">O que nos faz bem?</p>
+      <p data-r="" style="margin:0;padding-left:clamp(32px,16vw,280px);font-family:'Mea Culpa',cursive;font-size:clamp(58px,10vw,156px);line-height:1;clip-path:inset(-20% calc((1 - var(--r,1)) * 100%) -20% 0)">O que é essencial?</p>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(36px,6vw,110px);margin-top:clamp(80px,11vw,160px);align-items:flex-start">
+      <div data-r="" style="flex:1 1 320px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 40px))">
+        <span aria-hidden="true" style="display:block;font-style:italic;font-weight:300;font-size:clamp(80px,10vw,140px);line-height:.8;color:#A8134A;margin-bottom:.14em">01</span>
+        <h2 style="margin:0;font-family:'Jost',sans-serif;font-size:clamp(15px,1.4vw,20px);font-weight:500;letter-spacing:.2em;text-transform:uppercase;line-height:1.5;text-wrap:balance">Entre o que já existe e o que poderia ser (…)</h2>
+        <p style="margin:1.4em 0 1em;max-width:30em">Começamos por dentro: observando, percebendo e filtrando o que queremos cultivar, até darmos forma ao que importa, faz sentido e faz bem.</p>
+        <p style="margin:0">Assim escrevemos, imaginamos e criamos:</p>
+      </div>
+      <div style="flex:1.2 1 380px;display:flex;flex-wrap:wrap;gap:clamp(18px,3vw,40px);align-items:flex-start">
+        <div data-r="" style="flex:.8 1 150px;text-align:right;line-height:1.55;padding-top:.3em;opacity:var(--r,1)">Espaços.<br>Composições.<br>Textos.<br>Atmosferas.<br>Ideias.<i style="display:block;margin-top:.5em;color:#5E4B51">E, sobretudo, novas possibilidades:</i></div>
+        <div data-r="" style="flex:1.2 1 240px;position:relative;padding:clamp(20px,3vw,32px) 0 0 clamp(20px,3vw,36px)">
+          <span aria-hidden="true" style="position:absolute;inset:0 0 0 0;border-left:2px dotted #26161B;border-top:2px dotted #26161B;border-top-left-radius:90px;clip-path:inset(0 calc((1 - var(--r,1)) * 100%) calc((1 - var(--r,1)) * 100%) 0)"></span>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1em">
+            <li style="position:relative;padding-left:1.4em;opacity:var(--r,1);transform:translateX(calc((1 - var(--r,1)) * 30px))"><span style="position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:#A8134A"></span>De encontrar <em style="color:#A8134A">beleza</em> onde ela quase passa despercebida.</li>
+            <li style="position:relative;padding-left:1.4em;opacity:var(--r,1);transform:translateX(calc((1 - var(--r,1)) * 60px))"><span style="position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:#A8134A"></span>De permanecer atentos ao que está vivo e é <em style="color:#A8134A">essencial</em> para nós</li>
+            <li style="position:relative;padding-left:1.4em;opacity:var(--r,1);transform:translateX(calc((1 - var(--r,1)) * 90px))"><span style="position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:#A8134A"></span>De imaginar <em style="color:#A8134A">outros caminhos</em> quando tudo parece já estar definido.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-scene="banda" aria-labelledby="h-banda" style="position:relative;height:230vh;background:#F3E9E6">
+  <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:grid;place-items:center;text-align:center">
+    <div style="position:absolute;inset:0;clip-path:inset(calc((1 - var(--p1,0)) * 9%) calc((1 - var(--p1,0)) * 14%) round calc((1 - var(--p1,0)) * 300px))">
+      <video src="site/assets/tinta.mp4" poster="site/assets/tinta-poster.jpg" autoplay="" muted="" loop="" playsinline="" preload="metadata" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(calc(1.2 - .2 * var(--p1,0)))"></video>
+      <div style="position:absolute;inset:0;background:rgba(251,248,246,.5)"></div>
+    </div>
+    <div style="position:relative;padding:0 clamp(20px,5vw,72px)">
+      <span aria-hidden="true" style="display:block;font-family:'Mea Culpa',cursive;font-size:clamp(120px,18vw,260px);line-height:.7;color:#A8134A;clip-path:inset(-30% calc((1 - var(--p2,0)) * 100%) -30% 0)">02</span>
+      <h2 id="h-banda" style="margin:1.1em 0 0;font-family:'Jost',sans-serif;font-size:clamp(17px,2.2vw,30px);font-weight:500;letter-spacing:.24em;text-transform:uppercase;line-height:1.5;text-wrap:balance;opacity:var(--p2,0);transform:translateY(calc((1 - var(--p2,0)) * 40px))">Sentir o mundo &amp; criar com ESMERO</h2>
+      <p style="margin:.4em 0 0;font-style:italic;font-size:clamp(24px,2.8vw,40px);opacity:var(--p3,0);transform:translateY(calc((1 - var(--p3,0)) * 40px))">maneiras mais belas de estar aqui.</p>
+    </div>
+  </div>
+</section>
+
+<section id="consultoria" aria-labelledby="h-cons" style="padding:clamp(90px,12vw,180px) clamp(20px,5vw,72px);max-width:1360px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(36px,6vw,110px);align-items:flex-start;scroll-margin-top:40px">
+  <div style="flex:1 1 480px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.62fr);gap:clamp(10px,1.4vw,20px)">
+    <figure data-r="" data-par="" style="grid-column:1 / 3;margin:0;aspect-ratio:16/9;overflow:hidden;clip-path:inset(calc((1 - var(--r,1)) * 12%) round calc((1 - var(--r,1)) * 300px))"><img src="site/assets/interior-sala.jpg" alt="Sala de estar clara com sofá curvo, planta e luz natural" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.18) translateY(calc(var(--c,0) * -5%))"></figure>
+    <figure data-r="" data-par="" style="margin:0;aspect-ratio:4/5;overflow:hidden;clip-path:inset(calc((1 - var(--r,1)) * 16%) round calc((1 - var(--r,1)) * 300px))"><img src="site/assets/interior-cozinha.jpg" alt="Cozinha compacta com cantinho de refeição e armários em tom vinho" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.18) translateY(calc(var(--c,0) * -7%))"></figure>
+    <figure data-r="" data-par="" style="margin:clamp(30px,6vw,90px) 0 0;aspect-ratio:3/4;overflow:hidden;clip-path:inset(calc((1 - var(--r,1)) * 20%) round calc((1 - var(--r,1)) * 300px));transform:translateY(calc(var(--c,0) * 40px))"><img src="site/assets/interior-quarto.jpg" alt="Quarto aconchegante com cama de cabeceira clara, prateleiras de madeira e plantas" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.18)"></figure>
+  </div>
+  <div data-r="" style="flex:1 1 360px;position:sticky;top:110px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 50px))">
+    <span aria-hidden="true" style="display:block;font-style:italic;font-weight:300;font-size:clamp(80px,10vw,140px);line-height:.8;color:#A8134A;margin-bottom:.14em">03</span>
+    <h2 style="margin:0;font-family:'Jost',sans-serif;font-size:clamp(15px,1.4vw,20px);font-weight:500;letter-spacing:.2em;text-transform:uppercase;line-height:1.5">O que fazemos para você:</h2>
+    <h3 id="h-cons" style="margin:.5em 0 0;font-weight:400;font-style:italic;font-size:clamp(40px,4.6vw,72px);line-height:.98;letter-spacing:-.015em;text-wrap:balance">Consultoria de Interiores para o bem-viver:</h3>
+    <p style="margin:1.1em 0 0;font-size:clamp(22px,2vw,28px);line-height:1.3;max-width:26em">Para quando a casa, o escritório ou a sala de atendimento já não acompanha tão bem a vida que você leva.</p>
+    <p style="margin:1.2em 0 1em;max-width:30em">Uma leitura cuidadosa do seu espaço e momento de vida para perceber, no que já existe, novas possibilidades de acolher sua rotina e aquilo que importa para você.</p>
+    <p style="margin:0;max-width:30em">Construímos diretrizes para mudanças singelas de composição, organização e atmosfera: sem obras, pensadas com esmero e dentro da sua realidade.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center;margin-top:1.8em">
+      <span style="border:1px solid #26161B;padding:9px 16px;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase">Atendimento 100% online.</span>
+      <a href="{{ links.consultoria }}" target="_blank" rel="noopener" style="display:inline-flex;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:#FBF8F6;background:#26161B;padding:17px 26px;transition:background .6s ease,letter-spacing .6s ease" style-hover="background:#A8134A;color:#FBF8F6;letter-spacing:.25em">Quero saber mais</a>
+    </div>
+  </div>
+</section>
+
+<section id="licoes" aria-labelledby="h-lic" style="background:#F3E9E6;padding:clamp(90px,12vw,180px) clamp(20px,5vw,72px) clamp(40px,5vw,70px);scroll-margin-top:40px">
+  <div style="max-width:1300px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(28px,5vw,90px);align-items:flex-end">
+    <div data-r="" style="flex:1 1 440px;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 50px))">
+      <p style="margin:0 0 1.2em;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase">ESMERO por Juliana Corrêa</p>
+      <h2 id="h-lic" style="margin:0;font-weight:400;font-size:clamp(58px,9vw,150px);line-height:.88;letter-spacing:-.025em">Lições de <em style="font-weight:300;color:#A8134A">uma flor</em></h2>
+      <p style="margin:.7em 0 0;font-style:italic;font-size:clamp(23px,2.3vw,32px);line-height:1.25">Se pudéssemos ouvi-las, o que elas teriam a nos dizer?</p>
+    </div>
+    <div data-r="" style="flex:1 1 340px;max-width:34em;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 40px))">
+      <p style="margin:0 0 .9em">As flores sempre despertaram algo em nós.</p>
+      <p style="margin:0 0 .9em">Mas o que exatamente acontece quando ficamos diante delas?</p>
+      <p style="margin:0 0 .9em">Talvez a resposta passe pelos sentidos, pelas emoções, pela memória, pela atenção, pelo cuidado e também pela nossa capacidade de encontrar significado e encantamento nas coisas simples.</p>
+      <p style="margin:0 0 .9em">Em outras palavras: <b>o que uma flor pode revelar sobre a nossa própria interioridade?</b></p>
+      <p style="margin:0">Talvez refletir sobre essa pergunta seja também uma forma de nos aproximarmos de um viver com mais Esmero.</p>
+    </div>
+  </div>
+</section>
+
+<section data-scene="track" ref="{{ trackRef }}" aria-label="Lições de uma flor" style="position:relative;height:620vh;background:#F3E9E6">
+  <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;box-sizing:border-box;padding-top:84px">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 clamp(20px,5vw,72px) 18px">
+      <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+        <span style="font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase">Lições de uma flor:</span>
+        <span style="font-style:italic;font-size:22px;color:#A8134A">Número <span data-count="">01</span></span>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button type="button" onClick="{{ prev }}" aria-label="Lição anterior" style="width:50px;height:50px;border:1px solid #26161B;background:transparent;color:#26161B;cursor:pointer;display:grid;place-items:center;transition:background .5s,color .5s" style-hover="background:#26161B;color:#FBF8F6"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M15 5l-7 7 7 7"></path></svg></button>
+        <button type="button" onClick="{{ next }}" aria-label="Próxima lição" style="width:50px;height:50px;border:1px solid #26161B;background:transparent;color:#26161B;cursor:pointer;display:grid;place-items:center;transition:background .5s,color .5s" style-hover="background:#26161B;color:#FBF8F6"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M9 5l7 7-7 7"></path></svg></button>
+      </div>
+    </div>
+    <div style="margin:0 clamp(20px,5vw,72px);height:1px;background:rgba(38,22,27,.18)"><div data-bar="" style="height:1px;background:#A8134A;width:10%"></div></div>
+    <div data-track="" style="flex:1;display:flex;gap:clamp(18px,2.4vw,36px);align-items:center;padding:0 clamp(20px,5vw,72px);will-change:transform">
+
+      <article data-card="" style="flex:none;position:relative;width:clamp(290px,31vw,460px);height:min(calc(100vh - 190px),740px);overflow:hidden">
+        <img src="site/assets/licao-01.jpg" alt="Anthuriums rosados em close" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12)">
+        <div style="position:absolute;left:14px;right:14px;bottom:14px;background:#FBF8F6;padding:18px 20px 22px">
+          <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 01</span></div>
+          <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#A8134A;font-style:italic;font-weight:400">01.</span> Sobre corpo</h3>
+          <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">Talvez as flores nos lembrem de algo simples: <b>o corpo percebe antes mesmo de encontrarmos palavras para o que sentimos.</b> Cores, formas e fragrâncias estimulam nossos sentidos, e o contato com as flores pode favorecer estados de relaxamento, apoiar a recuperação da atenção e contribuir para a regulação e redução do estresse.</p>
+        </div>
+      </article>
+
+      <article data-card="" style="flex:none;position:relative;width:clamp(290px,31vw,460px);height:min(calc(100vh - 190px),740px);overflow:hidden">
+        <img src="site/assets/licao-02.jpg" alt="Íris roxas em close" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12)">
+        <div style="position:absolute;left:14px;right:14px;bottom:14px;background:#FBF8F6;padding:18px 20px 22px">
+          <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 02</span></div>
+          <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#A8134A;font-style:italic;font-weight:400">02.</span> Sobre atenção</h3>
+          <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">Talvez então nos dissessem: <i>“preste atenção”</i>. Porque uma flor pode interromper, ainda que por um instante, o fluxo automático do cotidiano. Ao nos demorarmos diante delas, abrimos espaço para a contemplação e a apreciação. E aquilo que recebe nossa atenção passa a ocupar outro lugar em nossa experiência.</p>
+        </div>
+      </article>
+
+      <article data-card="" style="flex:none;position:relative;width:clamp(290px,31vw,460px);height:min(calc(100vh - 190px),740px);overflow:hidden">
+        <img src="site/assets/licao-03.jpg" alt="Orquídeas magenta em close" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12)">
+        <div style="position:absolute;left:14px;right:14px;bottom:14px;background:#FBF8F6;padding:18px 20px 22px">
+          <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 03</span></div>
+          <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#A8134A;font-style:italic;font-weight:400">03.</span> Sobre emoções</h3>
+          <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">Talvez nos lembrem também que não sentimos as coisas do mesmo jeito. Uma flor pode provocar diferentes respostas emocionais e afetivas: despertar alegria em alguém, nostalgia, tranquilidade ou estranhamento em outro. <b>Porque aquilo que encontramos fora também encontra algo que existe apenas dentro da gente.</b></p>
+        </div>
+      </article>
+
+      <article data-card="" style="flex:none;position:relative;width:clamp(290px,31vw,460px);height:min(calc(100vh - 190px),740px);overflow:hidden">
+        <img src="site/assets/licao-04.jpg" alt="Estrelítzias laranja em close" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12)">
+        <div style="position:absolute;left:14px;right:14px;bottom:14px;background:#FBF8F6;padding:18px 20px 22px">
+          <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 04</span></div>
+          <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#A8134A;font-style:italic;font-weight:400">04.</span> Sobre memória</h3>
+          <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">E talvez perguntassem: <i>“O que você associa a mim?”</i> Uma espécie. Uma cor. Um perfume. Podem se tornar pistas para a memória, trazendo à tona pessoas, lugares e momentos já vividos. Às vezes, basta um simples aroma para nos transportar de volta a outro tempo.</p>
+        </div>
+      </article>
+
+      <article data-card="" style="flex:none;position:relative;width:clamp(290px,31vw,460px);height:min(calc(100vh - 190px),740px);overflow:hidden">
+        <img src="site/assets/licao-05.jpg" alt="Hortênsias azuis em close" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12)">
+        <div style="position:absolute;left:14px;right:14px;bottom:14px;background:#FBF8F6;padding:18px 20px 22px">
+          <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 05</span></div>
+          <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#A8134A;font-style:italic;font-weight:400">05.</span> Sobre simbolismos</h3>
+          <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">Flores atravessam culturas e épocas como símbolos de amor, celebração, boa sorte, renovação. Nós damos sentidos ao mundo e esses sentidos também participam da maneira como nos relacionamos com esse mundo.</p>
+        </div>
+      </article>
+
+      <article data-card="" style="flex:none;position:relative;width:clamp(290px,31vw,460px);height:min(calc(100vh - 190px),740px);overflow:hidden">
+        <img src="site/assets/licao-06.jpg" alt="Margaridas amarelas em close" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12)">
+        <div style="position:absolute;left:14px;right:14px;bottom:14px;background:#FBF8F6;padding:18px 20px 22px">
+          <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 06</span></div>
+          <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#A8134A;font-style:italic;font-weight:400">06.</span> Sobre cuidado</h3>
+          <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">Talvez dissessem: <i>“Olhe para o que me faz florescer.”</i> Luz. Água. Espaço. Tempo. Cuidado. E então a pergunta poderia voltar para nós: <b>de que condições precisamos para viver bem?</b></p>
+        </div>
+      </article>
+
+      <article data-card="" style="flex:none;position:relative;width:clamp(290px,31vw,460px);height:min(calc(100vh - 190px),740px);overflow:hidden">
+        <img src="site/assets/licao-07.jpg" alt="Tulipas laranja em close" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12)">
+        <div style="position:absolute;left:14px;right:14px;bottom:14px;background:#FBF8F6;padding:18px 20px 22px">
+          <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 07</span></div>
+          <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#A8134A;font-style:italic;font-weight:400">07.</span> Sobre impermanência</h3>
+          <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">Mas uma flor também poderia nos dizer: <i>“Eu não vou permanecer assim para sempre.”</i> Ela muda. Abre-se, transforma-se, murcha. E talvez nos ensine que <b>a beleza de alguma coisa não depende de sua permanência.</b></p>
+        </div>
+      </article>
+
+      <article data-card="" style="flex:none;position:relative;width:clamp(290px,31vw,460px);height:min(calc(100vh - 190px),740px);overflow:hidden">
+        <img src="site/assets/licao-08.jpg" alt="Gardênias brancas em close" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12)">
+        <div style="position:absolute;left:14px;right:14px;bottom:14px;background:#FBF8F6;padding:18px 20px 22px">
+          <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 08</span></div>
+          <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#A8134A;font-style:italic;font-weight:400">08.</span> Sobre encantamento</h3>
+          <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">E há ainda aquilo que talvez seja mais difícil de explicar: <b>o encantamento.</b> Por que uma flor pode nos maravilhar? Por que paramos para olhar algo que não precisa fazer nada por nós? Será porque ainda exista em nós uma capacidade preciosa de nos deixar tocar pela beleza que nos cerca?</p>
+        </div>
+      </article>
+
+      <article data-card="" style="flex:none;position:relative;width:clamp(290px,31vw,460px);height:min(calc(100vh - 190px),740px);overflow:hidden">
+        <img src="site/assets/licao-09.jpg" alt="Dálias vinho em close" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12)">
+        <div style="position:absolute;left:14px;right:14px;bottom:14px;background:#FBF8F6;padding:18px 20px 22px">
+          <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 09</span></div>
+          <h3 style="margin:0;font-weight:500;font-size:clamp(28px,2.4vw,36px);line-height:1"><span style="color:#A8134A;font-style:italic;font-weight:400">09.</span> Sobre interioridade</h3>
+          <p style="margin:.6em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">E então talvez a pergunta inicial volte: <b>o que as flores têm a ver com a nossa própria interioridade?</b> Talvez tudo aquilo que sentimos diante delas, diga um pouco sobre quem somos. Sobre o que nos toca. Sobre onde está nossa atenção. Sobre o que lembramos. Sobre o que valorizamos. Sobre o que escolhemos cuidar.</p>
+        </div>
+      </article>
+
+      <article data-card="" style="flex:none;position:relative;width:clamp(290px,31vw,460px);height:min(calc(100vh - 190px),740px);overflow:hidden">
+        <img src="site/assets/licao-10.jpg" alt="Mistura de rosas, lírios, orquídeas, íris e hortênsias" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.12)">
+        <div style="position:absolute;left:14px;right:14px;bottom:14px;background:#FBF8F6;padding:18px 20px 18px;display:flex;flex-direction:column">
+          <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:8px"><span>Lições de uma flor:</span><span>Número 10</span></div>
+          <p style="margin:.4em 0 0;font-size:clamp(15px,1.05vw,17px);line-height:1.45;text-wrap:pretty">Talvez as flores nos recordem, sobretudo, que não precisamos escolher entre compreender e sentir. Acolher todas as nossas partes e permitir que o mundo nos veja por inteiro também faz parte das lições de uma flor. <i>Talvez seja por isso</i> que valha tanto a pena parar para ouvi-las de vez em quando.</p>
+          <span style="align-self:flex-end;margin-top:.4em;font-family:'Mea Culpa',cursive;font-size:34px;line-height:1;color:#A8134A">Por Juliana Corrêa</span>
+        </div>
+      </article>
+
+      <div aria-hidden="true" style="flex:none;width:clamp(4px,3vw,40px);height:1px"></div>
+    </div>
+  </div>
+</section>
+
+<section id="juliana" aria-labelledby="h-jul" style="background:#27505B;color:#F6F0EB;padding:clamp(90px,12vw,180px) clamp(20px,5vw,72px);scroll-margin-top:40px">
+  <div style="max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;gap:clamp(36px,7vw,120px);align-items:center">
+    <figure data-r="" style="flex:0 1 420px;margin:0;aspect-ratio:3/4;overflow:hidden;border-radius:999px 999px 0 0;clip-path:inset(calc((1 - var(--r,1)) * 100%) 0 0 0 round 999px 999px 0 0)"><img src="site/assets/juliana.jpg" alt="Juliana Corrêa sorrindo, abraçada a um buquê de girassóis e flores rosa" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(calc(1.25 - .25 * var(--r,1)))"></figure>
+    <div style="flex:1 1 360px">
+      <p data-r="" style="margin:0;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#E7C9C5;opacity:var(--r,1)">Quem está por trás:</p>
+      <h2 id="h-jul" data-r="" style="margin:.2em 0 0;font-family:'Mea Culpa',cursive;font-weight:400;font-size:clamp(68px,9vw,136px);line-height:1.05;clip-path:inset(-20% calc((1 - var(--r,1)) * 100%) -20% 0)">Juliana Corrêa</h2>
+      <p data-r="" style="margin:1.1em 0 0;max-width:32em;font-size:clamp(20px,1.7vw,24px);opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 40px))"><b>Advogada e designer de interiores,</b> Juliana encontrou na criação um fazer mais sensível e coerente com o que há tempos pedia voz e espaço dentro dela mesma. Foi assim, <i style="color:#fff">olhando pra dentro</i>, que idealizou a ESMERO: um espaço de expressão, experimentação e cultivo, onde criatividade e esmero se colocam a favor do nosso próprio florescer.</p>
+      <p style="margin:1.4em 0 0;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:.24em;opacity:.85">ABD 39-093</p>
+    </div>
+  </div>
+</section>
+
+<section aria-label="Contato" style="padding:clamp(100px,13vw,200px) clamp(20px,5vw,72px) 0;max-width:1360px;margin:0 auto">
+  <p data-r="" data-words="" style="margin:0;font-size:clamp(46px,7.6vw,128px);line-height:.95;letter-spacing:-.022em;max-width:13em;text-wrap:balance"><span data-w="">Quando</span> <span data-w="">o</span> <span data-w="">interior</span> <span data-w="">faz</span> <span data-w="">sentido,</span> <span data-w="">o</span> <span data-w="">bem</span> <span data-w="">viver</span> <span data-w="">ganha</span> <span data-w="">espaço</span> <span data-w="">para</span> <em data-w="" style="color:#A8134A;font-weight:300">florescer.</em></p>
+  <div data-r="" style="margin-top:clamp(50px,7vw,100px);display:flex;flex-wrap:wrap;gap:20px 32px;align-items:center;opacity:var(--r,1);transform:translateY(calc((1 - var(--r,1)) * 30px))">
+    <a href="{{ links.semana }}" target="_blank" rel="noopener" style="display:inline-flex;font-family:'Jost',sans-serif;font-size:12px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:#FBF8F6;background:#26161B;padding:17px 26px;transition:background .6s ease,letter-spacing .6s ease" style-hover="background:#A8134A;color:#FBF8F6;letter-spacing:.25em">Quero meu arranjo da semana</a>
+    <a href="mailto:quantoesmero@gmail.com" style="text-decoration:none;border-bottom:1px solid rgba(38,22,27,.3);font-size:20px">quantoesmero@gmail.com</a>
+    <a href="https://www.instagram.com/porjulianacorrea" target="_blank" rel="noopener" style="text-decoration:none;border-bottom:1px solid rgba(38,22,27,.3);font-size:20px">@porjulianacorrea</a>
+  </div>
+  <footer style="margin-top:clamp(70px,10vw,140px);border-top:1px solid #26161B;padding:clamp(28px,4vw,48px) 0 48px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px">
+    <a href="#topo" aria-label="Voltar ao início" style="display:flex;align-items:center;gap:16px;text-decoration:none;color:#26161B">
+      <span style="font-family:'Mea Culpa',cursive;font-size:clamp(34px,4.4vw,56px);line-height:1;white-space:nowrap">Por Juliana Corrêa</span>
+      <span style="width:1px;height:38px;background:#26161B"></span>
+      <span style="font-weight:600;letter-spacing:.16em;font-size:clamp(22px,2.6vw,32px)">ESMERO</span>
+    </a>
+    <small style="font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:#5E4B51">Projeto experimental em construção</small>
+  </footer>
+</section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;whatsapp&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Pedidos&quot;},&quot;petalas&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Movimento&quot;},&quot;movimento&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;fluido&quot;,&quot;sereno&quot;],&quot;default&quot;:&quot;fluido&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Movimento&quot;}}">
+class Component extends DCLogic {
+  state = { w: typeof window !== 'undefined' ? window.innerWidth : 1440 };
+  rootRef = React.createRef();
+  trackRef = React.createRef();
+
+  componentDidMount() {
+    this.cur = new WeakMap(); this.curC = new WeakMap();
+    this.reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.onResize = () => { this.setState({ w: window.innerWidth }); };
+    window.addEventListener('resize', this.onResize);
+    this.collect();
+    this.intro();
+    const loop = () => { try { this.tick(); } catch (e) {} this.raf = requestAnimationFrame(loop); };
+    this.raf = requestAnimationFrame(loop);
+  }
+  componentDidUpdate() { this.collect(); }
+  componentWillUnmount() { cancelAnimationFrame(this.raf); window.removeEventListener('resize', this.onResize); }
+
+  collect() {
+    const r = this.rootRef.current; if (!r) return;
+    const q = s => Array.from(r.querySelectorAll(s));
+    this.scenes = q('[data-scene]').map(el => ({ el, words: Array.from(el.querySelectorAll('[data-words]')) }));
+    this.reveals = q('[data-r]');
+    this.pars = q('[data-par]');
+    this.petalEls = q('[data-petal]');
+    this.cards = q('[data-card]');
+  }
+
+  intro() {
+    const r = this.rootRef.current; if (!r || this.reduce || !r.animate) return;
+    const ease = 'cubic-bezier(.2,.7,.2,1)';
+    r.querySelectorAll('[data-intro]').forEach(el => {
+      const kind = el.getAttribute('data-intro'), delay = +el.getAttribute('data-delay') || 0;
+      if (kind === 'draw') el.animate([{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: 1800, delay, easing: 'cubic-bezier(.45,.05,.25,1)', fill: 'both' });
+      else if (kind === 'bud') el.animate([{ transform: 'scale(0) rotate(-35deg)', opacity: 0 }, { transform: 'scale(1) rotate(0)', opacity: 1 }], { duration: 2200, delay, easing: ease, fill: 'both' });
+      else el.animate([{ transform: 'translateY(.5em)', opacity: 0, filter: 'blur(10px)' }, { transform: 'none', opacity: 1, filter: 'blur(0)' }], { duration: 1700, delay, easing: ease, fill: 'both' });
+    });
+  }
+
+  tick() {
+    if (!this.scenes) return;
+    const vh = window.innerHeight, vw = window.innerWidth;
+    const k = this.reduce ? 1 : (this.props.movimento === 'sereno' ? 0.055 : 0.1);
+    const cl = v => v < 0 ? 0 : v > 1 ? 1 : v;
+    const ss = t => t * t * (3 - 2 * t);
+    const lerp = (map, el, t) => { let c = map.get(el); c = c === undefined ? t : c + (t - c) * k; if (Math.abs(t - c) < 0.0005) c = t; map.set(el, c); return c; };
+
+    this.scenes.forEach(({ el, words }) => {
+      const b = el.getBoundingClientRect();
+      const p = lerp(this.cur, el, cl(-b.top / Math.max(1, b.height - vh)));
+      if (el._p === p && !el._force) return; el._p = p;
+      el.style.setProperty('--p', p.toFixed(4));
+      for (let i = 0; i < 4; i++) el.style.setProperty('--p' + (i + 1), ss(cl(p * 4 - i)).toFixed(4));
+      words.forEach(w => { const a = +w.dataset.a || 0, z = +w.dataset.b || 1; this.words(w, cl((p - a) / (z - a))); });
+      if (el.dataset.scene === 'track') this.track(el, p, vw);
+    });
+
+    this.reveals.forEach(el => {
+      const b = el.getBoundingClientRect();
+      const p = lerp(this.cur, el, cl((vh - b.top) / (vh * 0.7)));
+      if (el._p === p) return; el._p = p;
+      el.style.setProperty('--r', ss(p).toFixed(4));
+      if (el.hasAttribute('data-words')) this.words(el, cl((p - 0.1) / 0.8));
+    });
+
+    this.pars.forEach(el => {
+      const b = el.getBoundingClientRect();
+      const c = lerp(this.curC, el, Math.max(-1, Math.min(1, (b.top + b.height / 2 - vh / 2) / vh)));
+      el.style.setProperty('--c', c.toFixed(4));
+    });
+
+    if (this.petalEls.length && !this.reduce) {
+      const t = performance.now() / 1000, sy = window.scrollY, H = vh + 160;
+      this.petalEls.forEach((el, i) => {
+        const s = +el.dataset.s, y = ((+el.dataset.y * H + t * s * 16 + sy * 0.1 * s) % H) - 80;
+        const x = +el.dataset.x * vw + Math.sin(t * 0.35 * s + i) * 46;
+        el.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${(t * 14 * s + i * 47).toFixed(1)}deg) rotateX(${(Math.sin(t * .5 + i) * 65).toFixed(1)}deg)`;
+      });
+    }
+  }
+
+  words(w, p) {
+    const s = w._s || (w._s = Array.from(w.querySelectorAll('[data-w]')));
+    const n = s.length;
+    s.forEach((sp, i) => { sp.style.opacity = (0.14 + 0.86 * Math.max(0, Math.min(1, p * n - i))).toFixed(3); });
+  }
+
+  track(el, p, vw) {
+    const tr = el.querySelector('[data-track]'); if (!tr) return;
+    const max = Math.max(0, tr.scrollWidth - vw);
+    tr.style.transform = `translate3d(${(-p * max).toFixed(1)}px,0,0)`;
+    const n = this.cards.length || 10;
+    this.cards.forEach(c => {
+      const b = c.getBoundingClientRect();
+      const d = Math.max(-1.2, Math.min(1.2, (b.left + b.width / 2 - vw / 2) / vw));
+      c.style.transform = `translateY(${(Math.abs(d) * 34).toFixed(1)}px) rotate(${(d * 2.4).toFixed(2)}deg)`;
+      const im = c.firstElementChild; if (im) im.style.transform = `scale(1.14) translateX(${(d * -5).toFixed(2)}%)`;
+    });
+    const idx = Math.round(p * (n - 1));
+    const cnt = el.querySelector('[data-count]'); if (cnt) cnt.textContent = String(idx + 1).padStart(2, '0');
+    const bar = el.querySelector('[data-bar]'); if (bar) bar.style.width = (10 + p * 90).toFixed(2) + '%';
+  }
+
+  go(dir) {
+    const el = this.trackRef.current; if (!el) return;
+    const n = this.cards ? this.cards.length : 10, vh = window.innerHeight;
+    const cur = Math.round((el._p || 0) * (n - 1));
+    const i = Math.max(0, Math.min(n - 1, cur + dir));
+    const top = el.getBoundingClientRect().top + window.scrollY + (i / (n - 1)) * (el.offsetHeight - vh);
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+
+  link(linha) {
+    const wa = String(this.props.whatsapp || '').replace(/\D/g, '');
+    if (!wa) return 'https://ig.me/m/porjulianacorrea';
+    const msg = linha ? 'Olá, Juliana! Quero um arranjo ' + linha + ' da ESMERO.' : 'Olá, Juliana! Quero meu arranjo da semana da ESMERO.';
+    return 'https://wa.me/' + wa + '?text=' + encodeURIComponent(msg);
+  }
+
+  renderVals() {
+    const w = this.state.w;
+    const petals = [
+      { x: .08, y: .1, s: 1.0, w: 16, h: 22, c: '#EBCFCB', o: .9 },
+      { x: .32, y: .55, s: .7, w: 12, h: 16, c: '#A8134A', o: .35 },
+      { x: .58, y: .25, s: 1.3, w: 20, h: 26, c: '#EBCFCB', o: .8 },
+      { x: .82, y: .75, s: .85, w: 14, h: 18, c: '#E3AFBD', o: .7 },
+      { x: .7, y: .05, s: 1.1, w: 10, h: 14, c: '#A8134A', o: .3 },
+      { x: .18, y: .85, s: .9, w: 18, h: 24, c: '#E3AFBD', o: .6 }
+    ];
+    return {
+      rootRef: this.rootRef, trackRef: this.trackRef,
+      wide: w > 980, notNarrow: w > 560,
+      petalas: this.props.petalas ?? true,
+      petals,
+      prev: () => this.go(-1), next: () => this.go(1),
+      links: {
+        semana: this.link(''), dia: this.link('Dia a Dia'), essencial: this.link('Essencial'), unique: this.link('Unique'),
+        consultoria: 'https://ig.me/m/porjulianacorrea'
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

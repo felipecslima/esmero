@@ -1,0 +1,78 @@
+/* ESMERO — estilos globais. A maior parte do visual está inline nos componentes
+   (fiel ao protótipo); aqui ficam a base, os blocos repetidos e os breakpoints. */
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: #F3EDE2; color: #1F1A17; }
+a { color: #1F1A17; }
+a:hover { color: #B8195A; }
+::selection { background: #F2A7C0; }
+
+#root {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(18px, 1.25vw, 21px);
+  line-height: 1.55;
+  color: #1F1A17;
+  background: #F3EDE2 url('/aquarela/papel.png') repeat;
+  overflow-x: clip;
+}
+
+/* ---------- Efeito "pintar": 3 manchas de aquarela que crescem ----------
+   .wc usa o progresso --w (intro / cartões / porta); .wc-r usa a revelação --r. */
+.wc {
+  --m: var(--w, 1);
+  -webkit-mask-image: url('/aquarela/mascara-1.png'), url('/aquarela/mascara-2.png'), url('/aquarela/mascara-3.png');
+  mask-image: url('/aquarela/mascara-1.png'), url('/aquarela/mascara-2.png'), url('/aquarela/mascara-3.png');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: 22% 28%, 78% 52%, 40% 88%;
+  mask-position: 22% 28%, 78% 52%, 40% 88%;
+  -webkit-mask-size:
+    calc(clamp(0, var(--m) * 1.6, 1) * 230%) calc(clamp(0, var(--m) * 1.6, 1) * 230%),
+    calc(clamp(0, (var(--m) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--m) - .2) * 1.6, 1) * 230%),
+    calc(clamp(0, (var(--m) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--m) - .38) * 1.65, 1) * 240%);
+  mask-size:
+    calc(clamp(0, var(--m) * 1.6, 1) * 230%) calc(clamp(0, var(--m) * 1.6, 1) * 230%),
+    calc(clamp(0, (var(--m) - .2) * 1.6, 1) * 230%) calc(clamp(0, (var(--m) - .2) * 1.6, 1) * 230%),
+    calc(clamp(0, (var(--m) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--m) - .38) * 1.65, 1) * 240%);
+}
+.wc-r { --m: var(--r, 1); }
+
+/* Enquanto pinta: saturação .35 → 1 e desfoque 5px → 0 (--bk = 0 em touch/aparelhos fracos). */
+.wc-tint {
+  --mt: var(--w, 1);
+  filter: saturate(calc(.35 + .65 * var(--mt))) blur(calc((1 - var(--mt)) * 5px * var(--bk, 1)));
+}
+.wc-tint-r { --mt: var(--r, 1); }
+
+/* ---------- Botões: hover = três pinceladas (progresso --paint, desbotar --fade) ---------- */
+.paint-ink {
+  position: absolute;
+  inset: -10px -16px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: var(--fade, 1);
+  background-image: url('/aquarela/pincelada.png'), url('/aquarela/pincelada.png'), url('/aquarela/lavanda.png');
+  background-repeat: no-repeat;
+  background-position: left 46%, right 64%, 78% 40%;
+  background-size:
+    calc(clamp(0, var(--paint, 0) * 1.35, 1) * 108%) 330%,
+    calc(clamp(0, (var(--paint, 0) - .28) * 1.7, 1) * 92%) 240%,
+    calc(clamp(0, (var(--paint, 0) - .55) * 2.2, 1) * 46%) 130%;
+}
+
+/* Estados de hover (o inline do componente define o estado normal). */
+.hv-0:hover { color: #1F1A17 !important; }
+.hv-1:hover { letter-spacing: .16em !important; color: #1F1A17 !important; }
+.hv-2:hover { background-size: 160% 160% !important; }
+.hv-3:hover { background-size: 300% 600% !important; }
+
+/* ---------- Breakpoints: celular ≤ 560 · tablet 561–1100 · desktop > 1100 · menu > 1180 ---------- */
+@media (max-width: 1180px) { .so-largo { display: none !important; } }
+@media (max-width: 560px) { .nao-celular { display: none !important; } }
+@media (min-width: 561px) { .so-celular { display: none !important; } }
+
+/* ---------- Estado inicial da abertura (antes do JS assumir) ---------- */
+.intro [data-drawgroup] path { stroke-dashoffset: 1; }
+.intro [data-intro="paint"] { --w: 0; }
+.intro [data-intro="rise"],
+.intro [data-intro="bloom"] { opacity: 0; }

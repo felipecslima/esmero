@@ -1,0 +1,17 @@
+---
+// Pétalas que caem devagar pela tela (posição animada em scripts/motion.ts).
+const petalas = [
+  { x: .06, y: .12, s: 1.0, w: 13, h: 17, c: '#D6246E', o: .55 },
+  { x: .3, y: .6, s: .7, w: 10, h: 13, c: '#EC6A9C', o: .6 },
+  { x: .55, y: .3, s: 1.25, w: 15, h: 19, c: '#E0407F', o: .5 },
+  { x: .8, y: .78, s: .85, w: 11, h: 15, c: '#F08AB0', o: .65 },
+  { x: .7, y: .05, s: 1.1, w: 9, h: 12, c: '#8E79D6', o: .45 },
+  { x: .18, y: .88, s: .9, w: 12, h: 16, c: '#B5C42F', o: .5 },
+  { x: .92, y: .4, s: 1.05, w: 10, h: 14, c: '#D6246E', o: .5 },
+];
+---
+<div aria-hidden="true" style="position:fixed;inset:0;z-index:40;pointer-events:none;overflow:hidden">
+  {petalas.map((pt) => (
+    <span data-petal="" data-x={pt.x} data-y={pt.y} data-s={pt.s} style={`position:absolute;left:0;top:0;width:${pt.w}px;height:${pt.h}px;border-radius:80% 20% 70% 30% / 60% 40% 60% 40%;background:${pt.c};opacity:${pt.o};will-change:transform`}></span>
+  ))}
+</div>

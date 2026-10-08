@@ -1,0 +1,77 @@
+---
+import Contorno from './ui/Contorno.astro';
+import Seta from './ui/Seta.astro';
+import { links } from '../config';
+---
+<section id="topo" data-scene="hero" style="position:relative;height:var(--h-hero,430vh)">
+  <div style="position:sticky;top:0;height:100svh;overflow:hidden">
+
+    <div data-draw="" style="position:absolute;right:var(--dr,clamp(-30px,2vw,60px));bottom:var(--db,0px);height:var(--dh,min(100vh,118vw));aspect-ratio:7/9;transform-origin:50% 66.667%;will-change:transform">
+      <img data-intro="paint" data-delay="200" src="/aquarela/ceu.png" alt="" class="wc" style="position:absolute;left:14%;top:2%;width:96%;opacity:.85">
+      <img data-intro="paint" data-delay="1700" src="/aquarela/pedra.png" alt="" style="position:absolute;left:20%;top:86%;width:62%;opacity:.8;-webkit-mask-image:url('/aquarela/mascara-1.png'),url('/aquarela/mascara-2.png'),url('/aquarela/mascara-3.png');mask-image:url('/aquarela/mascara-1.png'),url('/aquarela/mascara-2.png'),url('/aquarela/mascara-3.png');-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-position:8% 50%,50% 50%,92% 50%;mask-position:8% 50%,50% 50%,92% 50%;-webkit-mask-size:calc(clamp(0, var(--w,1) * 2.2, 1) * 70%) 200%,calc(clamp(0, (var(--w,1) - .3) * 2.2, 1) * 70%) 200%,calc(clamp(0, (var(--w,1) - .55) * 2.3, 1) * 70%) 200%;mask-size:calc(clamp(0, var(--w,1) * 2.2, 1) * 70%) 200%,calc(clamp(0, (var(--w,1) - .3) * 2.2, 1) * 70%) 200%,calc(clamp(0, (var(--w,1) - .55) * 2.3, 1) * 70%) 200%">
+      <img data-intro="bloom" data-delay="1700" src="/aquarela/terracota.png" alt="" style="position:absolute;left:10%;top:82%;width:20%">
+      <img data-intro="bloom" data-delay="1900" src="/aquarela/folhagem.png" alt="" style="position:absolute;left:-2%;top:66%;width:36%">
+      <div data-intro="paint" data-delay="1500" class="wc" style="position:absolute;left:74.3%;top:45.6%;width:10%;height:12.2%;background:url('/aquarela/turquesa.png') center/cover;opacity:.85"></div>
+      <svg viewBox="0 0 700 900" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">
+        <g data-drawgroup="" data-delay="300" filter="url(#ink)" fill="none" stroke="#1F1A17" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path pathLength="1" stroke-dasharray="1" d="M0 886 L700 886"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M98 886 L96 640 M95 600 L94 300"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M70 300 L640 286 M76 312 L636 298"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M80 288 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0 q12 -14 24 0"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M612 300 L610 520 M609 560 L606 886"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M214 822 L486 822 L494 850 L206 850 Z"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M188 850 L512 850 L522 886 L178 886 Z"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M520 410 h70 v110 h-70 Z M512 526 h86 M514 532 h82"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M524 422 h62 M524 434 h62 M524 446 h62 M524 458 h62 M524 470 h62 M524 482 h62 M524 494 h62 M524 506 h62"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M112 780 h80 v10 h-80 Z M118 790 L186 790 L178 870 L126 870 Z"></path>
+          <path pathLength="1" stroke-dasharray="1" stroke-opacity=".55" d="M110 600 h40 M130 612 h36 M104 624 h30 M520 360 h40 M540 372 h34 M515 384 h26 M560 640 h34 M548 652 h30"></path>
+          <path pathLength="1" stroke-dasharray="1" stroke-opacity=".5" d="M470 610 l40 -40 M470 640 l50 -50 M470 670 l56 -56 M474 700 l52 -52 M480 730 l40 -40 M486 760 l30 -30"></path>
+          <path pathLength="1" stroke-dasharray="1" stroke-width="1" d="M206 380 L206 820 M199 380 h14 M199 820 h14 M250 352 L450 352 M250 345 v14 M450 345 v14"></path>
+        </g>
+      </svg>
+      <span data-intro="rise" data-delay="2300" style="position:absolute;left:35.7%;width:28.6%;top:36.2%;text-align:center;font-family:'Architects Daughter',cursive;font-size:clamp(9px,.9vw,12px);letter-spacing:.1em;white-space:nowrap;color:#5A514A">primeira coleção · 22.09.2026</span>
+    </div>
+
+    <div data-photo="" style="position:absolute;left:0;top:0;width:0;height:0;overflow:hidden;opacity:0">
+      <img src="/fotos/colecao-mesa.jpg" alt="Arranjos da primeira coleção sobre a mesa: girassóis, antirrinos rosa e eucalipto" class="wc wc-tint" style="position:absolute;left:0;top:0;width:100vw;height:100vh;object-fit:cover;max-width:none">
+    </div>
+
+    <div data-front="" style="position:absolute;right:var(--dr,clamp(-30px,2vw,60px));bottom:var(--db,0px);height:var(--dh,min(100vh,118vw));aspect-ratio:7/9;transform-origin:50% 66.667%;will-change:transform;pointer-events:none">
+      <div data-pan="l" style="position:absolute;left:35.714%;top:42.222%;width:14.286%;height:48.889%;border-radius:100% 0 0 0 / 22.727% 0 0 0;overflow:hidden;transform-origin:left center"><div data-intro="paint" data-delay="1100" class="wc" style="position:absolute;inset:0;background:url('/aquarela/turquesa.png') left center/200% 100%"></div>
+        <svg viewBox="0 0 100 440" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%"><g filter="url(#ink)" fill="none" stroke="#123C4A" stroke-width="1.4" stroke-linecap="round"><path d="M14 150 h72 v110 h-72 Z M14 280 h72 v130 h-72 Z M99 0 V440"></path><path stroke-opacity=".45" d="M20 120 l30 -30 M20 140 l50 -50 M30 150 l60 -60 M22 240 l40 -40 M22 400 l50 -50 M40 410 l46 -46"></path></g><rect x="0" y="118" width="46" height="7" fill="#9A6A33"></rect><rect x="0" y="352" width="46" height="7" fill="#9A6A33"></rect></svg>
+      </div>
+      <div data-pan="r" style="position:absolute;left:50%;top:42.222%;width:14.286%;height:48.889%;border-radius:0 100% 0 0 / 0 22.727% 0 0;overflow:hidden;transform-origin:right center"><div data-intro="paint" data-delay="1350" class="wc" style="position:absolute;inset:0;background:url('/aquarela/turquesa.png') right center/200% 100%"></div>
+        <svg viewBox="0 0 100 440" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%"><g filter="url(#ink)" fill="none" stroke="#123C4A" stroke-width="1.4" stroke-linecap="round"><path d="M14 150 h72 v110 h-72 Z M14 280 h72 v130 h-72 Z M1 0 V440"></path><path stroke-opacity=".45" d="M20 170 l40 -40 M30 250 l56 -56 M20 330 l40 -40 M44 400 l40 -40"></path></g><rect x="54" y="118" width="46" height="7" fill="#9A6A33"></rect><rect x="54" y="352" width="46" height="7" fill="#9A6A33"></rect><circle cx="16" cy="268" r="4" fill="#9A6A33"></circle></svg>
+      </div>
+      <svg viewBox="0 0 700 900" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible">
+        <g data-drawgroup="" data-delay="900" filter="url(#ink)" fill="none" stroke="#1F1A17" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path pathLength="1" stroke-dasharray="1" d="M236 822 L236 480 A114 114 0 0 1 464 480 L464 822"></path>
+          <path pathLength="1" stroke-dasharray="1" d="M250 822 L250 480 A100 100 0 0 1 450 480 L450 822"></path>
+          <path pathLength="1" stroke-dasharray="1" stroke-width="1.2" d="M350 366 L350 380 M300 380 L306 392 M400 380 L394 392 M262 420 L274 428 M438 420 L426 428 M240 470 L252 472 M460 470 L448 472"></path>
+          <path pathLength="1" stroke-dasharray="1" stroke-width="1.4" d="M196 886 C 190 800, 214 700, 206 600 C 198 520, 226 440, 300 380 M206 640 C 180 600, 150 590, 130 560 M222 470 C 250 450, 268 420, 266 392"></path>
+        </g>
+      </svg>
+      <img data-intro="bloom" data-delay="2000" src="/aquarela/buganvilia.png" alt="" style="position:absolute;left:-8%;top:20%;width:76%">
+    </div>
+
+    <div style="position:absolute;left:clamp(20px,5vw,80px);top:clamp(96px,17vh,190px);max-width:min(860px,calc(100% - 40px));opacity:calc(1 - var(--t,0));transform:translateY(calc(var(--t,0) * -12vh));pointer-events:none;z-index:5">
+      <div data-intro="rise" data-delay="0" style="display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:clamp(12px,2vw,26px)">
+        <span style="font-family:'Ms Madi',cursive;font-size:clamp(30px,3.2vw,48px);line-height:1;color:#B8195A">Por Juliana Corrêa</span>
+        <span style="font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.16em;text-transform:uppercase">Belém do Pará</span>
+      </div>
+      <h1 style="margin:0;font-weight:400;font-size:clamp(40px,7.2vw,122px);line-height:.94;letter-spacing:-.022em;max-width:7.6em">
+        <span data-intro="rise" data-delay="250" style="display:block">Olhar de novo.</span>
+        <span data-intro="rise" data-delay="520" style="display:block;padding-left:clamp(0px,6vw,100px)">Imaginar possibilidades.</span>
+        <span data-intro="rise" data-delay="790" style="display:block;font-style:italic;font-weight:300;color:#B8195A">Criar maneiras mais belas de viver.</span>
+      </h1>
+    </div>
+
+    <div style="position:absolute;z-index:6;left:clamp(14px,6vw,96px);bottom:clamp(20px,9vh,96px);width:min(470px,calc(100% - 28px));box-sizing:border-box;background:#F3EDE2 url('/aquarela/papel.png');padding:clamp(24px,2.6vw,38px);opacity:var(--card,0);transform:translateY(calc((1 - var(--card,0)) * 50vh)) rotate(calc((1 - var(--card,0)) * -5deg + -1deg));box-shadow:0 24px 50px rgba(31,26,23,.22)">
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);overflow:visible;pointer-events:none"><path d="M1 2 L99 1 L98 99 L2 98 Z" fill="none" stroke="#1F1A17" stroke-opacity=".6" stroke-width="1" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
+      <p style="margin:0;font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#B8195A">A primeira coleção de arranjos</p>
+      <p style="margin:.5em 0 1.1em;font-style:italic;font-weight:500;font-size:clamp(23px,2.1vw,30px);line-height:1.18;text-wrap:pretty">A primeira coleção de arranjos florais da ESMERO chegou em 22 de setembro de 2026.</p>
+      <a class="hv-1" href={links.semana} target="_blank" rel="noopener" data-paint="" style="position:relative;display:inline-flex;align-items:center;gap:12px;padding:15px 26px;font-family:'Architects Daughter',cursive;font-size:14px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:#1F1A17;isolation:isolate;transition:letter-spacing .8s cubic-bezier(.2,.7,.2,1)"><span class="paint-ink" aria-hidden="true"></span>Quero meu arranjo da semana<Seta /><Contorno /></a>
+    </div>
+    <p data-note="" style="position:absolute;z-index:6;right:clamp(14px,5vw,72px);bottom:var(--note-b,clamp(20px,9vh,96px));margin:0;background:#F3EDE2;padding:10px 18px;font-style:italic;font-size:17px;opacity:var(--note,0);transform:translateY(calc((1 - var(--note,0)) * 30px)) rotate(1.5deg)">Um projeto experimental em construção (…)</p>
+  </div>
+</section>

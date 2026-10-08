@@ -1,0 +1,6 @@
+---
+// Contorno de nanquim (com tremor de mão) dos botões.
+interface Props { largura?: number }
+const { largura = 1.4 } = Astro.props;
+---
+<svg viewBox="0 0 300 60" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:-3px;width:calc(100% + 6px);height:calc(100% + 6px);overflow:visible;pointer-events:none"><path d="M14 6 C 90 2, 210 3, 288 8 C 298 22, 297 42, 286 54 C 200 58, 96 57, 12 53 C 2 40, 3 18, 16 4" fill="none" stroke="#1F1A17" stroke-width={largura} vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>

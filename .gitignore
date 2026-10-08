@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.env
+.DS_Store
+
+# Configuração local de agentes (caminhos desta máquina)
+.claude/settings.local.json
+.codex/
+.impeccable/config.local.json
