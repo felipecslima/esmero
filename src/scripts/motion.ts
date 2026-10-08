@@ -50,7 +50,10 @@ export function iniciar(root: HTMLElement) {
     } else {
       set('--dh', Math.min(vh, vw * 1.18) + 'px'); set('--dr', 'clamp(-30px,2vw,60px)'); set('--db', '0px');
     }
-    set('--balc-o', portrait ? '.55' : '.95');
+    // Pergunta: em retrato o texto sobe e o balcão fica embaixo dele, centralizado (altura em measure)
+    for (const [k, v] of [['--balc-l', '50%'], ['--balc-r', 'auto'], ['--balc-t', '-50% 0'], ['--perg-j', 'flex-start']]) {
+      if (portrait) set(k, v); else root.style.removeProperty(k);
+    }
     set('--agua-h', vw < 820 ? 'calc(100% - 30px)' : '220px');
     const nav = navigator as Navigator & { hardwareConcurrency?: number };
     const low = touch || vw < 820 || (!!nav.hardwareConcurrency && nav.hardwareConcurrency <= 4);
@@ -95,6 +98,14 @@ export function iniciar(root: HTMLElement) {
       const cw = d.offsetWidth, ch = d.offsetHeight;
       m.ox = d.offsetLeft + 0.5 * cw; m.oy = d.offsetTop + 0.66667 * ch; m.dw = 0.28571 * cw; m.dh = 0.48889 * ch;
     }
+    // Balcão da Pergunta em retrato: ocupa só o espaço livre abaixo do texto (depende das fontes).
+    const perg = root.querySelector<HTMLElement>('[data-perg]');
+    if (perg && innerHeight > innerWidth * 1.05) {
+      const cena = perg.parentElement!, fim = perg.lastElementChild!.getBoundingClientRect().bottom - cena.getBoundingClientRect().top;
+      // a buganvília passa 6% acima do balcão; 2vh de margem embaixo e 28px de folga sob o texto
+      const h = (cena.offsetHeight - fim - 28 - innerHeight * 0.02) / 1.06;
+      root.style.setProperty('--balc-h', Math.round(Math.max(200, Math.min(innerWidth * 1.04, h))) + 'px');
+    } else root.style.removeProperty('--balc-h');
     const card = cartao;
     m.noteB = card ? parseFloat(getComputedStyle(card).bottom) + card.offsetHeight + 16 : NaN;
     if (trackEl) {
