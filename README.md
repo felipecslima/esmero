@@ -24,6 +24,8 @@ src/
   components/ui/       Contorno (borda de nanquim dos botões), Seta
   data/licoes.ts       textos das 10 "Lições de uma flor"
   scripts/motion.ts    motor de rolagem: cenas fixas, revelações, pintura, carrossel
+  scripts/aquarela-gl.ts  aquarela viva em WebGL (tinta que se espalha, borda molhada,
+                       gota d’água no cursor); sem WebGL cai nas máscaras em CSS
   styles/global.css    base, efeito "pintar" (.wc), tinta dos botões, breakpoints
 public/
   aquarela/            texturas e máscaras de aquarela (WebP; originais PNG em material/)
@@ -46,7 +48,7 @@ ou direto em `src/config.ts`.
 ## Regras
 
 - **Textos são da Juliana**: usar exatamente como estão. Não reescrever, resumir nem inventar preços, prazos ou depoimentos.
-- O efeito de aquarela das imagens é a classe `.wc` (usa `--w`) / `.wc wc-r` (usa `--r`) em `global.css`.
+- O efeito de aquarela das imagens é a classe `.wc` (progresso `--m`: `--w`, `--r` ou `--p1…4`). Com WebGL, `scripts/aquarela-gl.ts` troca a imagem por um canvas pintado por shader; sem WebGL ou com movimento reduzido, valem as máscaras quadro a quadro de `global.css` (geradas por `node scripts/gerar-mascaras.mjs`).
 - Atributos `data-*` nos componentes são lidos por `scripts/motion.ts` — ver o cabeçalho do arquivo.
 
 ## Pendências

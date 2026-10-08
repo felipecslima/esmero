@@ -202,3 +202,11 @@ html:not(.tarde) [data-tarde] { background-image: none !important; }
 .intro [data-intro="paint"] { --w: 0; }
 .intro [data-intro="rise"],
 .intro [data-intro="bloom"] { opacity: 0; }
+
+/* ---------- Aquarela viva (WebGL, scripts/aquarela-gl.ts) ----------
+   O canvas assume o lugar da imagem; a máscara e o "molhado" em CSS saem de cena. */
+.aq-oculta { display: none !important; }
+.aq, .aq-alvo { -webkit-mask: none !important; mask: none !important; }
+.aq.wc-tint { filter: none; }
+.aq-sem-fundo { background-image: none !important; }
+.aq-fundo { position: absolute; inset: 0; width: 100%; height: 100%; }

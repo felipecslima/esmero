@@ -11,6 +11,8 @@
 // Todo valor faz lerp em direção ao alvo a cada quadro; saltos > .35 são cortados
 // pela metade na hora para não "perder referências" em rolagem rápida.
 
+import { iniciarAquarela } from './aquarela-gl';
+
 type Sd = { paths: SVGPathElement[]; a: number; b: number };
 type Scene = { el: HTMLElement; words: HTMLElement[]; sd: Sd[] };
 type IntroItem = { el: HTMLElement | SVGElement; k: string; d: number; dur: number };
@@ -364,8 +366,12 @@ export function iniciar(root: HTMLElement) {
   addEventListener('scroll', () => { dirty = true; }, { passive: true });
   root.addEventListener('load', () => { dirty = true; }, true); // imagens adiadas mudam alturas
   introTick(reduce ? 1e9 : 0);
+  // Aquarela viva em WebGL (sem WebGL ou com movimento reduzido, segue a versão em CSS).
+  let aquarela: ReturnType<typeof iniciarAquarela> = null;
+  try { aquarela = iniciarAquarela(root); } catch (e) { console.warn(e); }
   const loop = () => {
     try { tick(); } catch (e) { console.error(e); }
+    try { aquarela?.render(); } catch (e) { console.error(e); aquarela = null; }
     requestAnimationFrame(loop);
   };
   requestAnimationFrame(loop);
