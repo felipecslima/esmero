@@ -100,18 +100,28 @@ a:hover { color: #B8195A; }
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 }
+/* Cada camada tem o tamanho da própria pincelada (antes a imagem era maior que a caixa e saía
+   recortada em linha reta); as posições reproduzem as do protótipo. */
 .paint-ink i:nth-child(1) {
   --q: clamp(0, var(--paint, 0) * 1.35, 1);
+  inset: auto;
+  left: 0;
+  top: -105.8%;           /* (100% − 330%) × 46% */
+  width: 108%;
+  height: 330%;
   background-image: var(--tinta-1);
-  background-position: left 46%;
-  background-size: 108% 330%;
+  background-size: 100% 100%;
 }
 .paint-ink i:nth-child(2) {
   --q: clamp(0, (var(--paint, 0) - .28) * 1.7, 1);
+  inset: auto;
+  left: 8%;               /* encostada à direita */
+  top: -89.6%;            /* (100% − 240%) × 64% */
+  width: 92%;
+  height: 240%;
   background-image: var(--tinta-1);
-  background-position: left 64%;   /* espelhado: visualmente à direita */
-  background-size: 92% 240%;
-  transform: scaleX(-1);
+  background-size: 100% 100%;
+  transform: scaleX(-1);  /* pinta da direita para a esquerda */
 }
 .paint-ink i:nth-child(3) {
   --q: clamp(0, (var(--paint, 0) - .55) * 2.2, 1);
@@ -231,3 +241,7 @@ html:not(.tarde) [data-tarde] { background-image: none !important; }
 .il-deriva.vivo { animation: il-deriva 16s ease-in-out infinite alternate; }
 @keyframes il-balanca { from { rotate: -1.1deg; } to { rotate: 1.1deg; } }
 @keyframes il-deriva { from { translate: -7px 3px; } to { translate: 7px -3px; } }
+
+/* Cabeçalho: o botão fica colado no topo da janela; pincelada mais baixa para não ser cortada lá. */
+header .paint-ink i:nth-child(1) { height: 210%; top: -50.6%; }   /* (100% − 210%) × 46% */
+header .paint-ink i:nth-child(2) { height: 160%; top: -38.4%; }   /* (100% − 160%) × 64% */
