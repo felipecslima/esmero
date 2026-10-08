@@ -378,6 +378,8 @@ export function iniciar(root: HTMLElement) {
     svg.setAttribute('style', `${estilo};--m:var(${img.dataset.prog || '--w'},1)`);
     if (getComputedStyle(img).objectFit === 'fill') svg.setAttribute('preserveAspectRatio', 'none');
     for (const a of ['data-intro', 'data-delay']) { const v = img.getAttribute(a); if (v !== null) svg.setAttribute(a, v); }
+    // água/pedras: em vez de crescer por tufos, a aguada é arrastada como pincel (máscara .wc-varre)
+    if (img.classList.contains('wc-varre')) svg.classList.add('wc', 'wc-varre', 'il-varre');
     img.replaceWith(svg);
     introItems.forEach(it => { if (it.el === img) it.el = svg; });
     vivas?.observe(svg);

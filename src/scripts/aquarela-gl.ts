@@ -227,6 +227,7 @@ export function iniciarAquarela(root: HTMLElement) {
   const itens: Item[] = [];
   let semente = 0.37;
   root.querySelectorAll<HTMLElement>('.wc:not([data-svg])').forEach(alvo => {
+    if (alvo.querySelector(':scope > img[data-svg]')) return; // contêiner de SVG vetorizado: a máscara CSS revela
     let img: HTMLImageElement | null = null, fonte = '', recorte: Item['recorte'] = [0, 0, 1, 1], ajuste: Item['ajuste'] = 'fill';
     if (alvo instanceof HTMLImageElement) img = alvo;
     else img = alvo.querySelector<HTMLImageElement>(':scope > img');

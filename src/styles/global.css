@@ -227,6 +227,8 @@ html:not(.tarde) [data-tarde] { background-image: none !important; }
    preservada (tufos são classes, não grupos). Plantas balançam e lavagens derivam por inteiro. */
 .il { overflow: visible; pointer-events: none; }
 .il .base { opacity: clamp(0, (var(--m, 1) - .25) * 2, 1); }
+/* Aguadas arrastadas (água, pedras) e pinceladas: a máscara de pincel revela; os tufos ficam inteiros. */
+.il-varre .tufo, .il-varre .base, .wc-varre > .il .tufo, .wc-varre > .il .base { opacity: 1; scale: 1; }
 .il .tufo {
   --t: clamp(0, (var(--m, 1) - var(--d, 0)) * 3.5, 1);
   opacity: var(--t);

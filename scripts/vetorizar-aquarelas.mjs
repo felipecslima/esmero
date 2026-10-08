@@ -26,9 +26,13 @@ const IMAGENS = {
   pedra: { ...LAVAGENS, origem: [0, 0.5], movimento: 'deriva', tufos: 6 },
   lavanda: { ...LAVAGENS, origem: [0.4, 0.55], movimento: 'deriva', tufos: 8 },
   terracota: { ...LAVAGENS, origem: [0.5, 0.55], movimento: 'deriva', tufos: 6 },
-  pincelada: { ...LAVAGENS, origem: [0, 0.5] },
-  'pincelada-lavanda': { ...LAVAGENS, origem: [0, 0.5] },
+  // pinceladas: separação um pouco mais grossa (são longas e só fazem a varredura de pincel)
+  pincelada: { colorPrecision: 8, filterSpeckle: 6, layerDifference: 7, origem: [0, 0.5], soFundo: true },
+  'pincelada-lavanda': { colorPrecision: 8, filterSpeckle: 6, layerDifference: 7, origem: [0, 0.5], soFundo: true },
   turquesa: { ...LAVAGENS, origem: [0.5, 0.5] },
+  // versões com a transparência real (sem o papel por trás), para fundos escuros e sobre fotos
+  'buganvilia-2-alfa': { ...PINCELADAS, fonte: 'buganvilia-2', alfa: true, origem: [0.33, 0.92], movimento: 'balanca', tufos: 60 },
+  'folhagem-alfa': { ...PINCELADAS, fonte: 'folhagem', alfa: true, origem: [0.5, 1], movimento: 'balanca', tufos: 70 },
 };
 
 // ---------- tufos: agrupa os caminhos por proximidade sem mudar a ordem de pintura ----------
@@ -81,7 +85,14 @@ function agrupar(svg, W, H, cfg) {
 const PAPEL = [0xF3, 0xED, 0xE2];
 
 for (const [nome, cfg] of Object.entries(process.argv[2] ? { [process.argv[2]]: IMAGENS[process.argv[2]] } : IMAGENS)) {
-  const png = await sharp(`public/aquarela/${nome}.webp`).flatten({ background: '#F3EDE2' }).png().toBuffer();
+  const entrada = sharp(`public/aquarela/${cfg.fonte ?? nome}.webp`);
+  // alfa: pixels quase transparentes viram fundo (chave); o resto mantém a cor da tinta
+  const png = cfg.alfa
+    ? await entrada.ensureAlpha().raw().toBuffer({ resolveWithObject: true }).then(({ data, info }) => {
+        for (let i = 0; i < data.length; i += 4) data[i + 3] = data[i + 3] < 70 ? 0 : 255;
+        return sharp(data, { raw: info }).png().toBuffer();
+      })
+    : await entrada.flatten({ background: '#F3EDE2' }).png().toBuffer();
   let svg = await vectorize(png, {
     ...cfg,
     colorMode: 0,      // colorido
@@ -90,17 +101,20 @@ for (const [nome, cfg] of Object.entries(process.argv[2] ? { [process.argv[2]]: 
     spliceThreshold: 45, cornerThreshold: 60, lengthThreshold: 4, maxIterations: 2, pathPrecision: 0,
   });
   // tira o fundo: a primeira camada (se próxima do papel) e qualquer camada da cor do papel
-  let primeiro = true;
+  let primeiro = !cfg.alfa;
   svg = svg.replace(/<path[^>]*fill="#([0-9A-Fa-f]{6})"[^>]*\/>/g, (m, hex) => {
     const c = [0, 2, 4].map(i => parseInt(hex.slice(i, i + 2), 16));
     const dist = Math.hypot(c[0] - PAPEL[0], c[1] - PAPEL[1], c[2] - PAPEL[2]);
     const eraPrimeiro = primeiro; primeiro = false;
-    return dist < 14 || (eraPrimeiro && dist < 45) ? '' : m;
+    // soFundo: tons claros fazem parte da pincelada; só a camada de fundo sai
+    return (!cfg.soFundo && dist < 14) || (eraPrimeiro && dist < 45) ? '' : m;
   });
   svg = optimize(svg, { multipass: true, floatPrecision: 0, plugins: [{ name: 'preset-default' }] }).data;
   // viewBox no lugar de width/height (o CSS da página dimensiona) + tufos animáveis
   const [, W, H] = svg.match(/width="(\d+)" height="(\d+)"/).map(Number);
   svg = svg.replace(/<svg ([^>]*)width="\d+" height="\d+"/, `<svg $1viewBox="0 0 ${W} ${H}" class="il il-${nome}" aria-hidden="true"`);
+  // versão com transparência: camadas translúcidas se somam como veladura de aquarela
+  if (cfg.alfa) svg = svg.replace(/(<svg [^>]*>)/, '$1<style>.il-alfa path{fill-opacity:.62}</style>').replace('class="il ', 'class="il il-alfa ');
   if (cfg.movimento) svg = agrupar(svg, W, H, { ...cfg, nome }).replace('class="il ', `class="il il-${cfg.movimento} `);
   fs.writeFileSync(`public/aquarela/svg/${nome}.svg`, svg);
   console.log(nome.padEnd(18), String((svg.match(/<path/g) || []).length).padStart(5), 'caminhos', String(Math.round(svg.length / 1024)).padStart(4), 'KB');
