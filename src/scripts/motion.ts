@@ -22,6 +22,7 @@ const ss = (t: number) => t * t * (3 - 2 * t);
 const out = (t: number) => 1 - Math.pow(1 - t, 3);
 
 export function iniciar(root: HTMLElement) {
+  (window as Window & { __esmero?: boolean }).__esmero = true; // ver garantia em Base.astro
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const touch = matchMedia('(hover: none)').matches;
   const k = reduce ? 1 : root.dataset.movimento === 'sereno' ? 0.055 : 0.1;
@@ -62,6 +63,7 @@ export function iniciar(root: HTMLElement) {
   const cards = q('[data-card]');
   const inds = q('[data-ind]');
   const fab = root.querySelector<El>('[data-fab]');
+  const cartao = root.querySelector<HTMLElement>('[data-cartao]');
   const hero = {
     draw: root.querySelector<HTMLElement>('[data-draw]'),
     front: root.querySelector<HTMLElement>('[data-front]'),
@@ -84,7 +86,7 @@ export function iniciar(root: HTMLElement) {
       const cw = d.offsetWidth, ch = d.offsetHeight;
       m.ox = d.offsetLeft + 0.5 * cw; m.oy = d.offsetTop + 0.66667 * ch; m.dw = 0.28571 * cw; m.dh = 0.48889 * ch;
     }
-    const card = root.querySelector('[data-note]')?.previousElementSibling as HTMLElement | null;
+    const card = cartao;
     m.noteB = card ? parseFloat(getComputedStyle(card).bottom) + card.offsetHeight + 16 : NaN;
     if (trackEl) {
       m.trackMax = Math.max(0, trackEl.scrollWidth - innerWidth);
@@ -202,7 +204,10 @@ export function iniciar(root: HTMLElement) {
       img.style.transform = `scale(${(1.25 - 0.25 * z2).toFixed(4)})`;
     }
     el.style.setProperty('--t', cl(p / 0.14).toFixed(4));
-    el.style.setProperty('--card', ss(cl((p - 0.78) / 0.14)).toFixed(4));
+    const cardV = ss(cl((p - 0.78) / 0.14));
+    el.style.setProperty('--card', cardV.toFixed(4));
+    // Enquanto o cartão está escondido, seu botão não recebe foco nem clique.
+    if (cartao) cartao.inert = cardV < 0.5;
     el.style.setProperty('--note', ss(cl((p - 0.88) / 0.1)).toFixed(4));
     if (vw <= 760 && !isNaN(m.noteB)) el.style.setProperty('--note-b', m.noteB + 'px');
     else el.style.removeProperty('--note-b');
@@ -240,7 +245,7 @@ export function iniciar(root: HTMLElement) {
     const now = Math.round((el._p || 0) * (n - 1));
     const i = Math.max(0, Math.min(n - 1, now + dir));
     const top = el.getBoundingClientRect().top + scrollY + (i / (n - 1)) * (el.offsetHeight - vh);
-    scrollTo({ top, behavior: 'smooth' });
+    scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
   }
   q('[data-go]').forEach(b => b.addEventListener('click', () => go(+b.dataset.go!)));
 
@@ -281,6 +286,7 @@ export function iniciar(root: HTMLElement) {
         fab.style.opacity = on ? '1' : '0';
         fab.style.transform = on ? 'translate(-50%,0)' : 'translate(-50%,140%)';
         fab.style.pointerEvents = on ? 'auto' : 'none';
+        fab.inert = !on;
       }
     }
 

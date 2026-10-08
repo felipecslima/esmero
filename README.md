@@ -26,8 +26,8 @@ src/
   scripts/motion.ts    motor de rolagem: cenas fixas, revelações, pintura, carrossel
   styles/global.css    base, efeito "pintar" (.wc), tinta dos botões, breakpoints
 public/
-  aquarela/            texturas e máscaras de aquarela
-  fotos/               fotos da Juliana
+  aquarela/            texturas e máscaras de aquarela (WebP; originais PNG em material/)
+  fotos/               fotos da Juliana (WebP; JPG só da prévia de compartilhamento)
 material/              tudo que não entra no site: protótipos originais (prototipos/),
                        pacote de handoff, zip, fotos e vídeos soltos do Instagram
 ```
@@ -51,8 +51,9 @@ ou direto em `src/config.ts`.
 
 ## Pendências
 
-- Número de WhatsApp.
+- Número de WhatsApp (aceita qualquer formato; sem o 55 ele é adicionado).
+- Domínio: definir `site` em `astro.config.mjs` — sem isso a prévia de compartilhamento (og:image) não aparece no WhatsApp/Instagram.
+- Favicon é provisório (o "E" do logotipo); trocar se houver uma marca reduzida.
+- Foto da abertura (`colecao-mesa`) só existe em 800×600 e aparece ampliada no desktop; pedir o original à Juliana.
 - Confirmar a fonte original da assinatura (hoje Ms Madi).
-- Otimizar imagens (AVIF/WebP, `srcset`) — as texturas PNG somam ~7 MB.
-- Favicon e domínio (`site` em `astro.config.mjs`).
 - Testar em aparelhos reais (iOS Safari, Android Chrome).

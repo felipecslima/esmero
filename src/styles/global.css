@@ -6,6 +6,7 @@ body { margin: 0; background: #F3EDE2; color: #1F1A17; }
 a { color: #1F1A17; }
 a:hover { color: #B8195A; }
 ::selection { background: #F2A7C0; }
+:focus-visible { outline: 2px solid #B8195A; outline-offset: 4px; }
 
 #root {
   font-family: 'Cormorant Garamond', Georgia, serif;
@@ -65,6 +66,34 @@ a:hover { color: #B8195A; }
 .hv-1:hover { letter-spacing: .16em !important; color: #1F1A17 !important; }
 .hv-2:hover { background-size: 160% 160% !important; }
 .hv-3:hover { background-size: 300% 600% !important; }
+
+/* ---------- Acessibilidade ---------- */
+/* Link de pular: só aparece ao receber foco pelo teclado. */
+.pular {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  padding: 12px 20px;
+  background: #F3EDE2 url('/aquarela/papel.webp');
+  box-shadow: 0 10px 30px rgba(31, 26, 23, .22);
+  font-family: 'Architects Daughter', cursive;
+  font-size: 14px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transform: translateY(-160%);
+}
+.pular:focus-visible { transform: none; }
+main:focus { outline: none; }
+/* Navegando pelo teclado, o bloco revelado pela rolagem aparece inteiro ao receber foco
+   (senão o botão focado pode ficar meio transparente na borda da tela). */
+[data-r]:focus-within { --r: 1 !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  [data-petalas] { display: none; }
+}
 
 /* ---------- Breakpoints: celular ≤ 560 · tablet 561–1100 · desktop > 1100 · menu > 1180 ---------- */
 @media (max-width: 1180px) { .so-largo { display: none !important; } }

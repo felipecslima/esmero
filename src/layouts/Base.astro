@@ -18,8 +18,11 @@ import fonteAssinatura from '@fontsource/ms-madi/files/ms-madi-latin-400-normal.
 import fonteRotulos from '@fontsource/architects-daughter/files/architects-daughter-latin-400-normal.woff2?url';
 const fontesAbertura = [fonteTitulo, fonteTituloItalico, fonteAssinatura, fonteRotulos];
 
-const titulo = 'ESMERO por Juliana Corrêa';
+interface Props { titulo?: string }
+const { titulo = 'ESMERO por Juliana Corrêa' } = Astro.props;
 const descricao = 'ESMERO, por Juliana Corrêa: arranjos florais autorais e consultoria de interiores para o bem-viver. Exclusivo em Belém do Pará.';
+// Redes sociais exigem URL absoluta na prévia; ela só existe quando `site` estiver definido em astro.config.mjs.
+const absoluta = (caminho: string) => (Astro.site ? new URL(caminho, Astro.site).href : caminho);
 ---
 <!doctype html>
 <html lang="pt-BR">
@@ -32,17 +35,29 @@ const descricao = 'ESMERO, por Juliana Corrêa: arranjos florais autorais e cons
   <meta property="og:type" content="website" />
   <meta property="og:title" content={titulo} />
   <meta property="og:description" content={descricao} />
-  <meta property="og:image" content="/fotos/colecao-mesa.jpg" />
+  <meta property="og:image" content={absoluta('/fotos/colecao-mesa.jpg')} />
+  <meta property="og:image:width" content="800" />
+  <meta property="og:image:height" content="600" />
+  <meta property="og:image:alt" content="Arranjos da primeira coleção sobre a mesa: girassóis, antirrinos rosa e eucalipto" />
   <meta property="og:locale" content="pt_BR" />
+  {Astro.site && <meta property="og:url" content={absoluta(Astro.url.pathname)} />}
+  {Astro.site && <link rel="canonical" href={absoluta(Astro.url.pathname)} />}
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   {fontesAbertura.map((href) => <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />)}
   <link rel="preload" as="image" href="/aquarela/ceu.webp" fetchpriority="high" />
   <link rel="preload" as="image" href="/aquarela/mascara-1.webp" crossorigin />
   <link rel="preload" as="image" href="/aquarela/mascara-2.webp" crossorigin />
   <link rel="preload" as="image" href="/aquarela/mascara-3.webp" crossorigin />
   <link rel="preload" as="image" href="/aquarela/papel.webp" />
-  <!-- Esconde o estado final da abertura até a animação de entrada começar (evita "piscar"). -->
+  <!-- Esconde o estado final da abertura até a animação de entrada começar (evita "piscar").
+       Garantia: se o script principal não rodar em 6 s, mostra tudo como está. -->
   <script is:inline>
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('intro');
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('intro');
+      setTimeout(function () { if (!window.__esmero) document.documentElement.classList.remove('intro'); }, 6000);
+    }
   </script>
 </head>
 <body>

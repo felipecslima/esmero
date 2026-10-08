@@ -12,19 +12,24 @@ import Consultoria from '../components/Consultoria.astro';
 import Licoes from '../components/Licoes.astro';
 import Juliana from '../components/Juliana.astro';
 import Fecho from '../components/Fecho.astro';
+import Rodape from '../components/Rodape.astro';
 import { config } from '../config';
 ---
 <Base>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
   <Cabecalho />
   {config.petalas && <Petalas />}
   <BotaoFlutuante />
-  <Abertura />
-  <Arranjos />
-  <Pergunta />
-  <Manifesto />
-  <Faixa />
-  <Consultoria />
-  <Licoes />
-  <Juliana />
-  <Fecho />
+  <main id="conteudo" tabindex="-1">
+    <Abertura />
+    <Arranjos />
+    <Pergunta />
+    <Manifesto />
+    <Faixa />
+    <Consultoria />
+    <Licoes />
+    <Juliana />
+    <Fecho />
+  </main>
+  <Rodape />
 </Base>

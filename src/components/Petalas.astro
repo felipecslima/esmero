@@ -10,7 +10,7 @@ const petalas = [
   { x: .92, y: .4, s: 1.05, w: 10, h: 14, c: '#D6246E', o: .5 },
 ];
 ---
-<div aria-hidden="true" style="position:fixed;inset:0;z-index:40;pointer-events:none;overflow:hidden">
+<div data-petalas="" aria-hidden="true" style="position:fixed;inset:0;z-index:40;pointer-events:none;overflow:hidden">
   {petalas.map((pt) => (
     <span data-petal="" data-x={pt.x} data-y={pt.y} data-s={pt.s} style={`position:absolute;left:0;top:0;width:${pt.w}px;height:${pt.h}px;border-radius:80% 20% 70% 30% / 60% 40% 60% 40%;background:${pt.c};opacity:${pt.o};will-change:transform`}></span>
   ))}
