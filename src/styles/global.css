@@ -17,14 +17,19 @@ a:hover { color: #B8195A; }
   overflow-x: clip;
 }
 
-/* ---------- Efeito "pintar": 3 manchas de aquarela que crescem ----------
-   .wc usa o progresso --w (intro / cartões / porta); .wc-r usa a revelação --r. */
+/* ---------- Efeito "pintar": a tinta se espalha no papel, quadro a quadro ----------
+   .wc usa o progresso --w (intro / cartões / porta); .wc-r usa a revelação --r.
+   As folhas de quadros saem de scripts/gerar-mascaras.mjs:
+   florescer.webp = 48 quadros (8×6) de uma mancha que se espalha com lóbulos e granulação;
+   pincel.webp    = 24 quadros (4×6) de um pincel arrastado da esquerda para a direita.
+   O progresso escolhe o quadro: f = round(down, m × (quadros − 1)). */
 .wc {
   --m: var(--w, 1);
-  -webkit-mask-image: url('/aquarela/mascara-1.webp'), url('/aquarela/mascara-2.webp'), url('/aquarela/mascara-3.webp');
-  mask-image: url('/aquarela/mascara-1.webp'), url('/aquarela/mascara-2.webp'), url('/aquarela/mascara-3.webp');
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
+  /* reserva para navegadores sem round()/mod(): as três manchas antigas que crescem */
+  -webkit-mask-image: url("/aquarela/mascara-1.webp"), url("/aquarela/mascara-2.webp"), url("/aquarela/mascara-3.webp");
+  mask-image: url("/aquarela/mascara-1.webp"), url("/aquarela/mascara-2.webp"), url("/aquarela/mascara-3.webp");
   -webkit-mask-position: 22% 28%, 78% 52%, 40% 88%;
   mask-position: 22% 28%, 78% 52%, 40% 88%;
   -webkit-mask-size:
@@ -37,29 +42,116 @@ a:hover { color: #B8195A; }
     calc(clamp(0, (var(--m) - .38) * 1.65, 1) * 240%) calc(clamp(0, (var(--m) - .38) * 1.65, 1) * 240%);
 }
 .wc-r { --m: var(--r, 1); }
+.wc-p1 { --m: var(--p1, 1); }
+.wc-p3 { --m: var(--p3, 1); }
+.wc-p4 { --m: var(--p4, 1); }
 
-/* Enquanto pinta: saturação .35 → 1 e desfoque 5px → 0 (--bk = 0 em touch/aparelhos fracos). */
+@supports (width: calc(mod(5px, 3px) + round(down, 1.5px, 1px))) {
+  .wc {
+    --f: round(down, var(--m) * 47, 1);
+    -webkit-mask-image: url("/aquarela/florescer.webp");
+    mask-image: url("/aquarela/florescer.webp");
+    -webkit-mask-size: 800% 600%;
+    mask-size: 800% 600%;
+    -webkit-mask-position: calc(mod(var(--f), 8) / 7 * 100%) calc(round(down, var(--f) / 8, 1) / 5 * 100%);
+    mask-position: calc(mod(var(--f), 8) / 7 * 100%) calc(round(down, var(--f) / 8, 1) / 5 * 100%);
+  }
+  /* Água e pedras: uma aguada arrastada da esquerda para a direita. */
+  .wc.wc-varre {
+    --f: round(down, var(--m) * 23, 1);
+    -webkit-mask-image: url("/aquarela/pincel.webp");
+    mask-image: url("/aquarela/pincel.webp");
+    -webkit-mask-size: 400% 600%;
+    mask-size: 400% 600%;
+    -webkit-mask-position: calc(mod(var(--f), 4) / 3 * 100%) calc(round(down, var(--f) / 4, 1) / 5 * 100%);
+    mask-position: calc(mod(var(--f), 4) / 3 * 100%) calc(round(down, var(--f) / 4, 1) / 5 * 100%);
+  }
+}
+
+/* Molhado → seco: enquanto pinta, o pigmento entra mais saturado e escuro e assenta ao secar. */
 .wc-tint {
   --mt: var(--w, 1);
-  filter: saturate(calc(.35 + .65 * var(--mt))) blur(calc((1 - var(--mt)) * 5px * var(--bk, 1)));
+  --molhado: calc(1 - var(--mt));
+  filter: saturate(calc(1 + .55 * var(--molhado))) brightness(calc(1 - .1 * var(--molhado))) contrast(calc(1 + .08 * var(--molhado)));
 }
 .wc-tint-r { --mt: var(--r, 1); }
 
-/* ---------- Botões: hover = três pinceladas (progresso --paint, desbotar --fade) ---------- */
+/* ---------- Botões: no hover o pincel arrasta a tinta (progresso --paint) ----------
+   Duas pinceladas (esquerda → direita, depois direita → esquerda) e uma mancha que floresce.
+   Ao sair, a tinta seca: clareia e perde saturação enquanto esmaece (--fade). */
 .paint-ink {
+  --tinta-1: url("/aquarela/pincelada.webp");
+  --tinta-3: url("/aquarela/lavanda.webp");
   position: absolute;
   inset: -10px -16px;
   z-index: -1;
   pointer-events: none;
   opacity: var(--fade, 1);
-  background-image: url('/aquarela/pincelada.webp'), url('/aquarela/pincelada.webp'), url('/aquarela/lavanda.webp');
-  background-repeat: no-repeat;
-  background-position: left 46%, right 64%, 78% 40%;
-  background-size:
-    calc(clamp(0, var(--paint, 0) * 1.35, 1) * 108%) 330%,
-    calc(clamp(0, (var(--paint, 0) - .28) * 1.7, 1) * 92%) 240%,
-    calc(clamp(0, (var(--paint, 0) - .55) * 2.2, 1) * 46%) 130%;
+  filter: saturate(calc(.5 + .5 * var(--fade, 1))) brightness(calc(1.12 - .12 * var(--fade, 1)));
 }
+.paint-ink--lavanda {
+  --tinta-1: url("/aquarela/pincelada-lavanda.webp");
+  --tinta-3: url("/aquarela/buganvilia-2.webp");
+}
+.paint-ink i {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+.paint-ink i:nth-child(1) {
+  --q: clamp(0, var(--paint, 0) * 1.35, 1);
+  background-image: var(--tinta-1);
+  background-position: left 46%;
+  background-size: 108% 330%;
+}
+.paint-ink i:nth-child(2) {
+  --q: clamp(0, (var(--paint, 0) - .28) * 1.7, 1);
+  background-image: var(--tinta-1);
+  background-position: left 64%;   /* espelhado: visualmente à direita */
+  background-size: 92% 240%;
+  transform: scaleX(-1);
+}
+.paint-ink i:nth-child(3) {
+  --q: clamp(0, (var(--paint, 0) - .55) * 2.2, 1);
+  inset: auto;
+  left: 42.12%;
+  top: -12%;
+  width: 46%;
+  height: 130%;
+  background-image: var(--tinta-3);
+  background-size: 100% 100%;
+}
+@supports (width: calc(mod(5px, 3px) + round(down, 1.5px, 1px))) {
+  .paint-ink i:nth-child(-n+2) {
+    --f: round(down, var(--q) * 23, 1);
+    -webkit-mask-image: url("/aquarela/pincel.webp");
+    mask-image: url("/aquarela/pincel.webp");
+    -webkit-mask-size: 400% 600%;
+    mask-size: 400% 600%;
+    -webkit-mask-position: calc(mod(var(--f), 4) / 3 * 100%) calc(round(down, var(--f) / 4, 1) / 5 * 100%);
+    mask-position: calc(mod(var(--f), 4) / 3 * 100%) calc(round(down, var(--f) / 4, 1) / 5 * 100%);
+  }
+  .paint-ink i:nth-child(3) {
+    --f: round(down, var(--q) * 47, 1);
+    -webkit-mask-image: url("/aquarela/florescer.webp");
+    mask-image: url("/aquarela/florescer.webp");
+    -webkit-mask-size: 800% 600%;
+    mask-size: 800% 600%;
+    -webkit-mask-position: calc(mod(var(--f), 8) / 7 * 100%) calc(round(down, var(--f) / 8, 1) / 5 * 100%);
+    mask-position: calc(mod(var(--f), 8) / 7 * 100%) calc(round(down, var(--f) / 8, 1) / 5 * 100%);
+  }
+}
+@supports not (width: calc(mod(5px, 3px) + round(down, 1.5px, 1px))) {
+  .paint-ink i { opacity: var(--q); }
+}
+/* Botão fixo do celular: uma pincelada só, um pouco translúcida. */
+.paint-ink--fab { inset: -6px -10px; opacity: calc(.9 * var(--fade, 1)); }
+
+/* Seta acompanha o gesto do pincel. */
+.seta { transition: transform .8s cubic-bezier(.16, 1, .3, 1); }
+[data-paint]:hover .seta { transform: translateX(5px); }
 
 /* Estados de hover (o inline do componente define o estado normal). */
 .hv-0:hover { color: #1F1A17 !important; }
@@ -102,7 +194,7 @@ main:focus { outline: none; }
 
 /* ---------- Texturas que não aparecem na abertura: só baixam depois do "load" ----------
    (pinceladas dos botões e da faixa; liberadas por scripts/motion.ts com html.tarde) */
-html:not(.tarde) .paint-ink,
+html:not(.tarde) .paint-ink i,
 html:not(.tarde) [data-tarde] { background-image: none !important; }
 
 /* ---------- Estado inicial da abertura (antes do JS assumir) ---------- */

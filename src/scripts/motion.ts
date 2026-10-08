@@ -121,10 +121,17 @@ export function iniciar(root: HTMLElement) {
       const e = out(t), s = it.el.style;
       if (it.k === 'draw') { s.strokeDashoffset = (1 - e).toFixed(4); return; }
       if (it.k === 'paint') { s.setProperty('--w', (1 - Math.pow(1 - t, 2.2)).toFixed(4)); return; }
+      if (it.k === 'bloom') {
+        // Flores e folhas: a tinta se espalha (máscara), ainda molhada (leve desfoque), e assenta.
+        s.setProperty('--w', (1 - Math.pow(1 - t, 2.2)).toFixed(4));
+        s.opacity = cl(e * 3).toFixed(3);
+        s.filter = e < 1 ? `blur(${((1 - e) * 5).toFixed(1)}px)` : '';
+        s.scale = (0.86 + 0.14 * e).toFixed(4);
+        return;
+      }
       s.opacity = e.toFixed(3);
-      s.filter = e < 1 ? `blur(${((1 - e) * (it.k === 'bloom' ? 16 : 10)).toFixed(1)}px)` : '';
-      if (it.k === 'bloom') s.scale = (0.55 + 0.45 * e).toFixed(4);
-      else s.translate = `0 ${((1 - e) * 0.45).toFixed(3)}em`;
+      s.filter = e < 1 ? `blur(${((1 - e) * 10).toFixed(1)}px)` : '';
+      s.translate = `0 ${((1 - e) * 0.45).toFixed(3)}em`;
     });
     if (done) introDone = true;
   }
@@ -135,13 +142,25 @@ export function iniciar(root: HTMLElement) {
     b._ps.t = t; if (t === 1) b._ps.f = Math.max(b._ps.f, 0.001);
     painting.add(b);
   }
+  // Contorno que "ferve": alterna entre três versões do traço (~8 quadros/s) enquanto a tinta
+  // está sendo aplicada ou o cursor está em cima; ao sair, volta ao traço de repouso.
+  const tracos = ['url(#ink)', 'url(#ink-2)', 'url(#ink-3)'];
+  let quadro = 0;
+  function ferver(b: El, ligado: boolean) {
+    const c = b.querySelector<SVGPathElement>('[data-contorno]'); if (!c) return;
+    const i = ligado && !reduce ? Math.floor(quadro / 7) % 3 : 0;
+    if (c.getAttribute('filter') !== tracos[i]) c.setAttribute('filter', tracos[i]);
+  }
   function paintTick() {
+    quadro++;
     painting.forEach(b => {
       const s = b._ps!;
-      if (s.t === 1) { s.p += (1.02 - s.p) * 0.045; if (s.p > 1) s.p = 1; s.f += (1 - s.f) * 0.25; }
+      // Gesto de pincel: encosta devagar, acelera no meio do traço e assenta no fim (~0,8 s).
+      if (s.t === 1) { s.p = Math.min(1, s.p + 0.01 + 0.032 * Math.sin(Math.PI * Math.min(s.p, 0.98))); s.f += (1 - s.f) * 0.25; }
       else { s.f -= 0.035; if (s.f <= 0) { s.f = 1; s.p = 0; painting.delete(b); } }
       b.style.setProperty('--paint', s.p.toFixed(4));
       b.style.setProperty('--fade', Math.max(0, s.f).toFixed(4));
+      ferver(b, s.t === 1 && (s.p < 0.995 || b.matches(':hover')));
     });
   }
   root.addEventListener('pointerover', e => {
@@ -287,6 +306,7 @@ export function iniciar(root: HTMLElement) {
         fab.style.transform = on ? 'translate(-50%,0)' : 'translate(-50%,140%)';
         fab.style.pointerEvents = on ? 'auto' : 'none';
         fab.inert = !on;
+        paintTo(fab, on ? 1 : 0); // o botão se pinta ao chegar
       }
     }
 

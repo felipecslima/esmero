@@ -47,9 +47,8 @@ const absoluta = (caminho: string) => (Astro.site ? new URL(caminho, Astro.site)
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   {fontesAbertura.map((href) => <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />)}
   <link rel="preload" as="image" href="/aquarela/ceu.webp" fetchpriority="high" />
-  <link rel="preload" as="image" href="/aquarela/mascara-1.webp" crossorigin />
-  <link rel="preload" as="image" href="/aquarela/mascara-2.webp" crossorigin />
-  <link rel="preload" as="image" href="/aquarela/mascara-3.webp" crossorigin />
+  <link rel="preload" as="image" href="/aquarela/florescer.webp" crossorigin />
+  <link rel="preload" as="image" href="/aquarela/pincel.webp" crossorigin />
   <link rel="preload" as="image" href="/aquarela/papel.webp" />
   <!-- Esconde o estado final da abertura até a animação de entrada começar (evita "piscar").
        Garantia: se o script principal não rodar em 6 s, mostra tudo como está. -->
@@ -65,6 +64,9 @@ const absoluta = (caminho: string) => (Astro.site ? new URL(caminho, Astro.site)
     <svg width="0" height="0" aria-hidden="true" style="position:absolute">
       <defs>
         <filter id="ink" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="8000" height="8000"><feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="4"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="3.2"></feDisplacementMap></filter>
+        <!-- Variações do mesmo traço (outras sementes): alternadas no hover, o contorno "ferve" como em animação desenhada. -->
+        <filter id="ink-2" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="8000" height="8000"><feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="9"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="3.6"></feDisplacementMap></filter>
+        <filter id="ink-3" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="8000" height="8000"><feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="17"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="3.4"></feDisplacementMap></filter>
         <filter id="rough" filterUnits="userSpaceOnUse" x="-2000" y="-2000" width="8000" height="8000"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="3" seed="11"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="14"></feDisplacementMap></filter>
       </defs>
     </svg>
