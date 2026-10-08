@@ -70,6 +70,28 @@ export function iniciar(root: HTMLElement) {
     R: root.querySelector<HTMLElement>('[data-pan="r"]'),
   };
   const trackScene = root.querySelector<El>('[data-scene="track"]');
+  const trackEl = trackScene?.querySelector<HTMLElement>('[data-track]') ?? null;
+
+  let dirty = true;  // algo mudou (rolagem, resize, imagem carregada)
+  let moving = true; // algum valor suavizado ainda não chegou ao alvo
+  let tx = 0;        // deslocamento atual do trilho das lições
+
+  // ---------- Medidas que não mudam com a rolagem (refeitas em resize / fontes / imagens) ----------
+  const m = { ox: 0, oy: 0, dw: 0, dh: 0, noteB: NaN, trackMax: 0, cardC: [] as number[] };
+  function measure() {
+    const d = hero.draw;
+    if (d) {
+      const cw = d.offsetWidth, ch = d.offsetHeight;
+      m.ox = d.offsetLeft + 0.5 * cw; m.oy = d.offsetTop + 0.66667 * ch; m.dw = 0.28571 * cw; m.dh = 0.48889 * ch;
+    }
+    const card = root.querySelector('[data-note]')?.previousElementSibling as HTMLElement | null;
+    m.noteB = card ? parseFloat(getComputedStyle(card).bottom) + card.offsetHeight + 16 : NaN;
+    if (trackEl) {
+      m.trackMax = Math.max(0, trackEl.scrollWidth - innerWidth);
+      m.cardC = cards.map(c => { const b = c.getBoundingClientRect(); return b.left + b.width / 2 - tx; });
+    }
+    dirty = true;
+  }
 
   // ---------- Abertura: único momento orquestrado ----------
   const introItems: IntroItem[] = [];
@@ -81,7 +103,13 @@ export function iniciar(root: HTMLElement) {
     const kind = el.dataset.intro!;
     introItems.push({ el, k: kind, d: +(el.dataset.delay || 0), dur: kind === 'bloom' ? 2600 : kind === 'paint' ? 3200 : 1700 });
   });
-  const t0 = performance.now();
+  // A entrada só começa quando as fontes da abertura chegaram (ou após 1,5 s), para o título
+  // surgir já na fonte certa em vez de trocar de fonte e "pular" no meio da animação.
+  let t0 = Infinity;
+  const comecar = () => { if (t0 === Infinity) t0 = performance.now(); };
+  Promise.all(['400 1em "Cormorant Garamond"', 'italic 300 1em "Cormorant Garamond"', '1em "Ms Madi"', '1em "Architects Daughter"']
+    .map(f => document.fonts?.load(f))).then(comecar, comecar);
+  setTimeout(comecar, 1500);
   let introDone = false;
 
   function introTick(elapsed: number) {
@@ -131,7 +159,7 @@ export function iniciar(root: HTMLElement) {
     let c = map.get(el);
     c = c === undefined ? t : c + (t - c) * k;
     if (Math.abs(t - c) > 0.35) c = t + (c - t) * 0.5;
-    if (Math.abs(t - c) < 0.0004) c = t;
+    if (Math.abs(t - c) < 0.0004) c = t; else moving = true;
     map.set(el, c); return c;
   };
   const drawSd = (list: Sd[], p: number) => list.forEach(g => {
@@ -147,8 +175,7 @@ export function iniciar(root: HTMLElement) {
   // ---------- Abertura ao rolar: porta abre, foto aparece, zoom para dentro ----------
   function heroTick(el: HTMLElement, p: number, vw: number, vh: number) {
     const h = hero; if (!h.draw || !h.photo) return;
-    const d = h.draw, cw = d.offsetWidth, ch = d.offsetHeight;
-    const ox = d.offsetLeft + 0.5 * cw, oy = d.offsetTop + 0.66667 * ch, dw = 0.28571 * cw, dh = 0.48889 * ch;
+    const d = h.draw, { ox, oy, dw, dh } = m;
     const z1 = ss(cl(p / 0.3)), open = ss(cl((p - 0.16) / 0.22)), z2 = Math.pow(cl((p - 0.36) / 0.4), 2.2);
     const cover = Math.max((2 * Math.max(ox, vw - ox)) / dw, (2 * Math.max(oy, vh - oy)) / dh) * 1.6;
     const s1 = 1 + 0.35 * z1, s = s1 + z2 * (cover - s1);
@@ -177,24 +204,25 @@ export function iniciar(root: HTMLElement) {
     el.style.setProperty('--t', cl(p / 0.14).toFixed(4));
     el.style.setProperty('--card', ss(cl((p - 0.78) / 0.14)).toFixed(4));
     el.style.setProperty('--note', ss(cl((p - 0.88) / 0.1)).toFixed(4));
-    if (vw <= 760) {
-      const card = el.querySelector('[data-note]')?.previousElementSibling as HTMLElement | null;
-      if (card) el.style.setProperty('--note-b', parseFloat(getComputedStyle(card).bottom) + card.offsetHeight + 16 + 'px');
-    } else el.style.removeProperty('--note-b');
+    if (vw <= 760 && !isNaN(m.noteB)) el.style.setProperty('--note-b', m.noteB + 'px');
+    else el.style.removeProperty('--note-b');
   }
 
   // ---------- Lições: carrossel horizontal guiado pela rolagem ----------
   function track(el: HTMLElement, p: number, vw: number) {
-    const tr = el.querySelector<HTMLElement>('[data-track]'); if (!tr) return;
-    const max = Math.max(0, tr.scrollWidth - vw);
-    tr.style.transform = `translate3d(${(-p * max).toFixed(1)}px,0,0)`;
+    const tr = trackEl; if (!tr) return;
+    tx = -p * m.trackMax;
+    tr.style.transform = `translate3d(${tx.toFixed(1)}px,0,0)`;
     const n = cards.length || 10;
-    cards.forEach(c => {
-      const b = c.getBoundingClientRect();
-      const d = Math.max(-1.3, Math.min(1.3, (b.left + b.width / 2 - vw / 2) / vw));
+    cards.forEach((c, k) => {
+      // Centro do cartão = centro medido sem deslocamento + deslocamento atual do trilho
+      // (a rotação e o translateY do cartão não mudam o centro horizontal).
+      const d = Math.max(-1.3, Math.min(1.3, (m.cardC[k] + tx - vw / 2) / vw));
       c.style.transform = `translateY(${(Math.sin(d * Math.PI * 0.9) * -34 + Math.abs(d) * 18).toFixed(1)}px) rotate(${(d * 3).toFixed(2)}deg)`;
       const wv = cl(1.35 - (d > 0 ? d : -d * 0.3) * 1.25);
-      const lw = c._w === undefined ? wv : c._w + (wv - c._w) * 0.06; c._w = lw;
+      let lw = c._w === undefined ? wv : c._w + (wv - c._w) * 0.06;
+      if (Math.abs(wv - lw) < 0.0004) lw = wv; else moving = true;
+      c._w = lw;
       c.style.setProperty('--w', lw.toFixed(4));
       const im = c.firstElementChild?.firstElementChild?.firstElementChild as HTMLElement | null | undefined;
       if (im) im.style.transform = `scale(1.16) translateX(${(d * -6).toFixed(2)}%)`;
@@ -217,14 +245,37 @@ export function iniciar(root: HTMLElement) {
   q('[data-go]').forEach(b => b.addEventListener('click', () => go(+b.dataset.go!)));
 
   // ---------- Quadro a quadro ----------
+  // Só recalcula cenas/revelações quando algo mudou (rolagem, resize, imagem carregada)
+  // ou enquanto algum valor ainda está se aproximando do alvo; parado, só as pétalas se mexem.
   function tick() {
     if (!introDone) introTick(performance.now() - t0);
     paintTick();
     const vh = innerHeight, vw = innerWidth;
+    if (dirty || moving) {
+      dirty = false; moving = false;
+      frame(vw, vh);
+    }
+
+    if (petals.length && !reduce) {
+      const t = performance.now() / 1000, sy = scrollY, H = vh + 160;
+      petals.forEach((el, i) => {
+        const s = +el.dataset.s!, y = ((+el.dataset.y! * H + t * s * 18 + sy * 0.1 * s) % H) - 80;
+        const x = +el.dataset.x! * vw + Math.sin(t * 0.35 * s + i) * 50;
+        el.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${(t * 16 * s + i * 47).toFixed(1)}deg) rotateX(${(Math.sin(t * 0.6 + i) * 70).toFixed(1)}deg)`;
+      });
+    }
+  }
+
+  function frame(vw: number, vh: number) {
+    // Leituras primeiro (um único layout por quadro), escritas depois.
+    const sy = scrollY, docH = document.documentElement.scrollHeight;
+    const sceneR = scenes.map(s => s.el.getBoundingClientRect());
+    const revealTop = reveals.map(r => r.el.getBoundingClientRect().top);
+    const parMid = pars.map(el => { const b = el.getBoundingClientRect(); return b.top + b.height / 2; });
 
     if (fab) {
-      const nearEnd = scrollY + vh > document.documentElement.scrollHeight - vh * 0.9;
-      const on = scrollY > vh * 2.6 && !nearEnd;
+      const nearEnd = sy + vh > docH - vh * 0.9;
+      const on = sy > vh * 2.6 && !nearEnd;
       if (fab._on !== on) {
         fab._on = on;
         fab.style.opacity = on ? '1' : '0';
@@ -233,8 +284,8 @@ export function iniciar(root: HTMLElement) {
       }
     }
 
-    scenes.forEach(({ el, words: ws, sd }) => {
-      const b = el.getBoundingClientRect();
+    scenes.forEach(({ el, words: ws, sd }, si) => {
+      const b = sceneR[si];
       const p = lerp(cur, el, cl(-b.top / Math.max(1, b.height - vh)));
       const name = el.dataset.scene;
       const e = el as El;
@@ -248,9 +299,8 @@ export function iniciar(root: HTMLElement) {
       if (name === 'track') track(el, p, vw);
     });
 
-    reveals.forEach(({ el, sd }) => {
-      const b = el.getBoundingClientRect();
-      const p = lerp(cur, el, cl((vh - b.top) / (vh * 0.75)));
+    reveals.forEach(({ el, sd }, ri) => {
+      const p = lerp(cur, el, cl((vh - revealTop[ri]) / (vh * 0.75)));
       if (el._p === p) return; el._p = p;
       const e = ss(p);
       el.style.setProperty('--r', e.toFixed(4));
@@ -258,25 +308,35 @@ export function iniciar(root: HTMLElement) {
       if (el.hasAttribute('data-words')) words(el, cl((p - 0.1) / 0.8));
     });
 
-    pars.forEach(el => {
-      const b = el.getBoundingClientRect();
-      const c = lerp(curC, el, Math.max(-1, Math.min(1, (b.top + b.height / 2 - vh / 2) / vh)));
+    pars.forEach((el, pi) => {
+      const c = lerp(curC, el, Math.max(-1, Math.min(1, (parMid[pi] - vh / 2) / vh)));
       el.style.setProperty('--c', c.toFixed(4));
     });
-
-    if (petals.length && !reduce) {
-      const t = performance.now() / 1000, sy = scrollY, H = vh + 160;
-      petals.forEach((el, i) => {
-        const s = +el.dataset.s!, y = ((+el.dataset.y! * H + t * s * 18 + sy * 0.1 * s) % H) - 80;
-        const x = +el.dataset.x! * vw + Math.sin(t * 0.35 * s + i) * 50;
-        el.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${(t * 16 * s + i * 47).toFixed(1)}deg) rotateX(${(Math.sin(t * 0.6 + i) * 70).toFixed(1)}deg)`;
-      });
-    }
   }
 
-  layout();
-  addEventListener('resize', layout);
-  addEventListener('orientationchange', layout);
+  // Fotos das lições ficam num trilho horizontal fora da tela: libera o carregamento
+  // um pouco antes de a cena chegar, para não "estourarem" ao entrar.
+  if (trackScene && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => {
+      if (!es.some(e => e.isIntersecting)) return;
+      q<HTMLImageElement>('img[loading="lazy"]', trackScene).forEach(i => { i.loading = 'eager'; });
+      io.disconnect();
+    }, { rootMargin: '150% 0px' });
+    io.observe(trackScene);
+  }
+
+  // Libera as texturas adiadas (ver global.css) quando a abertura terminou de carregar.
+  const tarde = () => document.documentElement.classList.add('tarde');
+  if (document.readyState === 'complete') tarde(); else addEventListener('load', tarde);
+
+  const relayout = () => { layout(); measure(); };
+  relayout();
+  addEventListener('resize', relayout);
+  addEventListener('orientationchange', relayout);
+  addEventListener('load', measure);
+  document.fonts?.ready.then(measure);
+  addEventListener('scroll', () => { dirty = true; }, { passive: true });
+  root.addEventListener('load', () => { dirty = true; }, true); // imagens adiadas mudam alturas
   introTick(reduce ? 1e9 : 0);
   const loop = () => {
     try { tick(); } catch (e) { console.error(e); }

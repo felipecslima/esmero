@@ -12,7 +12,7 @@ a:hover { color: #B8195A; }
   font-size: clamp(18px, 1.25vw, 21px);
   line-height: 1.55;
   color: #1F1A17;
-  background: #F3EDE2 url('/aquarela/papel.png') repeat;
+  background: #F3EDE2 url('/aquarela/papel.webp') repeat;
   overflow-x: clip;
 }
 
@@ -20,8 +20,8 @@ a:hover { color: #B8195A; }
    .wc usa o progresso --w (intro / cartões / porta); .wc-r usa a revelação --r. */
 .wc {
   --m: var(--w, 1);
-  -webkit-mask-image: url('/aquarela/mascara-1.png'), url('/aquarela/mascara-2.png'), url('/aquarela/mascara-3.png');
-  mask-image: url('/aquarela/mascara-1.png'), url('/aquarela/mascara-2.png'), url('/aquarela/mascara-3.png');
+  -webkit-mask-image: url('/aquarela/mascara-1.webp'), url('/aquarela/mascara-2.webp'), url('/aquarela/mascara-3.webp');
+  mask-image: url('/aquarela/mascara-1.webp'), url('/aquarela/mascara-2.webp'), url('/aquarela/mascara-3.webp');
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-position: 22% 28%, 78% 52%, 40% 88%;
@@ -51,7 +51,7 @@ a:hover { color: #B8195A; }
   z-index: -1;
   pointer-events: none;
   opacity: var(--fade, 1);
-  background-image: url('/aquarela/pincelada.png'), url('/aquarela/pincelada.png'), url('/aquarela/lavanda.png');
+  background-image: url('/aquarela/pincelada.webp'), url('/aquarela/pincelada.webp'), url('/aquarela/lavanda.webp');
   background-repeat: no-repeat;
   background-position: left 46%, right 64%, 78% 40%;
   background-size:
@@ -70,6 +70,11 @@ a:hover { color: #B8195A; }
 @media (max-width: 1180px) { .so-largo { display: none !important; } }
 @media (max-width: 560px) { .nao-celular { display: none !important; } }
 @media (min-width: 561px) { .so-celular { display: none !important; } }
+
+/* ---------- Texturas que não aparecem na abertura: só baixam depois do "load" ----------
+   (pinceladas dos botões e da faixa; liberadas por scripts/motion.ts com html.tarde) */
+html:not(.tarde) .paint-ink,
+html:not(.tarde) [data-tarde] { background-image: none !important; }
 
 /* ---------- Estado inicial da abertura (antes do JS assumir) ---------- */
 .intro [data-drawgroup] path { stroke-dashoffset: 1; }

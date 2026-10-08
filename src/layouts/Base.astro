@@ -11,6 +11,12 @@ import '@fontsource/ms-madi/400.css';
 import '@fontsource/architects-daughter/400.css';
 import '../styles/global.css';
 import { config } from '../config';
+// Fontes da abertura: pré-carregadas para o título já surgir na fonte certa (sem salto de layout).
+import fonteTitulo from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-400-normal.woff2?url';
+import fonteTituloItalico from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-300-italic.woff2?url';
+import fonteAssinatura from '@fontsource/ms-madi/files/ms-madi-latin-400-normal.woff2?url';
+import fonteRotulos from '@fontsource/architects-daughter/files/architects-daughter-latin-400-normal.woff2?url';
+const fontesAbertura = [fonteTitulo, fonteTituloItalico, fonteAssinatura, fonteRotulos];
 
 const titulo = 'ESMERO por Juliana Corrêa';
 const descricao = 'ESMERO, por Juliana Corrêa: arranjos florais autorais e consultoria de interiores para o bem-viver. Exclusivo em Belém do Pará.';
@@ -28,7 +34,12 @@ const descricao = 'ESMERO, por Juliana Corrêa: arranjos florais autorais e cons
   <meta property="og:description" content={descricao} />
   <meta property="og:image" content="/fotos/colecao-mesa.jpg" />
   <meta property="og:locale" content="pt_BR" />
-  <link rel="preload" as="image" href="/aquarela/papel.png" />
+  {fontesAbertura.map((href) => <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />)}
+  <link rel="preload" as="image" href="/aquarela/ceu.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="/aquarela/mascara-1.webp" crossorigin />
+  <link rel="preload" as="image" href="/aquarela/mascara-2.webp" crossorigin />
+  <link rel="preload" as="image" href="/aquarela/mascara-3.webp" crossorigin />
+  <link rel="preload" as="image" href="/aquarela/papel.webp" />
   <!-- Esconde o estado final da abertura até a animação de entrada começar (evita "piscar"). -->
   <script is:inline>
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('intro');
