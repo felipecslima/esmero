@@ -210,3 +210,24 @@ html:not(.tarde) [data-tarde] { background-image: none !important; }
 .aq.wc-tint { filter: none; }
 .aq-sem-fundo { background-image: none !important; }
 .aq-fundo { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* ---------- Ilustrações em SVG vivas (public/aquarela/svg, scripts/vetorizar-aquarelas.mjs) ----------
+   Cada caminho pertence a um tufo (.tN: centro --cx/--cy, momento --d). O tufo aparece quando o
+   progresso --m passa do seu --d, crescendo do próprio centro. A ordem de pintura do vetorizador é
+   preservada (tufos são classes, não grupos). Plantas balançam e lavagens derivam por inteiro. */
+.il { overflow: visible; pointer-events: none; }
+.il .base { opacity: clamp(0, (var(--m, 1) - .25) * 2, 1); }
+.il .tufo {
+  --t: clamp(0, (var(--m, 1) - var(--d, 0)) * 3.5, 1);
+  opacity: var(--t);
+  transform-box: view-box;
+  transform-origin: var(--cx) var(--cy);
+  scale: calc(.35 + .65 * var(--t));
+}
+/* Balanço e deriva da ilustração inteira (só rotate/translate no elemento: roda na GPU). */
+.il-balanca { transform-origin: 50% 100%; }
+.il.vivo { will-change: rotate, translate; }
+.il-balanca.vivo { animation: il-balanca 5.5s ease-in-out infinite alternate; }
+.il-deriva.vivo { animation: il-deriva 16s ease-in-out infinite alternate; }
+@keyframes il-balanca { from { rotate: -1.1deg; } to { rotate: 1.1deg; } }
+@keyframes il-deriva { from { translate: -7px 3px; } to { translate: 7px -3px; } }

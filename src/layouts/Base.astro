@@ -46,7 +46,7 @@ const absoluta = (caminho: string) => (Astro.site ? new URL(caminho, Astro.site)
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   {fontesAbertura.map((href) => <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />)}
-  <link rel="preload" as="image" href="/aquarela/ceu.webp" fetchpriority="high" />
+  {['ceu', 'buganvilia', 'folhagem', 'terracota', 'pedra'].map((n) => <link rel="preload" as="fetch" href={`/aquarela/svg/${n}.svg`} crossorigin />)}
   <link rel="preload" as="image" href="/aquarela/florescer.webp" crossorigin />
   <link rel="preload" as="image" href="/aquarela/pincel.webp" crossorigin />
   <link rel="preload" as="image" href="/aquarela/papel.webp" />

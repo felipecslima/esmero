@@ -226,7 +226,7 @@ export function iniciarAquarela(root: HTMLElement) {
   // ---------- itens ----------
   const itens: Item[] = [];
   let semente = 0.37;
-  root.querySelectorAll<HTMLElement>('.wc').forEach(alvo => {
+  root.querySelectorAll<HTMLElement>('.wc:not([data-svg])').forEach(alvo => {
     let img: HTMLImageElement | null = null, fonte = '', recorte: Item['recorte'] = [0, 0, 1, 1], ajuste: Item['ajuste'] = 'fill';
     if (alvo instanceof HTMLImageElement) img = alvo;
     else img = alvo.querySelector<HTMLImageElement>(':scope > img');

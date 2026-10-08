@@ -123,6 +123,13 @@ export function iniciar(root: HTMLElement) {
       const e = out(t), s = it.el.style;
       if (it.k === 'draw') { s.strokeDashoffset = (1 - e).toFixed(4); return; }
       if (it.k === 'paint') { s.setProperty('--w', (1 - Math.pow(1 - t, 2.2)).toFixed(4)); return; }
+      if (it.k === 'bloom' && it.el instanceof SVGSVGElement) {
+        // ilustração em SVG: os tufos crescem sozinhos a partir do progresso
+        s.setProperty('--w', (1 - Math.pow(1 - t, 1.6)).toFixed(4));
+        s.opacity = cl(t * 6).toFixed(3);
+        s.filter = ''; s.scale = '';
+        return;
+      }
       if (it.k === 'bloom') {
         // Flores e folhas: a tinta se espalha (máscara), ainda molhada (leve desfoque), e assenta.
         s.setProperty('--w', (1 - Math.pow(1 - t, 2.2)).toFixed(4));
@@ -273,7 +280,9 @@ export function iniciar(root: HTMLElement) {
   // ---------- Quadro a quadro ----------
   // Só recalcula cenas/revelações quando algo mudou (rolagem, resize, imagem carregada)
   // ou enquanto algum valor ainda está se aproximando do alvo; parado, só as pétalas se mexem.
+  let vivoTick = () => {};
   function tick() {
+    vivoTick();
     if (!introDone) introTick(performance.now() - t0);
     paintTick();
     const vh = innerHeight, vw = innerWidth;
@@ -341,6 +350,46 @@ export function iniciar(root: HTMLElement) {
       el.style.setProperty('--c', c.toFixed(4));
     });
   }
+
+  // ---------- Ilustrações em SVG vivas ----------
+  // Cada <img data-svg> é trocada pelo SVG vetorizado (carregado uma vez, perto de entrar na tela).
+  // Plantas balançam e lavagens derivam só enquanto o SVG está visível (.vivo).
+  const svgs = new Map<string, Promise<string>>();
+  // Só balança depois de terminar de crescer: girar enquanto os tufos ainda mudam obriga a
+  // redesenhar centenas de caminhos por quadro.
+  const ilVisiveis = new Set<SVGSVGElement>();
+  vivoTick = () => {
+    if (reduce) return;
+    ilVisiveis.forEach(el => el.classList.toggle('vivo', parseFloat(getComputedStyle(el).getPropertyValue('--m')) >= 0.999));
+  };
+  const pegaSvg = (n: string) => {
+    let p = svgs.get(n);
+    if (!p) { p = fetch(`/aquarela/svg/${n}.svg`).then(r => (r.ok ? r.text() : Promise.reject(r.status))); svgs.set(n, p); }
+    return p;
+  };
+  const vivas = 'IntersectionObserver' in window
+    ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) ilVisiveis.add(e.target as SVGSVGElement); else { ilVisiveis.delete(e.target as SVGSVGElement); e.target.classList.remove('vivo'); } }), { rootMargin: '10% 0px' })
+    : null;
+  const trocar = (img: HTMLImageElement) => pegaSvg(img.dataset.svg!).then(txt => {
+    const t = document.createElement('template'); t.innerHTML = txt.trim();
+    const svg = t.content.querySelector('svg'); if (!svg || !img.isConnected) return;
+    // herda posição/tamanho da imagem, mas não o desfoque/zoom da entrada (o SVG cresce por tufos)
+    const estilo = (img.getAttribute('style') || '').replace(/(^|;)\s*(filter|scale|translate)\s*:[^;]*/g, '');
+    svg.setAttribute('style', `${estilo};--m:var(${img.dataset.prog || '--w'},1)`);
+    if (getComputedStyle(img).objectFit === 'fill') svg.setAttribute('preserveAspectRatio', 'none');
+    for (const a of ['data-intro', 'data-delay']) { const v = img.getAttribute(a); if (v !== null) svg.setAttribute(a, v); }
+    img.replaceWith(svg);
+    introItems.forEach(it => { if (it.el === img) it.el = svg; });
+    vivas?.observe(svg);
+    dirty = true;
+  }).catch(() => { /* fica a imagem */ img.src = `/aquarela/${img.dataset.svg}.webp`; });
+  const imgsSvg = q<HTMLImageElement>('img[data-svg]');
+  if ('IntersectionObserver' in window) {
+    const perto = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return; perto.unobserve(e.target); trocar(e.target as HTMLImageElement);
+    }), { rootMargin: '120% 0px' });
+    imgsSvg.forEach(i => perto.observe(i));
+  } else imgsSvg.forEach(trocar);
 
   // Fotos das lições ficam num trilho horizontal fora da tela: libera o carregamento
   // um pouco antes de a cena chegar, para não "estourarem" ao entrar.
