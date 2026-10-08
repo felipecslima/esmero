@@ -1,5 +1,5 @@
 ---
-// Pétalas que caem devagar pela tela (posição animada em scripts/motion.ts).
+// Pétalas que caem devagar pela tela (queda, balanço e giro animados em scripts/motion.ts).
 const petalas = [
   { x: .06, y: .12, s: 1.0, w: 13, h: 17, c: '#D6246E', o: .55 },
   { x: .3, y: .6, s: .7, w: 10, h: 13, c: '#EC6A9C', o: .6 },
@@ -12,6 +12,6 @@ const petalas = [
 ---
 <div data-petalas="" aria-hidden="true" style="position:fixed;inset:0;z-index:40;pointer-events:none;overflow:hidden">
   {petalas.map((pt) => (
-    <span data-petal="" data-x={pt.x} data-y={pt.y} data-s={pt.s} style={`position:absolute;left:0;top:0;width:${pt.w}px;height:${pt.h}px;border-radius:80% 20% 70% 30% / 60% 40% 60% 40%;background:${pt.c};opacity:${pt.o};will-change:transform`}></span>
+    <span data-petal="" data-x={pt.x} data-y={pt.y} data-s={pt.s} style={`position:absolute;left:${pt.x * 100}%;top:0;translate:0 -80px`}><span style={`display:block;width:${pt.w}px;height:${pt.h}px;border-radius:80% 20% 70% 30% / 60% 40% 60% 40%;background:${pt.c};opacity:${pt.o}`}></span></span>
   ))}
 </div>

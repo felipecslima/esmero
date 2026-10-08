@@ -7,11 +7,11 @@
 // - [data-par]    paralaxe: --c (-1 … 1, relativo ao centro da tela)
 // - [data-paint]  botões que se pintam no hover / ao entrar na tela (touch)
 // - [data-intro]  sequência orquestrada da abertura ao carregar
+// - [data-petal]  pétalas que caem (Web Animations, no compositor)
 //
 // Todo valor faz lerp em direção ao alvo a cada quadro; saltos > .35 são cortados
 // pela metade na hora para não "perder referências" em rolagem rápida.
-
-import { iniciarAquarela } from './aquarela-gl';
+// O laço de quadros só roda enquanto há algo mudando; parada, a página não gasta CPU.
 
 type Sd = { paths: SVGPathElement[]; a: number; b: number };
 type Scene = { el: HTMLElement; words: HTMLElement[]; sd: Sd[] };
@@ -80,6 +80,11 @@ export function iniciar(root: HTMLElement) {
   let moving = true; // algum valor suavizado ainda não chegou ao alvo
   let tx = 0;        // deslocamento atual do trilho das lições
 
+  // Laço sob demanda: cada mudança pede um quadro; o quadro pede o próximo enquanto houver movimento.
+  let agendado = false;
+  const pedir = () => { if (!agendado) { agendado = true; requestAnimationFrame(loop); } };
+  const sujar = () => { dirty = true; pedir(); };
+
   // ---------- Medidas que não mudam com a rolagem (refeitas em resize / fontes / imagens) ----------
   const m = { ox: 0, oy: 0, dw: 0, dh: 0, noteB: NaN, trackMax: 0, cardC: [] as number[] };
   function measure() {
@@ -94,7 +99,7 @@ export function iniciar(root: HTMLElement) {
       m.trackMax = Math.max(0, trackEl.scrollWidth - innerWidth);
       m.cardC = cards.map(c => { const b = c.getBoundingClientRect(); return b.left + b.width / 2 - tx; });
     }
-    dirty = true;
+    sujar();
   }
 
   // ---------- Abertura: único momento orquestrado ----------
@@ -123,7 +128,7 @@ export function iniciar(root: HTMLElement) {
       const e = out(t), s = it.el.style;
       if (it.k === 'draw') { s.strokeDashoffset = (1 - e).toFixed(4); return; }
       if (it.k === 'paint') { s.setProperty('--w', (1 - Math.pow(1 - t, 2.2)).toFixed(4)); return; }
-      if (it.k === 'bloom' && it.el instanceof SVGSVGElement) {
+      if (it.k === 'bloom' && it.el.classList.contains('il-caixa')) {
         // ilustração em SVG: os tufos crescem sozinhos a partir do progresso
         s.setProperty('--w', (1 - Math.pow(1 - t, 1.6)).toFixed(4));
         s.opacity = cl(t * 6).toFixed(3);
@@ -150,6 +155,7 @@ export function iniciar(root: HTMLElement) {
     if (!b._ps) b._ps = { p: 0, f: 1, t: 0 };
     b._ps.t = t; if (t === 1) b._ps.f = Math.max(b._ps.f, 0.001);
     painting.add(b);
+    pedir();
   }
   // Contorno que "ferve": alterna entre três versões do traço (~8 quadros/s) enquanto a tinta
   // está sendo aplicada ou o cursor está em cima; ao sair, volta ao traço de repouso.
@@ -161,15 +167,21 @@ export function iniciar(root: HTMLElement) {
     if (c.getAttribute('filter') !== tracos[i]) c.setAttribute('filter', tracos[i]);
   }
   function paintTick() {
+    if (!painting.size) return;
     quadro++;
     painting.forEach(b => {
       const s = b._ps!;
       // Gesto de pincel: encosta devagar, acelera no meio do traço e assenta no fim (~0,8 s).
       if (s.t === 1) { s.p = Math.min(1, s.p + 0.01 + 0.032 * Math.sin(Math.PI * Math.min(s.p, 0.98))); s.f += (1 - s.f) * 0.25; }
       else { s.f -= 0.035; if (s.f <= 0) { s.f = 1; s.p = 0; painting.delete(b); } }
+      const quente = s.t === 1 && (s.p < 0.995 || b.matches(':hover'));
+      // pintado, seco e sem cursor em cima: assenta e para de ser reescrito a cada quadro
+      const assentou = s.t === 1 && !quente && s.f > 0.999;
+      if (assentou) s.f = 1;
       b.style.setProperty('--paint', s.p.toFixed(4));
       b.style.setProperty('--fade', Math.max(0, s.f).toFixed(4));
-      ferver(b, s.t === 1 && (s.p < 0.995 || b.matches(':hover')));
+      ferver(b, quente);
+      if (assentou) painting.delete(b);
     });
   }
   root.addEventListener('pointerover', e => {
@@ -242,6 +254,7 @@ export function iniciar(root: HTMLElement) {
   }
 
   // ---------- Lições: carrossel horizontal guiado pela rolagem ----------
+  let licaoAtual = -1;
   function track(el: HTMLElement, p: number, vw: number) {
     const tr = trackEl; if (!tr) return;
     tx = -p * m.trackMax;
@@ -261,6 +274,8 @@ export function iniciar(root: HTMLElement) {
       if (im) im.style.transform = `scale(1.16) translateX(${(d * -6).toFixed(2)}%)`;
     });
     const idx = Math.round(p * (n - 1));
+    if (idx === licaoAtual) return; // texto e largura dos indicadores mexem no layout: só quando a lição muda
+    licaoAtual = idx;
     const cnt = el.querySelector('[data-count]'); if (cnt) cnt.textContent = String(idx + 1).padStart(2, '0');
     inds.forEach((d, i) => {
       const on = i === idx;
@@ -279,34 +294,32 @@ export function iniciar(root: HTMLElement) {
 
   // ---------- Quadro a quadro ----------
   // Só recalcula cenas/revelações quando algo mudou (rolagem, resize, imagem carregada)
-  // ou enquanto algum valor ainda está se aproximando do alvo; parado, só as pétalas se mexem.
+  // ou enquanto algum valor ainda está se aproximando do alvo.
   let vivoTick = () => {};
   function tick() {
-    vivoTick();
+    const vh = innerHeight, vw = innerWidth;
+    // Leituras antes de qualquer escrita do quadro: ler depois de escrever forçava o navegador
+    // a recalcular estilo e layout no meio do script.
+    const lido = dirty || moving ? ler() : null;
     if (!introDone) introTick(performance.now() - t0);
     paintTick();
-    const vh = innerHeight, vw = innerWidth;
-    if (dirty || moving) {
+    if (lido) {
       dirty = false; moving = false;
-      frame(vw, vh);
+      frame(vw, vh, lido);
     }
-
-    if (petals.length && !reduce) {
-      const t = performance.now() / 1000, sy = scrollY, H = vh + 160;
-      petals.forEach((el, i) => {
-        const s = +el.dataset.s!, y = ((+el.dataset.y! * H + t * s * 18 + sy * 0.1 * s) % H) - 80;
-        const x = +el.dataset.x! * vw + Math.sin(t * 0.35 * s + i) * 50;
-        el.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) rotate(${(t * 16 * s + i * 47).toFixed(1)}deg) rotateX(${(Math.sin(t * 0.6 + i) * 70).toFixed(1)}deg)`;
-      });
-    }
+    vivoTick();
   }
 
-  function frame(vw: number, vh: number) {
-    // Leituras primeiro (um único layout por quadro), escritas depois.
-    const sy = scrollY, docH = document.documentElement.scrollHeight;
-    const sceneR = scenes.map(s => s.el.getBoundingClientRect());
-    const revealTop = reveals.map(r => r.el.getBoundingClientRect().top);
-    const parMid = pars.map(el => { const b = el.getBoundingClientRect(); return b.top + b.height / 2; });
+  function ler() {
+    return {
+      sy: scrollY, docH: document.documentElement.scrollHeight,
+      sceneR: scenes.map(s => s.el.getBoundingClientRect()),
+      revealTop: reveals.map(r => r.el.getBoundingClientRect().top),
+      parMid: pars.map(el => { const b = el.getBoundingClientRect(); return b.top + b.height / 2; }),
+    };
+  }
+
+  function frame(vw: number, vh: number, { sy, docH, sceneR, revealTop, parMid }: ReturnType<typeof ler>) {
 
     if (fab) {
       const nearEnd = sy + vh > docH - vh * 0.9;
@@ -352,8 +365,11 @@ export function iniciar(root: HTMLElement) {
   }
 
   // ---------- Ilustrações em SVG vivas ----------
-  // Cada <img data-svg> é trocada pelo SVG vetorizado (carregado uma vez, perto de entrar na tela).
-  // Plantas balançam e lavagens derivam só enquanto o SVG está visível (.vivo).
+  // Cada <img data-svg> é trocada pelo SVG vetorizado (carregado uma vez, perto de entrar na tela),
+  // dentro de uma caixa HTML (.il-caixa) que herda posição, transformação e progresso da imagem.
+  // Plantas balançam e lavagens derivam só enquanto o SVG está visível (.vivo). O balanço fica no
+  // <svg>, em transform: com rotate/translate num SVG a animação não ia para o compositor e
+  // redesenhava os milhares de caminhos a cada quadro.
   const svgs = new Map<string, Promise<string>>();
   // Só balança depois de terminar de crescer: girar enquanto os tufos ainda mudam obriga a
   // redesenhar centenas de caminhos por quadro.
@@ -382,14 +398,16 @@ export function iniciar(root: HTMLElement) {
     return p;
   };
   const vivas = 'IntersectionObserver' in window
-    ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) ilVisiveis.add(e.target as SVGSVGElement); else { ilVisiveis.delete(e.target as SVGSVGElement); e.target.classList.remove('vivo'); } }), { rootMargin: '10% 0px' })
+    ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { ilVisiveis.add(e.target as SVGSVGElement); pedir(); } else { ilVisiveis.delete(e.target as SVGSVGElement); e.target.classList.remove('vivo'); } }), { rootMargin: '10% 0px' })
     : null;
   const trocar = (img: HTMLImageElement) => pegaSvg(img.dataset.svg!).then(txt => {
     const t = document.createElement('template'); t.innerHTML = txt.trim();
     const svg = t.content.querySelector('svg'); if (!svg || !img.isConnected) return;
-    // herda posição/tamanho da imagem, mas não o desfoque/zoom da entrada (o SVG cresce por tufos)
-    const estilo = (img.getAttribute('style') || '').replace(/(^|;)\s*(filter|scale|translate)\s*:[^;]*/g, '');
-    svg.setAttribute('style', `${estilo};--m:var(${img.dataset.prog || '--w'},1)`);
+    // a caixa herda posição/tamanho da imagem, mas não o desfoque/zoom da entrada (o SVG cresce por tufos)
+    const caixa = document.createElement('div');
+    caixa.className = 'il-caixa';
+    caixa.setAttribute('style', (img.getAttribute('style') || '').replace(/(^|;)\s*(filter|scale|translate)\s*:[^;]*/g, ''));
+    svg.setAttribute('style', `--m:var(${img.dataset.prog || '--w'},1)`);
     if (getComputedStyle(img).objectFit === 'fill') svg.setAttribute('preserveAspectRatio', 'none');
     svg.dataset.prog = img.dataset.prog || '--w';
     // Miolo isolado das variáveis de rolagem (.il-corpo em global.css): quando a cena em volta muda
@@ -398,13 +416,14 @@ export function iniciar(root: HTMLElement) {
     corpo.setAttribute('class', 'il-corpo');
     corpo.append(...svg.childNodes);
     svg.append(corpo);
-    for (const a of ['data-intro', 'data-delay']) { const v = img.getAttribute(a); if (v !== null) svg.setAttribute(a, v); }
+    for (const a of ['data-intro', 'data-delay']) { const v = img.getAttribute(a); if (v !== null) caixa.setAttribute(a, v); }
     // água/pedras: em vez de crescer por tufos, a aguada é arrastada como pincel (máscara .wc-varre)
     if (img.classList.contains('wc-varre')) svg.classList.add('wc', 'wc-varre', 'il-varre');
-    img.replaceWith(svg);
-    introItems.forEach(it => { if (it.el === img) it.el = svg; });
+    caixa.append(svg);
+    img.replaceWith(caixa);
+    introItems.forEach(it => { if (it.el === img) it.el = caixa; });
     vivas?.observe(svg);
-    dirty = true;
+    sujar();
   }).catch(() => { /* fica a imagem */ img.src = `/aquarela/${img.dataset.svg}.webp`; });
   const imgsSvg = q<HTMLImageElement>('img[data-svg]');
   // Uma troca por vez, quando o navegador está ocioso (inserir centenas de caminhos de uma vez,
@@ -437,22 +456,58 @@ export function iniciar(root: HTMLElement) {
   const tarde = () => document.documentElement.classList.add('tarde');
   if (document.readyState === 'complete') tarde(); else addEventListener('load', tarde);
 
-  const relayout = () => { layout(); measure(); };
+  // ---------- Pétalas: no compositor (Web Animations) ----------
+  // Queda, balanço e giro rodam fora da thread principal. A rolagem só adianta o relógio da queda
+  // (a pétala desce 0,1 px por px rolado, além dos 18 px/s × velocidade).
+  const quedas: Animation[] = [];
+  let alturaPetalas = 0, syPetalas = 0;
+  const queda = (H: number) => ({ translate: ['0 -80px', `0 ${H - 80}px`] });
+  function petalasAltura() {
+    const H = innerHeight + 160; if (!quedas.length || H === alturaPetalas) return;
+    alturaPetalas = H;
+    quedas.forEach((a, i) => {
+      const ef = a.effect as KeyframeEffect, dur = (H / (18 * +petals[i].dataset.s!)) * 1000;
+      const antes = +(ef.getTiming().duration || 1), t = +(a.currentTime || 0);
+      ef.setKeyframes(queda(H));
+      ef.updateTiming({ duration: dur });
+      a.currentTime = ((t % antes) / antes) * dur; // mantém a pétala onde estava
+    });
+  }
+  if (petals.length && !reduce && 'animate' in Element.prototype) {
+    const H = (alturaPetalas = innerHeight + 160);
+    syPetalas = scrollY;
+    petals.forEach((el, i) => {
+      const s = +el.dataset.s!, v = 18 * s, forma = el.firstElementChild!;
+      const a = el.animate(queda(H), { duration: (H / v) * 1000, iterations: Infinity });
+      a.currentTime = ((+el.dataset.y! * H + syPetalas * 0.1 * s) / v) * 1000;
+      quedas.push(a);
+      const balanco = (Math.PI / (0.35 * s)) * 1000, gira = (360 / (16 * s)) * 1000, vira = (Math.PI / 0.6) * 1000;
+      forma.animate({ translate: ['-50px 0', '50px 0'] }, { duration: balanco, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out', delay: -balanco * ((i * 0.37) % 1) });
+      forma.animate({ rotate: ['0deg', '360deg'] }, { duration: gira, iterations: Infinity, delay: -gira * (((i * 47) % 360) / 360) });
+      forma.animate({ transform: ['rotateX(-70deg)', 'rotateX(70deg)'] }, { duration: vira, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out', delay: -vira * ((i * 0.29) % 1) });
+    });
+    addEventListener('scroll', () => {
+      const d = (((scrollY - syPetalas) * 0.1) / 18) * 1000; syPetalas = scrollY;
+      if (d) quedas.forEach(a => {
+        const dur = +((a.effect as KeyframeEffect).getTiming().duration || 1);
+        a.currentTime = (((+(a.currentTime || 0) + d) % dur) + dur) % dur; // nunca negativo
+      });
+    }, { passive: true });
+  }
+
+  const relayout = () => { layout(); measure(); petalasAltura(); };
   relayout();
   addEventListener('resize', relayout);
   addEventListener('orientationchange', relayout);
   addEventListener('load', measure);
   document.fonts?.ready.then(measure);
-  addEventListener('scroll', () => { dirty = true; }, { passive: true });
-  root.addEventListener('load', () => { dirty = true; }, true); // imagens adiadas mudam alturas
+  addEventListener('scroll', sujar, { passive: true });
+  root.addEventListener('load', sujar, true); // imagens adiadas mudam alturas
   introTick(reduce ? 1e9 : 0);
-  // Aquarela viva em WebGL (sem WebGL ou com movimento reduzido, segue a versão em CSS).
-  let aquarela: ReturnType<typeof iniciarAquarela> = null;
-  try { aquarela = iniciarAquarela(root); } catch (e) { console.warn(e); }
-  const loop = () => {
+  function loop() {
+    agendado = false;
     try { tick(); } catch (e) { console.error(e); }
-    try { aquarela?.render(); } catch (e) { console.error(e); aquarela = null; }
-    requestAnimationFrame(loop);
-  };
-  requestAnimationFrame(loop);
+    if (dirty || moving || !introDone || painting.size) pedir();
+  }
+  pedir();
 }
