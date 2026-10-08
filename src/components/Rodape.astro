@@ -4,10 +4,11 @@
 <footer style="max-width:1360px;margin:0 auto;padding:0 clamp(20px,5vw,72px)">
   <div style="margin-top:clamp(70px,9vw,120px);padding:clamp(28px,4vw,44px) 0 48px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;position:relative">
     <svg viewBox="0 0 1440 8" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;left:0;right:0;top:0;width:100%;height:8px;overflow:visible"><path d="M0 4 C 300 2, 700 6, 1000 3 S 1300 5, 1440 3" fill="none" stroke="#1F1A17" stroke-width="1.2" vector-effect="non-scaling-stroke" filter="url(#ink)"></path></svg>
-    <a href="#topo" aria-label="Voltar ao início" style="display:flex;align-items:center;gap:18px;text-decoration:none;color:#1F1A17">
-      <span style="font-family:'Ms Madi',cursive;font-size:clamp(40px,4.8vw,64px);line-height:1;white-space:nowrap;color:#1F1A17">Por Juliana Corrêa</span>
-      <span style="width:1.5px;height:clamp(36px,4vw,54px);background:#1F1A17;flex:none"></span>
-      <span style="font-weight:700;letter-spacing:.02em;font-size:clamp(28px,3.2vw,44px)">ESMERO</span>
+    <!-- --as: tamanho da assinatura; no celular encolhe para caber numa linha com o ESMERO -->
+    <a href="#topo" aria-label="Voltar ao início" style="--as:min(clamp(40px,4.8vw,64px),calc((100vw - 84px) / 9.6));display:flex;align-items:center;gap:calc(var(--as) * .45);text-decoration:none;color:#1F1A17">
+      <span style="font-family:'Ms Madi',cursive;font-size:var(--as);line-height:1;white-space:nowrap;color:#1F1A17">Por Juliana Corrêa</span>
+      <span style="width:1.5px;height:calc(var(--as) * .86);background:#1F1A17;flex:none"></span>
+      <span style="font-weight:700;letter-spacing:.02em;white-space:nowrap;font-size:calc(var(--as) * .69)">ESMERO</span>
     </a>
     <small style="font-family:'Architects Daughter',cursive;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#5A514A">Projeto experimental em construção</small>
   </div>
