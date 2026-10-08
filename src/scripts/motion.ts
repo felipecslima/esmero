@@ -26,6 +26,8 @@ const out = (t: number) => 1 - Math.pow(1 - t, 3);
 export function iniciar(root: HTMLElement) {
   (window as Window & { __esmero?: boolean }).__esmero = true; // ver garantia em Base.astro
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Versão leve (toque): aquarelas em imagem em vez de SVG, sem filtros de nanquim (ver Base.astro).
+  const leve = document.documentElement.classList.contains('leve');
   const touch = matchMedia('(hover: none)').matches;
   const k = reduce ? 1 : root.dataset.movimento === 'sereno' ? 0.055 : 0.1;
   const cur = new WeakMap<Element, number>();
@@ -162,6 +164,7 @@ export function iniciar(root: HTMLElement) {
   const tracos = ['url(#ink)', 'url(#ink-2)', 'url(#ink-3)'];
   let quadro = 0;
   function ferver(b: El, ligado: boolean) {
+    if (leve) return; // sem filtro de nanquim, não há o que ferver
     const c = b.querySelector<SVGPathElement>('[data-contorno]'); if (!c) return;
     const i = ligado && !reduce ? Math.floor(quadro / 7) % 3 : 0;
     if (c.getAttribute('filter') !== tracos[i]) c.setAttribute('filter', tracos[i]);
@@ -424,7 +427,9 @@ export function iniciar(root: HTMLElement) {
     introItems.forEach(it => { if (it.el === img) it.el = caixa; });
     vivas?.observe(svg);
     sujar();
-  }).catch(() => { /* fica a imagem */ img.src = `/aquarela/${img.dataset.svg}.webp`; });
+  }).catch(() => raster(img)); // fica a imagem
+  // Aquarela em imagem (versão leve, ou se o SVG não carregar): a máscara .wc revela a tinta.
+  const raster = (img: HTMLImageElement) => { img.src = `/aquarela/${img.dataset.svg!.replace(/-alfa$/, '')}.webp`; };
   const imgsSvg = q<HTMLImageElement>('img[data-svg]');
   // Uma troca por vez, quando o navegador está ocioso (inserir centenas de caminhos de uma vez,
   // no meio da rolagem, fazia a página travar por um instante).
@@ -436,10 +441,11 @@ export function iniciar(root: HTMLElement) {
     const perto = new IntersectionObserver(es => es.forEach(e => {
       if (!e.isIntersecting) return; perto.unobserve(e.target);
       const r = e.boundingClientRect, img = e.target as HTMLImageElement;
-      if (r.top < innerHeight && r.bottom > 0) trocar(img); else enfileirar(img); // já na tela: na hora
+      if (leve) raster(img);
+      else if (r.top < innerHeight && r.bottom > 0) trocar(img); else enfileirar(img); // já na tela: na hora
     }), { rootMargin: '150% 0px' });
     imgsSvg.forEach(i => perto.observe(i));
-  } else imgsSvg.forEach(trocar);
+  } else imgsSvg.forEach(leve ? raster : trocar);
 
   // Fotos das lições ficam num trilho horizontal fora da tela: libera o carregamento
   // um pouco antes de a cena chegar, para não "estourarem" ao entrar.

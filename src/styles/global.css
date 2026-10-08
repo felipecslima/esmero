@@ -207,6 +207,11 @@ main:focus { outline: none; }
 html:not(.tarde) .paint-ink i,
 html:not(.tarde) [data-tarde] { background-image: none !important; }
 
+/* ---------- Versão leve (toque; html.leve em layouts/Base.astro) ----------
+   O traço de nanquim fica sem o filtro de tremor: no Safari do iPhone ele era recalculado em
+   software a cada repintura e derrubava a rolagem para poucos quadros por segundo. */
+.leve [filter] { filter: none; }
+
 /* ---------- Estado inicial da abertura (antes do JS assumir) ---------- */
 .intro [data-drawgroup] path { stroke-dashoffset: 1; }
 .intro [data-intro="paint"] { --w: 0; }
