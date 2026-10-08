@@ -54,6 +54,6 @@ ou direto em `src/config.ts`.
 - Número de WhatsApp (aceita qualquer formato; sem o 55 ele é adicionado).
 - Domínio: definir `site` em `astro.config.mjs` — sem isso a prévia de compartilhamento (og:image) não aparece no WhatsApp/Instagram.
 - Favicon é provisório (o "E" do logotipo); trocar se houver uma marca reduzida.
-- Foto da abertura (`colecao-mesa`) só existe em 800×600 e aparece ampliada no desktop; pedir o original à Juliana.
+- Foto da abertura (`colecao-mesa`): o original é 800×600; a versão no site foi ampliada 4× por IA (Real-ESRGAN, mestra em `material/`). Se a Juliana tiver o original em alta, substituir.
 - Confirmar a fonte original da assinatura (hoje Ms Madi).
 - Testar em aparelhos reais (iOS Safari, Android Chrome).
